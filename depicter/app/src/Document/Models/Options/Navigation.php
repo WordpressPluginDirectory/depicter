@@ -62,4 +62,9 @@ class Navigation
 	 * @var object
 	 */
 	public $slideshow;
+
+	/**
+	 * @var object|null
+	 */
+	public $autoScroll;
 }

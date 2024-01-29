@@ -4,42 +4,40 @@ Tags: slider, image slider, wordpress slider, post slider, video slider, gallery
 Requires at least: 4.9.0
 Tested up to: WordPress 6.4.2
 Requires PHP: 7.2.5
-Stable tag: 2.0.9
+Stable tag: 2.1.0
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Make animated and interactive image slider, video slider, YouTube slider, Vimeo slider, post slider, product slider, WooCommerce slider, and carousels with simple drag and drop which work smoothly across all devices.
 
-== Description ==
-Create engaging WordPress **slider** content like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider**, and more with Depicter **Slider**. Our **slider** plugin is easy to use and lightning-fast. See it in action and take your WordPress website to the next level!
+Create engaging WordPress slider content like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider**, and more with Depicter Slider. Our slider plugin is easy to use and lightning-fast. See it in action and take your WordPress website to the next level!
 https://www.youtube.com/watch?v=yi_NjXKlvmg
-[**Slider** Templates 200+](https://depicter.com/templates "Live Templates of Depicter WordPress **Slider**") | [**Slider** Features](https://depicter.com "Features of Depicter **Slider**") | [**Slider** Videos](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA "Watch All **Slider** Videos") | [**Slider** Support](http://wordpress.org/support/plugin/depicter "Depicter **Slider** Support")
+[Slider Templates 300+](https://depicter.com/templates "Live Templates of Depicter WordPress Slider") | [Slider Features](https://depicter.com "Features of Depicter Slider") | [Videos](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA "Watch All Slider Videos") | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
 
-= Overview =
-Depicter WordPress slider is a free SEO friendly, responsive WordPress image **slider** and WordPress video **slider** that truly works on all major devices with super smooth hardware accelerated transitions. this WordPress slider supports touch navigation with pure swipe gesture that you have never experienced before in any other WordPress sliders.
+= Slider Overview =
+Depicter WordPress slider is a free SEO friendly, responsive WordPress image slider and WordPress video slider that truly works on all major devices with super smooth hardware accelerated transitions. this WordPress slider supports touch navigation with pure swipe gesture that you have never experienced before in any other WordPress sliders.
 
-= Features =
+= Depicter Slider Features =
 - **Create WordPress Slider with AI**
 [youtube https://www.youtube.com/watch?v=kdR9Jw0yWjU]
-With Depicter AI WordPress slider wizard tool, **slider** designing has never been easier! Quickly create stunning WordPress **slider** with content and photo suggestions, and choose from various customizable **slider** layouts to match your brand and WordPress website style.
-- **Visual Slider Builder** - Professional, yet simple and intuitive visual **slider** builder
+With Depicter AI WordPress slider wizard tool, slider designing has never been easier! Quickly create stunning WordPress slider with content and photo suggestions, and choose from various customizable slider layouts to match your brand and WordPress website style.
+- **Visual Slider Builder** - Professional, yet simple and intuitive visual slider builder
 - **Comprehensive Slider Asset Library** - A huge and free library of 3.2M images, 30K videos, vectors, mockups, pre-built slider templates and slider elements at your WordPress dashboard.
-- **Flexible Slider Layouts & Responsiveness** - Make a truly responsive and mobile-friendly **slider** that looks perfect across all devices.
-- **Animations & Interactivity** - Capture your users' attention by adding interaction with super smooth animations and interactive actions to **slider**.
-- **Versatile Video Player** - Play any type of video including self-hosted, YouTube and Vimeo videos in your **slider** responsively.
-- **Truly Customizable** - Any part of your slider content, whether you want to create the slider from scratch or use a slider template, is fully customizable.
+- **Flexible Slider Layouts & Responsiveness** - Make a truly responsive and mobile-friendly slider that looks perfect across all devices.
+- **Animations & Interactivity** - Capture your users' attention by adding interaction with super smooth animations and interactive actions to slider.
+- **Versatile Video Player** - Play any type of video including self-hosted, YouTube and Vimeo videos in your slider responsively.
+- **Truly Customizable Slider** - Any part of your slider content, whether you want to create the slider from scratch or use a slider template, is fully customizable.
 - **Modern Image Editing Tools** - In Depicter slider builder you can crop images responsively and apply image filters within few clicks!
-- **Lightweight & SEO-Friendly Slider** - Super lightweight and dependency-free **slider** which delivers your slider content optimized for search engines.
-- **Comprehensive Navigation Slider Controls** - Add slider arrows, slider bullets, line timer, slider slideshow controls, and scroll indicators to your **slider** by drag and drop.
-- **Touch Swipe & Mouse Navigation** - Depicter Slider supports Mouse and keyboard navigation, super natural touch swipe and mouse swipe gestures.
-- **Fully Responsive Slider** - Adjust the slider content and presentation of your **slider** to every device. You can deliver slider with the most optimized experience for each visitor, no matter they’re viewing your slider on Desktop, Tablet or Mobile.
-- **Slider Templates** - [200+ high quality](https://depicter.com/templates) to import and start with, within one simple click!
+- **Lightweight & SEO-Friendly Slider** - Super lightweight and dependency-free slider which delivers your slider content optimized for search engines.
+- **Comprehensive Navigation Slider Controls** - Add slider arrows, slider bullets, line timer, slider slideshow controls, and scroll indicators to your slider by drag and drop.
+- **Touch Swipe & Mouse Slide Navigation** - Depicter Slider supports Mouse and keyboard navigation, super natural touch swipe and mouse swipe gestures.
+- **Fully Responsive Slider** - Adjust the slider content and presentation of your slider to every device. You can deliver slider with the most optimized experience for each visitor, no matter theyâ€™re viewing your slider on Desktop, Tablet or Mobile.
+- **Slider Templates** - [300+ high quality](https://depicter.com/templates) to import and start with, within one simple click!
 - **Modern image formats**
 [youtube https://www.youtube.com/watch?v=NNwtL_q-_hY]
-Depicter **slider** utilizes the latest technologies and image formats to ensure quick loading of your **slider**. This WordPress slider also supports WebP, Adaptive images, lazy loading, and parallel loading **slider** images on the head.
-- **Create dynamic **slider** from data sources** - Depicter **slider** supports different data sources to let you create, ***post **slider**, WooCommerce **slider**, product **slider**, page **slider*** and many more possibilities.
-- **Page builders compatibility** - Depicter **slider**, supports WordPress popular page builders so you can add **slider** to page with, Elementor **slider** element, Divi **Slider** element, Beaver **slider** element, Oxygen **slider** element, and Depicter **Slider** Block.
-- **Embed video **slider** - With Depicter **Slider**, you can create **slider** that contain Vimeo or Youtube videos on each slide as layer or slide background.
+Depicter slider utilizes the latest technologies and image formats to ensure quick loading of your slider. This WordPress slider also supports WebP, Adaptive images, lazy loading, and parallel loading slider images on the head.
+- **Create dynamic slider from data sources** - Depicter slider supports different data sources to let you create, **post slider**, WooCommerce slider, product slider, page slider* and many more possibilities.
+- **Page builders compatibility** - Depicter slider, supports WordPress popular page builders so you can add slider to page with, Elementor slider element, Divi Slider element, Beaver slider element, Oxygen slider element, and Depicter Slider Block.
+- **Embed video slider** - With Depicter Slider, you can create slider that contain Vimeo or Youtube videos on each slide as layer or slide background.
 - **Expert Support**- Our expert support team ready to help you. Ask your questions in the support forum, or contact us directly through live chat and our exclusive help desk.
 - Start translating Depicter Slider in [WordPress translation service](https://translate.wordpress.org/projects/wp-plugins/depicter/).
 = Liked Depicter Slider? =
@@ -66,9 +64,22 @@ Bugs can be reported in our [support forums](https://wordpress.org/support/plugi
 
 **Latest release notes:**
 
+###2.1.0
+- *Released: 2024-01-24*
+- **Added**
+- Countdown timers are now available, allowing you to create and display countdowns easily.
+- You can now enhance your content with a new number counter feature, providing dynamic numerical elements.
+- The auto-scroll feature has been added to enable smooth navigation through slides.
+- Now you can change the hover border color of elements too.
+- **Improved**
+- Improved rendering slides when visible nearby is enabled.
+- **Fixed**
+- Addressed conflict with WP Rocket plugin affecting image lazy loading functionality.
+- Resolved issue of unexpected auto slideshow pause.
+- Fixed an issue with using hover transition duration less than 1.
+
 ###2.0.9
 - *Released: 2023-12-25*
-- **Fixed**
 - Fixed an issue with loading content on Safari and iOS browsers.
 - Resolved a problem related to computing the upper space in fullscreen layouts.
 

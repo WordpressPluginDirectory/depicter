@@ -28,9 +28,6 @@ class Post
         $excerptMore = apply_filters( 'excerpt_more', " ..." );
         $excerptMore = apply_filters( 'averta/wordpress/excerpt/trim/chars/more', $excerptMore );
 
-        // If char length is defined use it, otherwise use default char length
-        $maxCharLength  = empty( $maxCharLength ) ? apply_filters( 'averta/wordpress/excerpt/trim/chars/length', 250 ) : $maxCharLength;
-
         if ( $post->post_excerpt ){
             $excerpt = apply_filters( 'get_the_excerpt', $post->post_excerpt );
 
@@ -59,7 +56,7 @@ class Post
             $excerpt = preg_replace('/[^A-Za-z0-9\s]/', '', $excerpt );
         }
 
-        $excerpt = Str::trimByChars( $excerpt, $maxCharLength, $excerptMore );
+        $excerpt = !empty( $maxCharLength ) ? Str::trimByChars( $excerpt, $maxCharLength, $excerptMore ) : $excerpt;
 
         return apply_filters( 'averta/wordpress/excerpt/trim/chars/result', $excerpt, $post, $maxCharLength, $excerptMore );
     }

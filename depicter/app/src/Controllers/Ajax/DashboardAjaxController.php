@@ -90,6 +90,7 @@ class DashboardAjaxController {
 
 			if ( $isDeleted ) {
 				$result['hits'][] = $_id;
+				unlink( \Depicter::storage()->getPluginUploadsDirectory() . '/preview-images/' . $_id . '.png' );
 				// \Depicter::action()->do( 'depicter/dashboard/after/delete', $id, $properties, $result );
 				do_action( 'depicter/dashboard/after/delete', $_id );
 			} else {

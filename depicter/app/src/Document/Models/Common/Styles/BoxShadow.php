@@ -3,7 +3,6 @@ namespace Depicter\Document\Models\Common\Styles;
 
 
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
 
 class BoxShadow extends States
 {
@@ -45,12 +44,9 @@ class BoxShadow extends States
 	public function set( $css ) {
 		$devices = Breakpoints::names();
 		foreach ( $devices as $device ) {
+			// If properties for a breakpoint are available, generate appropriate styles
+			if ( $this->isBreakpointEnabled( $device ) ) {
 
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device != 'default' && ! Helper::isStyleEnabled( $this, $device ) ) {
-				$css[$device][ self::NAME ] = 'none';
-
-			} elseif ( Helper::isStyleEnabled( $this, $device ) ) {
 				$this->offsetX = $this->{$device}->offsetX ?? $this->offsetX;
 				$this->offsetY = $this->{$device}->offsetY ?? $this->offsetY;
 				$this->blur = $this->{$device}->blur ?? $this->blur;
@@ -59,6 +55,9 @@ class BoxShadow extends States
 				$inset = !empty($this->{$device}->inset) ? 'inset ' : '';
 
 				$css[$device][self::NAME] = $inset . $this->offsetX . "px " . $this->offsetY . 'px ' . $this->blur . 'px ' . $this->spread . 'px ' . $this->color;
+
+			} elseif( $this->isBreakpointDisabled( $device ) ){
+				$css[ $device ][ self::NAME ] = "none";
 			}
 		}
 

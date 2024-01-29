@@ -1,12 +1,13 @@
 <?php
 namespace Depicter\Document\Models\Common\Styles;
 
-
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
+use Depicter\Document\Models\Traits\HoverAbleStyleTrait;
 
 class Border extends States
 {
+	use HoverAbleStyleTrait;
+
 	/**
 	 * style name
 	 */
@@ -32,34 +33,32 @@ class Border extends States
 
 		foreach ( $devices as $device ) {
 
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device != 'default' && ! Helper::isStyleEnabled( $this, $device ) ){
-				$css[$device][ self::NAME ] = 'none';
+			// If in Hover state and Hover is enabled for a breakpoint, just set the border color and skip the other properties
+			if( $this->isHoverEnabled( $device ) ){
+				if ( !empty( $this->{$device}->color ) ) {
+					$css[ $device ]['border-color'] = $this->{$device}->color;
+				}
 
-			} elseif ( Helper::isStyleEnabled( $this, $device ) ) {
-
+			// If in "Normal" state and properties for a breakpoint are available, generate appropriate styles
+			} elseif ( $this->isBreakpointEnabled( $device ) ) {
 				if( isset( $this->{$device}->top->value ) ){
 					if ( !empty( $this->{$device}->link ) ) {
-					$css[$device]['border-width'] = $this->{$device}->top->value . $this->{$device}->top->unit;
+						$css[$device]['border-width'] = $this->{$device}->top->value . $this->{$device}->top->unit;
 					} else {
 						$css[$device]['border-width'] = $this->{$device}->top->value . $this->{$device}->top->unit . " " . $this->{$device}->right->value . $this->{$device}->right->unit . " " . $this->{$device}->bottom->value . $this->{$device}->bottom->unit . " " . $this->{$device}->left->value . $this->{$device}->left->unit;
 					}
-				} elseif ( $device == 'default') {
-					$css[$device]['border-width'] = $this->borderWidth;
 				}
 
-				if ( !empty($this->{$device}->style) ) {
-					$css[$device]['border-style'] = $this->{$device}->style;
-				} elseif ($device == 'default') {
-					$css[$device]['border-style'] = $this->borderStyle;
-				}
+				// make sure to set default border styles if not defined
+				$css[ $device ]['border-width'] = $css[ $device ]['border-width'] ?? "1px";
+				$css[ $device ]['border-style'] = $this->{$device}->style ?? "solid";
+				$css[ $device ]['border-color'] = $this->{$device}->color ?? "#000";
 
-				if ( !empty( $this->{$device}->color ) ) {
-					$css[$device]['border-color'] = $this->{$device}->color;
-				} elseif ( $device == 'default' ) {
-					$css[$device]['border-color'] = $this->borderColor;
-				}
+			// If breakpoint is disabled in normal state, reset the border style
+			} elseif( $this->isBreakpointDisabled( $device ) ){
+				$css[ $device ][ self::NAME ] = "none";
 			}
+
 		}
 
 		return $css;

@@ -3,7 +3,6 @@ namespace Depicter\Document\Models\Common\Styles;
 
 
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
 
 class Filter extends States
 {
@@ -41,11 +40,7 @@ class Filter extends States
 		$devices = Breakpoints::names();
 		foreach ( $devices as $device ) {
 
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device != 'default' && ! Helper::isStyleEnabled( $this, $device ) ) {
-				$css[$device][ self::NAME ] = 'none';
-
-			} elseif ( Helper::isStyleEnabled( $this, $device ) ) {
+			if ( $this->isBreakpointEnabled( $device ) ) {
 				$this->brightness = $this->{$device}->brightness ?? $this->brightness;
 				$this->contrast = $this->{$device}->contrast ?? $this->contrast;
 				$this->saturation = $this->{$device}->saturation ?? $this->saturation;
@@ -53,6 +48,8 @@ class Filter extends States
 				$this->blur = $this->{$device}->blur ?? $this->blur;
 
 				$css[$device][self::NAME] = "brightness(" . $this->brightness . "%) contrast(" . $this->contrast . '%) saturate(' . $this->saturation . '%) blur(' . $this->blur . 'px) hue-rotate(' . $this->hue . 'deg)';
+			} elseif ( $this->isBreakpointDisabled( $device ) ) {
+				$css[ $device ][ self::NAME ] = 'none';
 			}
 		}
 

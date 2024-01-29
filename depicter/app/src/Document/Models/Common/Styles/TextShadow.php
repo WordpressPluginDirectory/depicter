@@ -3,7 +3,6 @@ namespace Depicter\Document\Models\Common\Styles;
 
 
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
 
 class TextShadow extends States
 {
@@ -35,18 +34,15 @@ class TextShadow extends States
 	public function set( $css ) {
 		$devices = Breakpoints::names();
 		foreach ( $devices as $device ) {
-
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device != 'default' && ! Helper::isStyleEnabled( $this, $device ) ) {
-				$css[$device][ self::NAME ] = 'none';
-
-			} elseif ( Helper::isStyleEnabled( $this, $device ) ) {
+			if ( $this->isBreakpointEnabled( $device ) ) {
 				$this->offsetX = $this->{$device}->offsetX ?? $this->offsetX;
 				$this->offsetY = $this->{$device}->offsetY ?? $this->offsetY;
 				$this->blur = $this->{$device}->blur ?? $this->blur;
 				$this->color = $this->{$device}->color ?? $this->color;
 
 				$css[$device][self::NAME] = $this->offsetX . "px " . $this->offsetY . 'px ' . $this->blur . 'px ' . $this->color;
+			} elseif ( $this->isBreakpointDisabled( $device ) ) {
+				$css[$device][ self::NAME ] = 'none';
 			}
 		}
 

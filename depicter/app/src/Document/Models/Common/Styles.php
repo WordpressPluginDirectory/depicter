@@ -4,6 +4,7 @@ namespace Depicter\Document\Models\Common;
 
 use Depicter\Document\CSS\Breakpoints;
 use Depicter\Document\Helper\Helper;
+use Depicter\Document\Models\Common\Styles\Transition;
 use Depicter\Document\Models\Traits\HasDataSheetTrait;
 
 class Styles
@@ -90,6 +91,11 @@ class Styles
 	 */
 	public $hover;
 
+	/**
+	 * @var Styles\Flex
+	 */
+	public $flex;
+
 
 	/**
 	 * Retrieves list of fonts used in typography options
@@ -125,7 +131,8 @@ class Styles
 			'backgroundColor',
 			'border',
 			'corner',
-			'margin'
+			'margin',
+			'flex'
 		];
 
 		$stylesList = $this->generateCssForModules( $cssModules, $states );
@@ -168,14 +175,19 @@ class Styles
 	 * @return array
 	 */
 	public function getTransitionCss() {
+		if ( empty( $this->hover ) ) {
+			return [];
+		}
+
 		$css = $this->getInitialCssVariable();
 		/**
 		 * While transition is defined in 'hover' property, we need to consider an exception to generate
 		 * transition style for normal state not :hover
 		 **/
-		$css = !empty( $this->hover->transition ) ? $this->hover->transition->set( $css ) : $css;
+		$this->hover->transition = !empty( $this->hover->transition ) ? $this->hover->transition : new Transition();
+		$this->hover->transition->setHoverStatus( $this->hover->enable ?? [] );
 
-		return $css;
+		return $this->hover->transition->set( $css );
 	}
 
 	/**
@@ -210,7 +222,13 @@ class Styles
 				$css = ! empty( $this->{$cssModule} ) ? $this->{$cssModule}->set( $css ) : $css;
 			}
 			if( in_array( 'hover', $states ) ){
-				$css['hover'] = !empty( $this->hover->{$cssModule} ) ? $this->hover->{$cssModule}->set( $css['hover'] ) : $css['hover'];
+				if( !empty( $this->hover->{$cssModule} ) ){
+					// pass hover enabled breakpoints to the style class. The style class will be aware of normal or hover state
+					if( method_exists( $this->hover->{$cssModule}, 'setHoverStatus' ) ){
+						$this->hover->{$cssModule}->setHoverStatus( $this->hover->enable ?? [] );
+					}
+					$css['hover'] = $this->hover->{$cssModule}->set( $css['hover'] );
+				}
 			}
 		}
 
@@ -243,14 +261,22 @@ class Styles
 		foreach ( $cssModules as $cssModule ) {
 			if( 'normal' === $state ){
 				$css = ! empty( $this->{$cssModule} ) ? $this->{$cssModule}->set( $css ) : $css;
+
 			} elseif( 'hover' === $state ){
-				$css = !empty( $this->hover->{$cssModule} ) ? $this->hover->{$cssModule}->set( $css ) : $css;
+				if( ! empty( $this->hover->{$cssModule} ) ){
+					// pass hover enabled breakpoints to the style class. The style class will be aware of normal or hover state
+					if( method_exists( $this->hover->{$cssModule}, 'setHoverStatus' ) ){
+						$this->hover->{$cssModule}->setHoverStatus( $this->hover->enable ?? [] );
+					}
+					$css = $this->hover->{$cssModule}->set( $css );
+				}
 			}
 		}
 
 		// check if hover style is disabled for one breakpoint then remove all the css modules for that breakpoint
 		if ( 'hover' === $state ) {
 			$devices = Breakpoints::names();
+
 			foreach ( $devices as $device ) {
 				if ( ! Helper::isHoverStyleEnabled( $this->hover, $device ) ) {
 					$css[ $device ] = [];

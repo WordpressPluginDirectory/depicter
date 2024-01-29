@@ -34,6 +34,7 @@ return [
 		\Depicter\Database\DatabaseServiceProvider::class,
 		\Depicter\Editor\EditorServiceProvider::class,
 		\Depicter\Dashboard\DashboardServiceProvider::class,
+		\Depicter\Rules\ServiceProvider::class,
 		\Depicter\Front\ServiceProvider::class,
 		\Depicter\View\ViewServiceProvider::class,
 		\Depicter\WordPress\RestApiServiceProvider::class,
@@ -46,8 +47,7 @@ return [
 		\Depicter\WordPress\SVGServiceProvider::class,
 		\Depicter\WordPress\PermissionsServiceProvider::class,
 		\Depicter\WordPress\WPCronServiceProvider::class,
-		\Depicter\Modules\ModulesServiceProvider::class,
-		\Depicter\Rules\Conditions\ServiceProvider::class
+		\Depicter\Modules\ModulesServiceProvider::class
 	],
 
 	/**

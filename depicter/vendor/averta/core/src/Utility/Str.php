@@ -154,7 +154,7 @@ class Str
      *
      * @return string
      */
-    function rightTrim( $text, $stringToTrim ) {
+    public static function rightTrim( $text, $stringToTrim ) {
         $lengthToTrim = strlen( $stringToTrim );
         $originalText = $text;
 
@@ -175,12 +175,40 @@ class Str
      *
      * @return string
      */
-    function leftTrim( $text, $stringToTrim ) {
+    public static function leftTrim( $text, $stringToTrim ) {
         if ( strpos( $text, $stringToTrim ) === 0) {
             return substr( $text, strlen( $stringToTrim ) );
         }
 
         return $text;
+    }
+
+    /**
+     * Check if string ends with another string
+     *
+     * @param $haystack
+     * @param $needle
+     *
+     * @return bool
+     */
+    public static function ends( $haystack, $needle ){
+        $len = strlen( $needle );
+        if ( $len == 0 ) {
+            return true;
+        }
+        return substr( $haystack, -$len ) === $needle;
+    }
+
+    /**
+     * Check if string starts with another string
+     *
+     * @param $haystack
+     * @param $needle
+     *
+     * @return bool
+     */
+    public static function starts( $haystack, $needle ){
+        return 0 === strpos( $haystack, $needle );
     }
 
 }

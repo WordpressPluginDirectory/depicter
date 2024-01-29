@@ -61,6 +61,17 @@ class DashboardPage
 			[ $this, 'externalPageRedirect' ]
 		);
 
+		if ( ! \Depicter::auth()->isPaid() ) {
+			add_submenu_page(
+				self::PAGE_ID,
+				__( 'Upgrade to PRO', 'depicter' ),
+				__( 'Upgrade to PRO', 'depicter' ),
+				'access_depicter',
+				self::PAGE_ID . '-goto-pro',
+				[ $this, 'externalPageRedirect' ]
+			);
+		}
+
 		add_action( 'admin_print_scripts-' . $this->hook_suffix, [ $this, 'printScripts' ] );
 	}
 
@@ -76,6 +87,11 @@ class DashboardPage
 
 		if ( self::PAGE_ID . '-goto-support' === $_GET['page'] ) {
 			wp_redirect( 'https://depicter.com/?utm_source=wp-submenu#support' );
+			die;
+		}
+
+		if ( self::PAGE_ID . '-goto-pro' === $_GET['page'] ) {
+			wp_redirect( 'https://depicter.com/pricing?utm_source=depicter&utm_medium=depicter-free&utm_campaign=free-to-pro&utm_term=unlock-submenu' );
 			die;
 		}
 	}
@@ -126,6 +142,8 @@ class DashboardPage
 			'label' => __( 'Load assets on all pages?', 'depicter' ),
 			'description' => "<br><br>". __( 'By default, Depicter will load corresponding JavaScript and CSS files on demand. but if you need to load assets on all pages, check this option. <br>( For example, if you plan to load Depicter via Ajax, you need to enable this option )', 'depicter' ),
 		]);
+
+		$settings->set_menu_position( 1 );
 
 		$settings->make();
 

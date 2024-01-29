@@ -19,6 +19,7 @@ use Depicter\Front\Symbols;
 use Depicter\Modules\Modules;
 use Depicter\Services\ClientService;
 use Depicter\Services\ExportService;
+use Depicter\Services\GeoLocateService;
 use Depicter\Services\ImportService;
 use Depicter\Services\MediaBridge;
 use Depicter\Services\RemoteAPIService;
@@ -31,7 +32,7 @@ use Depicter\WordPress\FileUploaderService;
 use Depicter\Services\AIWizardService;
 use WPEmergeAppCore\AppCore\AppCore;
 use Depicter\Services\GoogleFontsService;
-
+use Depicter\Rules\Condition\Conditions;
 
 /**
  * "@mixin" annotation for better IDE support.
@@ -195,4 +196,14 @@ final class AppMixin
 	 * @return ConditionsManager
 	 */
 	public static function conditionsManager(): ConditionsManager {}
+
+	/**
+	 * @return Conditions
+	 */
+	public static function conditions(): Conditions {}
+
+	/**
+	 * @return GeoLocateService
+	 */
+	public static function geoLocate(): GeoLocateService {}
 }

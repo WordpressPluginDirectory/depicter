@@ -78,7 +78,7 @@ class EditorAssets
 			"documentId"  => $documentID,
 			'documentType' => \Depicter::documentRepository()->getFieldValue( $documentID, 'type' ),
 			'user' => [
-				'tier'  => \Depicter::auth()->getTier(),
+				'tier'  => $this->getUserTier( $documentID ),
 				'name'  => Escape::html( $currentUser->display_name ),
 				'email' => Escape::html( $currentUser->user_email   ),
 				'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed')
@@ -113,6 +113,25 @@ class EditorAssets
 		// Add Environment variables
 		wp_add_inline_script( 'depicter-editor-vendors', 'window.depicterEnv = '. JSON::encode( $envData ), 'before' );
 
+	}
+
+	/**
+	 * Get user tier
+	 *
+	 * @param $documentID
+	 *
+	 * @return string
+	 */
+	public function getUserTier( $documentID ): string{
+		$tier = \Depicter::auth()->getTier();
+		if ( $tier == 'free-user' ) {
+			$createdAt = \Depicter::documentRepository()->getFieldValue( $documentID, 'created_at' );
+			if ( strtotime( $createdAt ) < strtotime('2024-01-01') ) {
+				return $tier . '+';
+			}
+		}
+
+		return $tier;
 	}
 
 }

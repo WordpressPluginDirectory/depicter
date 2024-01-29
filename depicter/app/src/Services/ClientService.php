@@ -97,22 +97,23 @@ class ClientService
 	}
 
 	/**
-	 * Get access token 
+	 * Get access token
 	 *
+	 * @param bool $force_check
 	 * @return string|bool
 	 */
-	public function getAccessToken() {
+	public function getAccessToken( $force_check = false ) {
 
 		$accessToken =  \Depicter::cache('base')->get( 'access_token', '' );
-		if ( !empty( $accessToken ) ) {
+		if ( !empty( $accessToken ) && ! $force_check ) {
 			return $accessToken;
 		}
-		
+
 		try{
 
 			$response = \Depicter::remote()->post( 'v2/token/access', [
 				'form_params' => [
-					'refresh_token' => $this->getRefreshToken()
+					'refresh_token' => $this->getRefreshToken( $force_check )
 				]
 			] );
 

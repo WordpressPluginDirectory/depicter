@@ -8,6 +8,7 @@ use Depicter\Document\Models\Document;
 use Depicter\Exception\DocumentNoContentException;
 use Depicter\Exception\EntityException;
 use Depicter\Front\Preview;
+use Depicter\Rules\DisplayRules;
 
 class Manager
 {
@@ -198,6 +199,38 @@ class Manager
 	 * @return string
 	 */
 	public function getStatus( $documentID ) {
-		return \Depicter::document()->repository()->getStatus( $documentID );
+		return $this->repository()->getStatus( $documentID );
+	}
+
+	/**
+	 * Get displayRules for a document
+	 *
+	 * @param int $documentID
+	 *
+	 * @return DisplayRules
+	 */
+	public function displayRules( $documentID ){
+		return new DisplayRules( $documentID );
+	}
+
+
+	/**
+	 * Retrieves IDs of all conditional documents
+	 *
+	 * @return array
+	 */
+	public function getConditionalDocumentIDs( $force_flush = false ){
+
+		$conditionalDocumentIDs = \Depicter::cache('base')->get( '_conditional_document_ids' );
+
+		if( ! $force_flush && ( false !== $conditionalDocumentIDs ) ){
+			return $conditionalDocumentIDs;
+		}
+
+		$conditionalDocumentIDs = $this->repository()->getConditionalDocumentIDs();
+
+		\Depicter::cache('base')->set( '_conditional_document_ids', $conditionalDocumentIDs, HOUR_IN_SECONDS );
+
+		return $conditionalDocumentIDs;
 	}
 }

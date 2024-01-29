@@ -19,7 +19,7 @@ class ImportAjaxController
 
 		if ( empty( $zipFile ) || ! $zipFile instanceof UploadedFile ) {
 			return \Depicter::json([
-				'errors' => [ 'No file provided to upload']
+				'errors' => [ __( 'No file provided to upload', 'depicter')]
 			])->withStatus(400 );
 		}
 
@@ -37,20 +37,26 @@ class ImportAjaxController
 		];
 		if( !in_array( $zipFile->getClientMediaType(), $zipMediaTypes ) ){
 			return \Depicter::json([
-                'errors' => [ 'Provided file must be zip file.']
+                'errors' => [ __( 'Provided file must be zip file.', 'depicter') ]
 			])->withStatus(400 );
+		}
+
+		if ( ! class_exists('ZipArchive') ) {
+			return \Depicter::json([
+                'errors' => [ __( 'To import slider you need to enable "php-zip" module on your server.', 'depicter')]
+            ])->withStatus(400 );
 		}
 
 		$sliderID = \Depicter::importService()->unpack($zipFile);
 		if ( $sliderID ) {
 			$slider = \Depicter::documentRepository()->findById( $sliderID );
 			return \Depicter::json([
-               'success' => [ 'Slider imported successfully'],
+               'success' => [ __( 'Slider imported successfully', 'depicter' ) ],
                'hits' => Arr::camelizeKeys( $slider->getProperties(), '_', [], true )
 			])->withStatus(200 );
 		} else {
 			return \Depicter::json([
-               'errors' => [ 'Error occurred during import process.']
+               'errors' => [ __( 'Error occurred during import process.', 'depicter' )]
            ])->withStatus(400 );
 		}
 	}

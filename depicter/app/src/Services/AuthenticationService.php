@@ -10,7 +10,9 @@ class AuthenticationService {
 	 * @return string
 	 */
 	public function getTier(){
-		return \Depicter::options()->get('user_tier', 'free-user') ?: 'free-user';
+		$isEarly  = version_compare( \Depicter::options()->get('version_initial', '2.0.9'), '2.0.9', '<=' );
+		$baseTier = 'free-user'.($isEarly ? '+' :'');
+		return \Depicter::options()->get('user_tier', $baseTier ) ?: $baseTier;
 	}
 
 	/**
@@ -19,7 +21,7 @@ class AuthenticationService {
 	 * @return bool
 	 */
 	public function isPaid(){
-		return $this->getTier() !== 'free-user';
+		return $this->getTier() !== 'free-user' && $this->getTier() !== 'free-user+';
 	}
 
 	/**

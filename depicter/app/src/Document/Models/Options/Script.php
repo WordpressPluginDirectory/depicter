@@ -152,6 +152,10 @@ class Script
 			$attributes['detachBeforeInit'] = true;
 		}
 
+		if ( isset ( $document->options->navigation->autoScroll ) ) {
+			$attributes['autoScroll'] = $document->options->navigation->autoScroll;
+		}
+
 		$script  = "\n(window.depicterSetups = window.depicterSetups || []).push(function(){";
 		$script .= "\n\tconst $sliderName = Depicter.setup('.{$document->getSelector()}',\n\t\t";
 

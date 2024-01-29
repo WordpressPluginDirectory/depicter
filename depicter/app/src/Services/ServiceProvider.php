@@ -94,6 +94,11 @@ class ServiceProvider implements ServiceProviderInterface
 			return new AIWizardService();
 		};
 		$app->alias( 'AIWizard', 'depicter.ai.wizard.service' );
+
+		$container[ 'depicter.geo.locate.service' ] = function () {
+			return new GeoLocateService();
+		};
+		$app->alias( 'geoLocate', 'depicter.geo.locate.service' );
 	}
 
 	/**

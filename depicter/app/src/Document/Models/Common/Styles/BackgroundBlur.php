@@ -2,7 +2,6 @@
 namespace Depicter\Document\Models\Common\Styles;
 
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
 
 class BackgroundBlur extends States
 {
@@ -30,16 +29,15 @@ class BackgroundBlur extends States
 		$devices = Breakpoints::names();
 		foreach ( $devices as $device ) {
 
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device !== 'default' && ! Helper::isStyleEnabled( $this, $device ) ) {
-				$css[$device][ self::NAME ] = 'none';
-
-			} elseif( Helper::isStyleEnabled( $this, $device ) ) {
+			if ( $this->isBreakpointEnabled( $device ) ) {
 				$this->blur = $this->{$device}->blur ?? $this->blur;
 				$this->brightness = $this->{$device}->brightness ?? $this->brightness;
 				$this->opacity = $this->{$device}->opacity ?? $this->opacity;
 
 				$css[$device][self::NAME] = "blur(" . $this->blur . "px) brightness(" . $this->brightness . "%) opacity(" . $this->opacity . "%)";
+
+			} elseif( $this->isBreakpointDisabled( $device ) ){
+				$css[ $device ][ self::NAME ] = "none";
 			}
 		}
 

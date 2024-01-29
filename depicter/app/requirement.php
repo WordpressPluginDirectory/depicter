@@ -22,7 +22,7 @@ if ( ! function_exists( 'depicter_requirements_satisfied' ) ) {
 	function depicter_requirements_satisfied( $name, $min ) {
 
 		if ( version_compare( PHP_VERSION, $min, '>=' ) ) {
-		    return true;
+		    return depicter_check_opcache( $name );
 		}
 
 		add_action(
@@ -44,5 +44,35 @@ if ( ! function_exists( 'depicter_requirements_satisfied' ) ) {
 
 		// An incompatible version is already loaded.
 		return false;
+	}
+
+	/**
+	 * Check opcache config
+	 *
+	 * @param $name
+	 *
+	 * @return bool
+	 */
+	function depicter_check_opcache( $name ) {
+		if ( function_exists('opcache_get_status') && opcache_get_status() ) {
+			$config = opcache_get_configuration();
+			if ( empty( $config['directives']['opcache.save_comments'] ) ) {
+				add_action(
+					'admin_notices',
+					function () use ( $name ) {
+						$message = __( 'Your website uses OpCache but requires the "opcache.save_comments" option enabled for %1$s plugin to work correctly. Please ask your hosting provider to turn on this setting.', 'depicter' );
+	?>
+				<div class="notice notice-error">
+					<p><?php echo wp_kses( sprintf( $message, '<strong>'. $name .'</strong>' ), ['strong' => [] ] ); ?></p>
+				</div>
+	<?php
+					}
+				);
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

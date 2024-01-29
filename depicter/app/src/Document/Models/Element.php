@@ -9,6 +9,7 @@ use Depicter\Document\Models\Traits\HasDataSheetTrait;
 use Depicter\Document\Models\Traits\HasDocumentIdTrait;
 use Depicter\Editor\Models\Common\Size;
 use Depicter\Editor\Models\Common\Styles;
+use \Depicter\Document\Models\Common\Styles as CommonStyles;
 use Depicter\Html\Html;
 
 class Element
@@ -127,6 +128,11 @@ class Element
 	public $devices;
 
 	/**
+	 * @var string|null
+	 */
+	public $componentType = null;
+
+	/**
 	 * Selector and CSS list
 	 *
 	 * @var array
@@ -237,6 +243,11 @@ class Element
 	public function alias(){
 		if( $this->alias ){
 			return $this->alias;
+		}
+
+		if ( strpos( $this->type, 'dpc' ) !== false ) {
+			$this->componentType = $this->type;
+			$this->type = 'component';
 		}
 
 		$className = '\\Depicter\\Document\\Models\\Elements\\' . ucfirst( $this->type );
@@ -392,6 +403,16 @@ class Element
 	public function getFontsList()
 	{
 		$fontsList = ! empty( $this->prepare()->styles ) ? $this->prepare()->styles->getFontsList() : [];
+		$innerStyles = ! empty( $this->prepare()->innerStyles ) ? $this->prepare()->innerStyles : [];
+		if ( !empty( $innerStyles ) ) {
+
+			foreach( $innerStyles as $property => $styleInstance ){
+				if ( empty( $styleInstance ) || ! $styleInstance instanceof CommonStyles ) {
+					continue;
+				}
+				\Depicter::app()->documentFonts()->addFonts( $this->getDocumentID(), $styleInstance->getFontsList(), 'google' );
+			}
+		}
 		\Depicter::app()->documentFonts()->addFonts( $this->getDocumentID(), $fontsList, 'google' );
 
 		return $fontsList;

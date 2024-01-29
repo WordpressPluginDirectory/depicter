@@ -40,7 +40,7 @@ trait CSSPropertiesTrait
 	public $timingFunction;
 
 	/**
-	 * @var int|null
+	 * @var float|null
 	 */
 	public $duration;
 
@@ -171,4 +171,19 @@ trait CSSPropertiesTrait
 	 * @var float|null
 	 */
 	public $scaleY;
+
+	/**
+	 * @var int|null
+	 */
+	public $columnGap;
+
+	/**
+	 * @var int|null
+	 */
+	public $rowGap;
+
+	/**
+	 * @var int|null
+	 */
+	public $flex;
 }

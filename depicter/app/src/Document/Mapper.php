@@ -2,9 +2,10 @@
 namespace Depicter\Document;
 
 
+use Depicter\Document\Models\Common\InnerStyles;
+use Depicter\Document\Models\Common\Styles;
 use Depicter\Document\Models\Common\Styles\Base as Style;
 use Depicter\Document\Models\Document;
-use Depicter\Document\Models\Options\Display;
 use TypeRocket\Utility\Data;
 
 /**
@@ -41,8 +42,10 @@ class Mapper
 				$class->{$propName} = $jsonValue;
 			}
 
-			if( $class instanceof Display ){
-				$class->{$propName} = $jsonValue;
+			if ( $class instanceof InnerStyles ) {
+				$innerMapper = new \JsonMapper();
+				$jsonObject = Data::cast( $jsonValue, 'object');
+				$class->{$propName} = $innerMapper->map( $jsonObject, new Styles() );
 			}
 		};
 		$documentObject = $dataObject->document ?? $dataObject;

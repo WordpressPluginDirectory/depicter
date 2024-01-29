@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "averta/core",
-            "version": "1.2.4",
-            "version_normalized": "1.2.4.0",
+            "version": "1.2.6",
+            "version_normalized": "1.2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/averta-lab/php-core.git",
-                "reference": "a77242f454a2a9f3b7b7bf1c0fb1d0f1954564c8"
+                "reference": "8b63fea29b9358ddc0ee16196c8d89049df74d34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/averta-lab/php-core/zipball/a77242f454a2a9f3b7b7bf1c0fb1d0f1954564c8",
-                "reference": "a77242f454a2a9f3b7b7bf1c0fb1d0f1954564c8",
+                "url": "https://api.github.com/repos/averta-lab/php-core/zipball/8b63fea29b9358ddc0ee16196c8d89049df74d34",
+                "reference": "8b63fea29b9358ddc0ee16196c8d89049df74d34",
                 "shasum": ""
             },
             "require": {
@@ -24,7 +24,7 @@
             "require-dev": {
                 "composer/installers": "^1"
             },
-            "time": "2023-10-09T12:12:16+00:00",
+            "time": "2024-01-10T09:14:20+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -53,23 +53,23 @@
             "support": {
                 "docs": "https://averta.net",
                 "issues": "https://github.com/averta-lab/php-core/issues",
-                "source": "https://github.com/averta-lab/php-core/tree/1.2.4"
+                "source": "https://github.com/averta-lab/php-core/tree/1.2.6"
             },
             "install-path": "../averta/core"
         },
         {
             "name": "averta/wordpress",
-            "version": "1.2.12",
-            "version_normalized": "1.2.12.0",
+            "version": "1.2.14",
+            "version_normalized": "1.2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/averta-lab/wordpress.git",
-                "reference": "b9e52fa660028fc9c24ef6598da21487fd9a4ade"
+                "reference": "917ab573d07a1cd1baaa5c508ab872c5176be88d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/averta-lab/wordpress/zipball/b9e52fa660028fc9c24ef6598da21487fd9a4ade",
-                "reference": "b9e52fa660028fc9c24ef6598da21487fd9a4ade",
+                "url": "https://api.github.com/repos/averta-lab/wordpress/zipball/917ab573d07a1cd1baaa5c508ab872c5176be88d",
+                "reference": "917ab573d07a1cd1baaa5c508ab872c5176be88d",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "roots/wordpress": "*",
                 "wp-coding-standards/wpcs": "^2.3"
             },
-            "time": "2023-11-15T07:20:16+00:00",
+            "time": "2023-12-10T09:36:21+00:00",
             "type": "library",
             "extra": {
                 "wordpress-install-dir": "vendor/wp-core"
@@ -119,7 +119,7 @@
             "support": {
                 "docs": "https://averta.net",
                 "issues": "https://github.com/averta-lab/wordpress/issues",
-                "source": "https://github.com/averta-lab/wordpress/tree/1.2.12"
+                "source": "https://github.com/averta-lab/wordpress/tree/1.2.14"
             },
             "install-path": "../averta/wordpress"
         },
@@ -276,6 +276,60 @@
                 }
             ],
             "install-path": "./installers"
+        },
+        {
+            "name": "foroco/php-browser-detection",
+            "version": "v2.7",
+            "version_normalized": "2.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/foroco/php-browser-detection.git",
+                "reference": "80d7bae823c150da82496b1bc94248febdd2c952"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/foroco/php-browser-detection/zipball/80d7bae823c150da82496b1bc94248febdd2c952",
+                "reference": "80d7bae823c150da82496b1bc94248febdd2c952",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2023-04-27T13:56:18+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/BrowserDetection.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artem Murugov",
+                    "email": "murugov@gmail.com",
+                    "homepage": "https://github.com/foroco/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Ultra fast PHP library to detect browser, OS, platform and device type by User-Agent parsing",
+            "homepage": "https://github.com/foroco/php-browser-detection",
+            "keywords": [
+                "browser",
+                "detection",
+                "environment",
+                "php",
+                "user-agent",
+                "useragent"
+            ],
+            "support": {
+                "issues": "https://github.com/foroco/php-browser-detection/issues",
+                "source": "https://github.com/foroco/php-browser-detection/tree/v2.7"
+            },
+            "install-path": "../foroco/php-browser-detection"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1543,17 +1597,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.32",
-            "version_normalized": "5.4.32.0",
+            "version": "v5.4.34",
+            "version_normalized": "5.4.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04"
+                "reference": "e3f98bfc7885c957488f443df82d97814a3ce061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/91bf4453d65d8231688a04376c3a40efe0770f04",
-                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04",
+                "url": "https://api.github.com/repos/symfony/string/zipball/e3f98bfc7885c957488f443df82d97814a3ce061",
+                "reference": "e3f98bfc7885c957488f443df82d97814a3ce061",
                 "shasum": ""
             },
             "require": {
@@ -1573,7 +1627,7 @@
                 "symfony/translation-contracts": "^1.1|^2",
                 "symfony/var-exporter": "^4.4|^5.0|^6.0"
             },
-            "time": "2023-11-26T13:43:46+00:00",
+            "time": "2023-12-09T13:20:28+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1612,7 +1666,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.4.32"
+                "source": "https://github.com/symfony/string/tree/v5.4.34"
             },
             "funding": [
                 {

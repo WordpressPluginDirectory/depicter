@@ -36,6 +36,10 @@ class ShortcodesServiceProvider implements ServiceProviderInterface {
 	public function loadShortcodeAssets() {
 		global $post;
 
+		if( empty( $post->ID ) ){
+			return;
+		}
+
 		if ( !empty( \Depicter::options()->get( 'always_load_assets', false ) ) ) {
 			\Depicter::front()->assets()->enqueueStyles();
 			\Depicter::front()->assets()->enqueueScripts();
@@ -45,6 +49,7 @@ class ShortcodesServiceProvider implements ServiceProviderInterface {
 		$builtWithElementor = false;
 		// check if page built by elementor and user used shortcode widget instead of depicter widget
 		if ( class_exists( '\Elementor\Plugin' ) ) {
+
 			$document = \Elementor\Plugin::$instance->documents->get($post->ID);
 			if ( !empty( $document ) && $document->is_built_with_elementor() ) {
 				$builtWithElementor = true;
@@ -85,7 +90,7 @@ class ShortcodesServiceProvider implements ServiceProviderInterface {
 					if ( ! $documentId ) {
 						continue;
 					}
-					
+
 					\Depicter::document()->cacheCustomStyles( $documentId );
 					\Depicter::front()->assets()->enqueueCustomAssets( $documentId );
 					\Depicter::front()->assets()->enqueuePreloadTags( $documentId );

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
+class ComposerStaticInit9cf9a8008b9c1e6b7e073941962e8d1f
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -410,6 +410,7 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'Depicter\\Document\\Models\\Common\\Styles\\BoxShadow' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/BoxShadow.php',
         'Depicter\\Document\\Models\\Common\\Styles\\Corner' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Corner.php',
         'Depicter\\Document\\Models\\Common\\Styles\\Filter' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Filter.php',
+        'Depicter\\Document\\Models\\Common\\Styles\\Flex' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Flex.php',
         'Depicter\\Document\\Models\\Common\\Styles\\Hover' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Hover.php',
         'Depicter\\Document\\Models\\Common\\Styles\\Margin' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Margin.php',
         'Depicter\\Document\\Models\\Common\\Styles\\Opacity' => __DIR__ . '/../..' . '/app/src/Document/Models/Common/Styles/Opacity.php',
@@ -425,6 +426,7 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'Depicter\\Document\\Models\\Elements\\Arrow' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Arrow.php',
         'Depicter\\Document\\Models\\Elements\\Bullet' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Bullet.php',
         'Depicter\\Document\\Models\\Elements\\Button' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Button.php',
+        'Depicter\\Document\\Models\\Elements\\Component' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Component.php',
         'Depicter\\Document\\Models\\Elements\\Date' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Date.php',
         'Depicter\\Document\\Models\\Elements\\EmbedVideo' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/EmbedVideo.php',
         'Depicter\\Document\\Models\\Elements\\Group' => __DIR__ . '/../..' . '/app/src/Document/Models/Elements/Group.php',
@@ -456,6 +458,7 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'Depicter\\Document\\Models\\Traits\\EntityPropertiesTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/EntityPropertiesTrait.php',
         'Depicter\\Document\\Models\\Traits\\HasDataSheetTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/HasDataSheetTrait.php',
         'Depicter\\Document\\Models\\Traits\\HasDocumentIdTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/HasDocumentIdTrait.php',
+        'Depicter\\Document\\Models\\Traits\\HoverAbleStyleTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/HoverAbleStyleTrait.php',
         'Depicter\\Document\\Models\\Traits\\MediaSourceTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/MediaSourceTrait.php',
         'Depicter\\Document\\Models\\Traits\\UnPublishedNoticeTrait' => __DIR__ . '/../..' . '/app/src/Document/Models/Traits/UnPublishedNoticeTrait.php',
         'Depicter\\Document\\ServiceProvider' => __DIR__ . '/../..' . '/app/src/Document/ServiceProvider.php',
@@ -612,20 +615,41 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'Depicter\\Routing\\Conditions\\EditorOpen' => __DIR__ . '/../..' . '/app/src/Routing/Conditions/EditorOpen.php',
         'Depicter\\Routing\\Conditions\\EditorPreview' => __DIR__ . '/../..' . '/app/src/Routing/Conditions/EditorPreview.php',
         'Depicter\\Routing\\RouteConditionsServiceProvider' => __DIR__ . '/../..' . '/app/src/Routing/RouteConditionsServiceProvider.php',
-        'Depicter\\Rules\\Conditions\\ConditionInterface' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/ConditionInterface.php',
-        'Depicter\\Rules\\Conditions\\ListConditions' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/ListConditions.php',
-        'Depicter\\Rules\\Conditions\\Manager' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/Manager.php',
-        'Depicter\\Rules\\Conditions\\ServiceProvider' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/ServiceProvider.php',
-        'Depicter\\Rules\\Conditions\\woocommerce\\Category' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/woocommerce/Category.php',
-        'Depicter\\Rules\\Conditions\\woocommerce\\ConditionsValues' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/woocommerce/ConditionsValues.php',
-        'Depicter\\Rules\\Conditions\\woocommerce\\Shop' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/woocommerce/Shop.php',
-        'Depicter\\Rules\\Conditions\\woocommerce\\Singular' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/woocommerce/Singular.php',
-        'Depicter\\Rules\\Conditions\\woocommerce\\Tag' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/woocommerce/Tag.php',
-        'Depicter\\Rules\\Conditions\\wp\\Archive' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/wp/Archive.php',
-        'Depicter\\Rules\\Conditions\\wp\\ConditionsValues' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/wp/ConditionsValues.php',
-        'Depicter\\Rules\\Conditions\\wp\\General' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/wp/General.php',
-        'Depicter\\Rules\\Conditions\\wp\\Singular' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/wp/Singular.php',
-        'Depicter\\Rules\\Conditions\\wp\\Taxonomy' => __DIR__ . '/../..' . '/app/src/Rules/Conditions/wp/Taxonomy.php',
+        'Depicter\\Rules\\Condition\\Advanced\\Cookie' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Advanced/Cookie.php',
+        'Depicter\\Rules\\Condition\\Advanced\\Referrer' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Advanced/Referrer.php',
+        'Depicter\\Rules\\Condition\\Advanced\\URL' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Advanced/URL.php',
+        'Depicter\\Rules\\Condition\\Audience\\Browser' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Audience/Browser.php',
+        'Depicter\\Rules\\Condition\\Audience\\Country' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Audience/Country.php',
+        'Depicter\\Rules\\Condition\\Audience\\Device' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Audience/Device.php',
+        'Depicter\\Rules\\Condition\\Base' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Base.php',
+        'Depicter\\Rules\\Condition\\CPT\\Base' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/Base.php',
+        'Depicter\\Rules\\Condition\\CPT\\HasTerm' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/HasTerm.php',
+        'Depicter\\Rules\\Condition\\CPT\\IsArchive' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/IsArchive.php',
+        'Depicter\\Rules\\Condition\\CPT\\IsSingle' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/IsSingle.php',
+        'Depicter\\Rules\\Condition\\CPT\\IsTax' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/IsTax.php',
+        'Depicter\\Rules\\Condition\\CPT\\SingleType' => __DIR__ . '/../..' . '/app/src/Rules/Condition/CPT/SingleType.php',
+        'Depicter\\Rules\\Condition\\Conditions' => __DIR__ . '/../..' . '/app/src/Rules/Condition/Conditions.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\ByAuthor' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/ByAuthor.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\HasProductTag' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/HasProductTag.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\InChildProductCategory' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/InChildProductCategory.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\InProductCategory' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/InProductCategory.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\IsArchive' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/IsArchive.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\IsShop' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/IsShop.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\Product' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/Product.php',
+        'Depicter\\Rules\\Condition\\WooCommerce\\StaticPage' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WooCommerce/StaticPage.php',
+        'Depicter\\Rules\\Condition\\WordPress\\HasTag' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/HasTag.php',
+        'Depicter\\Rules\\Condition\\WordPress\\InCategory' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/InCategory.php',
+        'Depicter\\Rules\\Condition\\WordPress\\IsArchive' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/IsArchive.php',
+        'Depicter\\Rules\\Condition\\WordPress\\IsAuthor' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/IsAuthor.php',
+        'Depicter\\Rules\\Condition\\WordPress\\IsCategory' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/IsCategory.php',
+        'Depicter\\Rules\\Condition\\WordPress\\IsTag' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/IsTag.php',
+        'Depicter\\Rules\\Condition\\WordPress\\Page' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/Page.php',
+        'Depicter\\Rules\\Condition\\WordPress\\Post' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/Post.php',
+        'Depicter\\Rules\\Condition\\WordPress\\StaticPage' => __DIR__ . '/../..' . '/app/src/Rules/Condition/WordPress/StaticPage.php',
+        'Depicter\\Rules\\DisplayCondition\\DisplayConditionGroup' => __DIR__ . '/../..' . '/app/src/Rules/DisplayCondition/DisplayConditionGroup.php',
+        'Depicter\\Rules\\DisplayCondition\\Mapper' => __DIR__ . '/../..' . '/app/src/Rules/DisplayCondition/Mapper.php',
+        'Depicter\\Rules\\DisplayRules' => __DIR__ . '/../..' . '/app/src/Rules/DisplayRules.php',
+        'Depicter\\Rules\\ServiceProvider' => __DIR__ . '/../..' . '/app/src/Rules/ServiceProvider.php',
         'Depicter\\Security\\CSRF' => __DIR__ . '/../..' . '/app/src/Security/CSRF.php',
         'Depicter\\Security\\SecurityServiceProvider' => __DIR__ . '/../..' . '/app/src/Security/SecurityServiceProvider.php',
         'Depicter\\Services\\AIWizardService' => __DIR__ . '/../..' . '/app/src/Services/AIWizardService.php',
@@ -636,6 +660,7 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'Depicter\\Services\\DocumentFontsService' => __DIR__ . '/../..' . '/app/src/Services/DocumentFontsService.php',
         'Depicter\\Services\\DocumentFontsV1Service' => __DIR__ . '/../..' . '/app/src/Services/DocumentFontsV1Service.php',
         'Depicter\\Services\\ExportService' => __DIR__ . '/../..' . '/app/src/Services/ExportService.php',
+        'Depicter\\Services\\GeoLocateService' => __DIR__ . '/../..' . '/app/src/Services/GeoLocateService.php',
         'Depicter\\Services\\GoogleFontsService' => __DIR__ . '/../..' . '/app/src/Services/GoogleFontsService.php',
         'Depicter\\Services\\I18nService' => __DIR__ . '/../..' . '/app/src/Services/I18nService.php',
         'Depicter\\Services\\ImportService' => __DIR__ . '/../..' . '/app/src/Services/ImportService.php',
@@ -1210,15 +1235,16 @@ class ComposerStaticInit157852e7c084e4b3dfca2d85f0894195
         'WPEmerge\\View\\ViewNotFoundException' => __DIR__ . '/..' . '/htmlburger/wpemerge/src/View/ViewNotFoundException.php',
         'WPEmerge\\View\\ViewService' => __DIR__ . '/..' . '/htmlburger/wpemerge/src/View/ViewService.php',
         'WPEmerge\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/htmlburger/wpemerge/src/View/ViewServiceProvider.php',
+        'foroco\\BrowserDetection' => __DIR__ . '/..' . '/foroco/php-browser-detection/src/BrowserDetection.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit157852e7c084e4b3dfca2d85f0894195::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit157852e7c084e4b3dfca2d85f0894195::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit157852e7c084e4b3dfca2d85f0894195::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit157852e7c084e4b3dfca2d85f0894195::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9cf9a8008b9c1e6b7e073941962e8d1f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9cf9a8008b9c1e6b7e073941962e8d1f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit9cf9a8008b9c1e6b7e073941962e8d1f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit9cf9a8008b9c1e6b7e073941962e8d1f::$classMap;
 
         }, null, ClassLoader::class);
     }

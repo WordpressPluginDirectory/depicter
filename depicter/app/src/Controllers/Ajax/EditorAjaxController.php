@@ -104,7 +104,6 @@ class EditorAjaxController implements RestMethodsInterface
 				return Depicter::json( [ 'errors' => [ 'Document does not exist.', $result ] ] )->withStatus( 404 );
 			}
 
-			// \Depicter::action()->do( 'depicter/editor/after/store', $id, $properties, $result );
 			do_action( 'depicter/editor/after/store', $id, $properties, $result );
 
 			$this->setDocumentPoster( $request, $id );

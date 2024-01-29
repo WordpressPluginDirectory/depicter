@@ -450,6 +450,10 @@ Depicter::route()->methods(['GET'])
         ->handle( 'RulesAjaxController@show' );
 
 Depicter::route()->methods(['GET'])
+		->where(  'ajax', 'depicter/condition/all', true, true )
+		->handle( 'RulesAjaxController@all' );
+
+Depicter::route()->methods(['GET'])
 		->where(  'ajax', 'depicter/document/condition/options', true, true )
 		->handle( 'RulesAjaxController@conditionValues' );
 

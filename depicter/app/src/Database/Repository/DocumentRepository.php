@@ -118,22 +118,27 @@ class DocumentRepository
 		$fields['created_at'] =  $this->document->getDateTime();
 		$fields['parent'] =  $id;
 
+		// set type if was not available in $fields
+		if( empty( $fields['type'] ) ){
+			$fields['type'] = $this->getFieldValue( $id, 'type' );
+		}
+
 		// check if revisions limit exceed than 15 number then remove the oldest one
 		if( DEPICTER_REVISIONS ){
 			$this->checkRevisionsLimit( $id );
 		}
 
-		$documentId = $this->findOrCreate(0, $fields);
-
-		return $documentId;
+		return $this->findOrCreate( 0, $fields);
 	}
 
 	/**
 	 * change status of revisions
 	 *
-	 * @param int $id
+	 * @param int    $id
 	 * @param string $status
+	 *
 	 * @return void
+	 * @throws Exception
 	 */
 	public function changeRevisionsStatus( int $id, string $status ) {
 		$revisions = $this->document()->where( 'parent', $id)->findAll();
@@ -353,8 +358,6 @@ class DocumentRepository
 		$document = $this->document()->findById( $documentId );
 		$document->rename( $document->getFieldValue( 'name' ) . ' ' . $documentId );
 
-		error_log( $document->getFieldValue( 'name' ) );
-
 		return $document;
 	}
 
@@ -566,15 +569,20 @@ class DocumentRepository
 	public function draftFields( $type = '')
 	{
 		$typesDictionary = [
-			'slider' => __( 'Slider', 'depicter' ),
-			'custom' => __( 'Slider', 'depicter' ),
-			'popup'  => __( 'Popup', 'depicter' )
+			'slider'      => __( 'Slider', 'depicter' ),
+			'custom'      => __( 'Slider', 'depicter' ),
+			'popup'       => __( 'Popup', 'depicter' ),
+			'post-slider' => __( 'Post Slider', 'depicter' ),
+			'woo-slider'  => __( 'Product Slider', 'depicter' ),
+			'banner-bar'  => __( 'Notification Bar', 'depicter' ),
+			'carousel'    => __( 'Carousel', 'depicter' ),
+			'hero-section'=> __( 'Hero Section', 'depicter' )
 		];
 
 		$typeLabel = !empty( $typesDictionary[ $type ] ) ? $typesDictionary[ $type ] : __('Slider', 'depicter' );
 
 		return [
-			'name'        => sprintf( __('Untitled %s', 'depicter' ), $typeLabel ),
+			'name'        => sprintf( __('%s', 'depicter' ), $typeLabel ),
 			'status'      => 'draft',
 			'author'      => $this->getCurrentUserId()
 		];
@@ -841,5 +849,46 @@ class DocumentRepository
 	 */
 	protected function getPreviewRelativeImagePath( $documentID ){
 		return '/depicter/preview-images/' . $documentID . '.png';
+	}
+
+	/**
+	 * Retrieves IDs of all conditional documents
+	 *
+	 * @return array|object
+	 */
+	public function getConditionalDocumentIDs(){
+
+		try{
+			// get all main documents with conditional friendly types
+			$parents = $this->document()
+			                ->reselect(['id'])
+			                ->appendRawWhere( 'and', " `type` in ('popup', 'banner-bar')" )
+			                ->where('status', 'publish')
+			                ->where('parent', '0')
+			                ->get();
+			$parents = $parents ? $parents->toArray() : [];
+
+			$parents = array_map( function( $record ){
+				return $record['id'];
+			}, $parents );
+
+			// get published revisions with conditional friendly types
+			$revisions = $this->document()
+			                  ->reselect(['parent'])
+			                  ->appendRawWhere( 'and', " `type` in ('popup', 'banner-bar')" )
+			                  ->where('status', 'publish')
+			                  ->where('parent', 'NOT LIKE', '0' )
+			                  ->get();
+
+			$revisions = $revisions ? $revisions->toArray() : [];
+			$revisionParents = array_map( function( $record ){
+				return $record['parent'];
+			}, $revisions );
+
+			return array_unique( Arr::merge( $revisionParents, $parents ) );
+
+		} catch ( \Exception $exception ) {
+			return [];
+		}
 	}
 }

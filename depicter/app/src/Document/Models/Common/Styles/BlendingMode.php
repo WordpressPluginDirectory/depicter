@@ -3,7 +3,6 @@ namespace Depicter\Document\Models\Common\Styles;
 
 
 use Depicter\Document\CSS\Breakpoints;
-use Depicter\Document\Helper\Helper;
 
 class BlendingMode extends States
 {
@@ -16,12 +15,10 @@ class BlendingMode extends States
 		$devices = Breakpoints::names();
 		foreach ( $devices as $device ) {
 
-			// If it is disabled in a breakpoint other than default, generate a reset style for breakpoint
-			if( $device !== 'default' && ! Helper::isStyleEnabled( $this, $device ) ) {
-				$css[$device][ self::NAME ] = 'normal';
-
-			} elseif( ! empty( $this->{$device}->type ) && Helper::isStyleEnabled( $this, $device ) ) {
+			if ( $this->isBreakpointEnabled( $device ) && !empty( $this->{$device}->type ) ) {
 				$css[ $device ][ self::NAME ] = $this->{$device}->type;
+			} elseif( $this->isBreakpointDisabled( $device ) ){
+				$css[$device][ self::NAME ] = 'normal';
 			}
 		}
 

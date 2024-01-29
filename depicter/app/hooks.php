@@ -49,6 +49,22 @@ function depicter_purge_document_cache( $documentID ) {
 add_action( 'depicter/editor/after/delete', 'depicter_purge_document_cache', 10 );
 
 
+
+/**
+ * Flushes conditional documents cache
+ *
+ * @param int $documentID
+ *
+ * @return void
+ */
+function depicter_purge_conditional_documents_cache( $documentID = 0 ) {
+	\Depicter::document()->getConditionalDocumentIDs(true);
+}
+add_action( 'depicter/dashboard/after/delete', 'depicter_purge_conditional_documents_cache', 10 );
+add_action( 'depicter/editor/after/store'    , 'depicter_purge_conditional_documents_cache', 10 );
+add_action( 'depicter/rules/after/store'     , 'depicter_purge_conditional_documents_cache', 10 );
+
+
 /**
  * Depicter sanitize html tags for depicter slider output
  *
@@ -145,11 +161,15 @@ function depicter_check_deleted_imported_media( $attachment_id ) {
 add_action( 'delete_attachment', 'depicter_check_deleted_imported_media');
 
 function depicter_check_activation() {
-	if ( isset( $_GET['depicter_upgraded'] ) || ( isset( $_GET['page'] ) && $_GET['page'] == 'depicter-dashboard' ) || ( isset( $_GET['action'] ) && $_GET['action'] == 'depicter' ) ) {
+	if ( isset( $_GET['depicter_upgraded'] ) ) {
 		if ( \Depicter::client()->validateActivation() ) {
+			\Depicter::client()->getAccessToken( true );
+		}
+	} elseif ( ( isset( $_GET['page'] ) && $_GET['page'] == 'depicter-dashboard' ) || ( isset( $_GET['action'] ) && $_GET['action'] == 'depicter' ) ) {
+    	if ( \Depicter::client()->validateActivation() ) {
 			\Depicter::client()->getRefreshToken( true );
 		}
-	}
+    }
 }
 add_action( 'admin_init', 'depicter_check_activation' );
 
@@ -164,4 +184,16 @@ function depicter_renew_tokens() {
 	}
 }
 add_action( 'admin_init', 'depicter_renew_tokens' );
+
+/**
+ * disable admin bar
+ *
+ * @return void
+ */
+function depicter_disable_admin_bar() {
+	if ( isset( $_GET['dp-wp-admin-bar'] ) && $_GET['dp-wp-admin-bar'] == 0 ) {
+		add_filter( 'show_admin_bar', '__return_false' );
+	}
+}
+add_action( 'init', 'depicter_disable_admin_bar');
 
