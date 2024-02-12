@@ -240,6 +240,10 @@ class Image extends Models\Element
 
 		$this->renderPictureWrapper();
 
+		if ( $this->hasFrame() ) {
+			Depicter::symbolsProvider()->addClipPath( $this->options->clipPath );
+		}
+
 		$this->renderSourceTags();
 		$this->renderImageTag();
 
@@ -452,4 +456,29 @@ class Image extends Models\Element
 
 	}
 
+	/**
+	 * check if image has frame or not
+	 *
+	 * @return bool
+	 */
+	protected function hasFrame(): bool{
+		return ! empty( $this->options->clipPath );
+	}
+
+	/**
+	 * Get list of selector and CSS for element
+	 *
+	 * @return array
+	 * @throws \JsonMapper_Exception
+	 */
+	public function getSelectorAndCssList(){
+		parent::getSelectorAndCssList();
+
+		// Add clip path style
+		if ( $this->hasFrame() ) {
+			 $this->selectorCssList[ '.' . $this->getStyleSelector() ]['default']['clip-path'] = 'url(#' . $this->options->clipPath . ')';
+		}
+
+		return $this->selectorCssList;
+	}
 }

@@ -55,17 +55,25 @@ if ( ! function_exists( 'depicter_requirements_satisfied' ) ) {
 	 */
 	function depicter_check_opcache( $name ) {
 		if ( function_exists('opcache_get_status') && opcache_get_status() ) {
+			if ( ! function_exists('opcache_get_configuration') ){
+				return true;
+			}
+			// Some security settings in OpCache can prevent calling `opcache_get_status()` and `opcache_get_configuration()`
+			// To prevent any unwanted warnings, we buffer the output here
+			ob_start();
 			$config = opcache_get_configuration();
+			ob_get_clean();
+
 			if ( empty( $config['directives']['opcache.save_comments'] ) ) {
 				add_action(
 					'admin_notices',
 					function () use ( $name ) {
 						$message = __( 'Your website uses OpCache but requires the "opcache.save_comments" option enabled for %1$s plugin to work correctly. Please ask your hosting provider to turn on this setting.', 'depicter' );
-	?>
-				<div class="notice notice-error">
-					<p><?php echo wp_kses( sprintf( $message, '<strong>'. $name .'</strong>' ), ['strong' => [] ] ); ?></p>
-				</div>
-	<?php
+?>
+	<div class="notice notice-error">
+		<p><?php echo wp_kses( sprintf( $message, '<strong>'. $name .'</strong>' ), ['strong' => [] ] ); ?></p>
+	</div>
+<?php
 					}
 				);
 
@@ -75,4 +83,5 @@ if ( ! function_exists( 'depicter_requirements_satisfied' ) ) {
 
 		return true;
 	}
+
 }

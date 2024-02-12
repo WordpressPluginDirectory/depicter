@@ -322,9 +322,10 @@ class Background
 	 * @return string
 	 */
 	public function getContainerClassName() {
-		if ( !empty( $this->video->src ) && $this->video->type != "embedVideo" ) {
+		if ( !empty( $this->video->src ) && ( ( $this->video->type ?? '' ) !== "embedVideo" ) ) {
 			return Selector::prefixify('bg-video-container');
 		}
+
 		return Selector::prefixify('section-background');
 	}
 

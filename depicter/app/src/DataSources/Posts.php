@@ -108,6 +108,13 @@ class Posts extends DataSourceBase implements DataSourceInterface
 		    ];
 		}
 
+		if ( !empty( $args['sticky'] ) && Data::isTrue( $args['sticky'] ) && $queryArgs['post_type'] == 'post' ) {
+			$stickyPostIDs = get_option('sticky_posts');
+			if ( !empty( $stickyPostIDs ) ) {
+				$queryArgs['post__in'] = $stickyPostIDs;
+			}
+		}
+
 		return new \WP_Query( $queryArgs );
 	}
 

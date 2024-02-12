@@ -71,6 +71,9 @@ class PostsAjaxController
 		if( !Data::isNullOrEmptyStr( $request->body('taxonomies') ) ){
 			$args['taxonomies'] = Sanitize::textfield( $request->body('taxonomies') );
 		}
+	    if( !Data::isNullOrEmptyStr( $request->body('sticky') ) ){
+		    $args['sticky'] = Data::isTrue( Sanitize::textfield( $request->body('sticky') ) );
+	    }
 
 		// check if request is for handpicked data or not
 		if ( !Data::isNullOrEmptyStr( $request->body('handpicked') ) ) {

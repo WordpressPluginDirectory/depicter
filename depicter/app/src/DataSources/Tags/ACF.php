@@ -28,7 +28,7 @@ class ACF extends TagBase implements TagInterface {
 	 * @return bool
 	 */
 	public function isAvailable( array $args = [] ){
-		return Plugin::isActive( 'advanced-custom-fields/acf.php' );
+		return Plugin::isActive( 'advanced-custom-fields/acf.php' ) || Plugin::isActive( 'advanced-custom-fields-pro/acf.php' );
 	}
 
 	/**

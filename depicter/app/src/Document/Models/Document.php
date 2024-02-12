@@ -232,7 +232,7 @@ class Document implements HydratableInterface
 	protected function renderSymbols() {
 		$symbolsContent = \Depicter::symbolsProvider()->render();
 		if ( !empty( $symbolsContent ) ) {
-			$this->html->nest( "\n" . $symbolsContent );
+			$this->html->nestAtTop( $symbolsContent, "\n" );
 		}
 	}
 

@@ -513,7 +513,10 @@ class Sanitize
                 'repeatcount' => []
             ],
 	        'defs' => [],
-	        'clippath' => [],
+	        'clippath' => [
+                'id' => [],
+                'clippathunits' => []
+            ],
 	        'filter' => [
 	            'filterUnits' => [],
 	            'id' => [],

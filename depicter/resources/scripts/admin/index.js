@@ -17,7 +17,7 @@
       $this.find('.depicter-state-icon').show();
       var sliderID = $this.data('document-id') || $this.parents('tbody,#elementor-controls').find('select').val().replace( '#', '');
       var data = {
-        action: 'depicter/document/store',
+        action: 'depicter-document-store',
         ID: sliderID,
         status: 'published'
       };
@@ -88,7 +88,7 @@
         method: 'POST',
         data: {
           _wpnonce: $feedbackContainer.find('#_wpnonce').val(),
-          action: 'depicter/deactivate/feedback',
+          action: 'depicter-deactivate-feedback',
           issueRelatesTo: reason,
           userDescription: userDescriptionText,
         },

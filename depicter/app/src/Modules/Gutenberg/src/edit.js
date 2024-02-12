@@ -61,7 +61,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		data.append('ID', sliderID);
 		data.append('status', 'published');
 
-		window.fetch( window.depicterSliders.ajax_url + "?action=depicter/document/store", {
+		window.fetch( window.depicterSliders.ajax_url + "?action=depicter-document-store", {
 			method: 'post',
 			body: data,
 			headers: {
@@ -84,7 +84,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	}
 
 	function setPublishBtnState(sliderID) {
-		window.fetch( window.depicterSliders.ajax_url + '?action=depicter/document/status&ID=' + sliderID, {
+		window.fetch( window.depicterSliders.ajax_url + '?action=depicter-document-status&ID=' + sliderID, {
 			method: 'GET', // or 'PUT'
 			headers: {
 				'Content-Type': 'text/html',
@@ -153,7 +153,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 			<div { ...blockProps }>
 				<IframeResizer
-					src={`${window.depicterSliders.ajax_url}?action=depicter/document/preview&depicter-csrf=${window.depicterSliders.token}&ID=${attributes.id}&status=draft|publish&gutenberg=true`}
+					src={`${window.depicterSliders.ajax_url}?action=depicter-document-preview&depicter-csrf=${window.depicterSliders.token}&ID=${attributes.id}&status=draft|publish&gutenberg=true`}
 					style={{ width: '1px', minWidth: '100%'}}
 				/>
 			</div>

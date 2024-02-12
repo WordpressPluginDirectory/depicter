@@ -37,7 +37,7 @@ class DepicterModule extends Component {
       url: window.depicter_divi.ajax_url,
       method: "get",
       params: {
-        action: "depicter/document/render",
+        action: "depicter-document-render",
         ID: this.props.document_id,
         addImportant: true,
       },

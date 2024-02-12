@@ -61,7 +61,7 @@ class DashboardPage
 			[ $this, 'externalPageRedirect' ]
 		);
 
-		if ( ! \Depicter::auth()->isPaid() ) {
+		if ( ! \Depicter::auth()->isPaid() && empty( $_GET['depicter_upgraded'] ) ) {
 			add_submenu_page(
 				self::PAGE_ID,
 				__( 'Upgrade to PRO', 'depicter' ),

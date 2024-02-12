@@ -54,6 +54,11 @@ trait CSSPropertiesTrait
 	/**
 	 * @var string|null
 	 */
+	public $stroke;
+
+	/**
+	 * @var string|null
+	 */
 	public $style;
 
 	/**

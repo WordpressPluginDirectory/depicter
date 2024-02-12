@@ -50,7 +50,10 @@ class Component extends Element
 					continue;
 				}
 
-				$this->selectorCssList[ '.' . $this->getStyleSelector() . ' .' . $this->camelCaseToHyphenated( $cssSelector ) ] = $innerStyles->{$cssSelector}->getGeneralCss('normal');
+				$generalCss = $innerStyles->{$cssSelector}->getGeneralCss('normal');
+				// Add SVG selector and css
+				$svgCss = $this->getSvgCss( $cssSelector );
+				$this->selectorCssList[ '.' . $this->getStyleSelector() . ' .' . $this->camelCaseToHyphenated( $cssSelector ) ] = array_merge_recursive( $generalCss, $svgCss );
 			}
 		}
 
@@ -66,5 +69,16 @@ class Component extends Element
 	public function camelCaseToHyphenated( $inputString ) {
 		$hyphenatedString = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $inputString));
 		return $hyphenatedString;
+	}
+
+	/**
+	 * Get styles of svg
+	 *
+	 * @return array|array[]
+	 * @throws \JsonMapper_Exception
+	 */
+	protected function getSvgCss( $cssSelector ) {
+		// Get styles list from styles property
+		return ! empty( $this->innerStyles->{$cssSelector} ) ? $this->innerStyles->{$cssSelector}->getSvgCss() : [];
 	}
 }

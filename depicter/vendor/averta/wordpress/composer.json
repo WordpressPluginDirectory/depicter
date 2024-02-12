@@ -17,7 +17,7 @@
     "require" : {
         "php": ">=7.0",
         "ext-mbstring": "*",
-        "psr/simple-cache":"^1",
+        "psr/simple-cache":"*",
         "psr/http-message":"^1"
     },
     "require-dev": {

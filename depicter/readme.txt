@@ -4,7 +4,7 @@ Tags: slider, image slider, wordpress slider, post slider, video slider, gallery
 Requires at least: 4.9.0
 Tested up to: WordPress 6.4.2
 Requires PHP: 7.2.5
-Stable tag: 2.1.0
+Stable tag: 2.1.2
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,8 +64,21 @@ Bugs can be reported in our [support forums](https://wordpress.org/support/plugi
 
 **Latest release notes:**
 
+###2.1.2
+- *Released: 2024-02-12*
+- **Added**
+- Introducing frames, now, you can add different frames to the photos to make custom masks.
+- You now have the option to add a progress indicator with a story-like format on your sliders.
+- Circle-timer control is added. Now, you can add a circle-timer to your auto slideshow sliders.
+- Now you can add hover color to the element borders too.
+- **Improved**
+- Improved antialiasing on sliders with a visible nearby option enabled.
+- Improved rendering 3D Parallax effect.
+- **Fixed**
+- Fixed an issue with navigating direction through slides by arrow controls.
+
 ###2.1.0
-- *Released: 2024-01-24*
+- *Released: 2024-01-29*
 - **Added**
 - Countdown timers are now available, allowing you to create and display countdowns easily.
 - You can now enhance your content with a new number counter feature, providing dynamic numerical elements.
