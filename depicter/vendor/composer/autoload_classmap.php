@@ -252,6 +252,7 @@ return array(
     'Depicter\\Document\\Models\\Elements\\Rating' => $baseDir . '/app/src/Document/Models/Elements/Rating.php',
     'Depicter\\Document\\Models\\Elements\\Scroll' => $baseDir . '/app/src/Document/Models/Elements/Scroll.php',
     'Depicter\\Document\\Models\\Elements\\Shape' => $baseDir . '/app/src/Document/Models/Elements/Shape.php',
+    'Depicter\\Document\\Models\\Elements\\Svg' => $baseDir . '/app/src/Document/Models/Elements/Svg.php',
     'Depicter\\Document\\Models\\Elements\\Symbol' => $baseDir . '/app/src/Document/Models/Elements/Symbol.php',
     'Depicter\\Document\\Models\\Elements\\TagList' => $baseDir . '/app/src/Document/Models/Elements/TagList.php',
     'Depicter\\Document\\Models\\Elements\\Text' => $baseDir . '/app/src/Document/Models/Elements/Text.php',

@@ -4,7 +4,7 @@ Tags: slider, image slider, wordpress slider, post slider, video slider, gallery
 Requires at least: 4.9.0
 Tested up to: WordPress 6.4.2
 Requires PHP: 7.2.5
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,8 +64,8 @@ Bugs can be reported in our [support forums](https://wordpress.org/support/plugi
 
 **Latest release notes:**
 
-###2.1.2
-- *Released: 2024-02-12*
+###2.1.3
+- *Released: 2024-02-13*
 - **Added**
 - Introducing frames, now, you can add different frames to the photos to make custom masks.
 - You now have the option to add a progress indicator with a story-like format on your sliders.
