@@ -84,7 +84,8 @@ class Products extends Posts implements DataSourceInterface {
 		    'post__in'        => $args['includedIds'],
 		    'post__not_in'    => $args['excludedIds'],
 		    'tax_query'       => [],
-			'meta_query'      => []
+			'meta_query'      => [],
+			'post_status'	  => 'publish'
 	    ];
 
 		if ( !empty( $args['taxonomies'] ) ) {

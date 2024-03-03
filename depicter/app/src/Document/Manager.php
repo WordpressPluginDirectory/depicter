@@ -47,7 +47,7 @@ class Manager
 	 * @throws EntityException
 	 */
 	public function getEditorData( $documentId, $where = [] ){
-		if( ! $documentEditorJson = $this->repository()->geContent( $documentId, $where ) ){
+		if( ! $documentEditorJson = $this->repository()->getContent( $documentId, $where ) ){
 			throw new DocumentNoContentException( 'No content yet.', 0, $where );
 		}
 		$data =  JSON::decode( $documentEditorJson, false );
@@ -65,7 +65,7 @@ class Manager
 	 */
 	public function getEditorRawData( $documentId, $where = [] ){
 		try{
-			if( ! $documentEditorJson = $this->repository()->geContent( $documentId, $where ) ){
+			if( ! $documentEditorJson = $this->repository()->getContent( $documentId, $where ) ){
 				return '';
 			}
 		} catch( \Exception $e ){

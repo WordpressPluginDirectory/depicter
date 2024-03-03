@@ -6,8 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WPEmerge\\' => array($vendorDir . '/htmlburger/wpemerge/src'),
-    'WPEmergeTestTools\\' => array($vendorDir . '/htmlburger/wpemerge/tests/tools'),
+    'WPEmerge\\' => array($vendorDir . '/averta/wpemerge/src'),
+    'WPEmergeTestTools\\' => array($vendorDir . '/averta/wpemerge/tests/tools'),
     'WPEmergeAppCore\\' => array($baseDir . '/modules/wpemerge-app-core/src'),
     'TypeRocket\\' => array($vendorDir . '/typerocket/core/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
@@ -20,7 +20,7 @@ return array(
     'Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src', $vendorDir . '/psr/http-factory/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'Depicter\\Psr\\' => array($baseDir . '/modules/Psr'),

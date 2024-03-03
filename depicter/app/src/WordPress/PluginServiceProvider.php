@@ -21,6 +21,11 @@ class PluginServiceProvider implements ServiceProviderInterface
 		};
 		$app->alias( 'options', 'depicter.options' );
 
+		$container[ 'depicter.wp.cli.service' ] = function () {
+			return new WPCliService();
+		};
+		$app->alias( 'cli', 'depicter.wp.cli.service' );
+
 	}
 
 	/**
@@ -33,6 +38,10 @@ class PluginServiceProvider implements ServiceProviderInterface
 		add_action( 'plugins_loaded', [$this, 'loadTextDomain'] );
 		add_action( 'admin_init', [ $this, 'check_plugin_upgrade_via_upload' ] );
 		add_filter( 'update_plugin_complete_actions', [ $this, 'add_depicter_link_after_upgrade'], 10, 1);
+
+		if ( defined('WP_CLI') && WP_CLI ) {
+			\WP_CLI::add_command( 'depicter', \Depicter::app()->cli() );
+		}
 	}
 
 	/**

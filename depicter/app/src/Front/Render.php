@@ -30,21 +30,17 @@ class Render
 	public function document( $documentID = 0, $args = [] ){
 		$isPrivilegedUser = \Depicter::authorization()->currentUserCanPublishDocument();
 
-		$defaults = [
+		$args = Arr::merge( $args, [
 			'loadStyleMode' => 'auto',// ["auto", "inline", "file"]."auto" loads custom css if available, otherwise prints styles inline
 			'useCache'      => true,
 			'echo'          => true,
 			'status'        => 'publish',
 			'showUnpublishedNotice' => $isPrivilegedUser
-		];
+		]);
 
-		$args = Arr::merge( $args, $defaults );
-
-		$args['isPrivilegedUser'] = $isPrivilegedUser;
-
-		if ( $isPrivilegedUser ) {
-			$args['status'] = ['publish', 'draft', 'future'];
-			$args['useCache'] = false;
+		if ( $args['isPrivilegedUser'] = $isPrivilegedUser ) {
+			$args['status']        = ['publish', 'draft', 'future'];
+			$args['useCache']      = false;
 			$args['loadStyleMode'] = 'inline';
 		}
 
@@ -76,19 +72,8 @@ class Render
 	        return esc_html__( 'Slider ID is required.', 'depicter' );
 	    }
 
-		$rule = \Depicter::metaRepository()->get( $documentID, 'rules', '' );
-		if ( JSON::isJson( $rule ) ) {
-			$rule = JSON::decode( $rule );
-			if ( ! $args['isPrivilegedUser'] && !empty( $rule->visibilitySchedule ) && !empty( $rule->visibilitySchedule->enable ) ) {
-				$visibilityTime = $rule->visibilitySchedule;
-				if ( !empty( $visibilityTime->start ) && ! \Depicter::schedule()->isDatePassed( $visibilityTime->start ) ) {
-					return '';
-				}
-
-				if ( !empty( $visibilityTime->end ) && \Depicter::schedule()->isDatePassed( $visibilityTime->end ) ) {
-					return '';
-				}
-			}
+		if( ! \Depicter::document()->displayRules( $documentID )->isVisible( $args ) ){
+			return '';
 		}
 
 		if( $args['useCache'] && ( false !== $cacheOutput = $this->getDocumentCache( $documentID, $args ) ) ){
@@ -97,6 +82,7 @@ class Render
 
 		$output = '';
 		$where  = [ 'status' => $args['status'] ];
+
 		$styleGeneratorArgs = isset( $args['addImportant'] ) ? [ 'addImportant' => $args['addImportant'] ] : [];
 
 		try{
@@ -109,7 +95,7 @@ class Render
 			}
 
 			if( $documentModel = \Depicter::document()->getModel( $documentID, $where ) ){
-				
+
 				$documentModel->setUnpublishedNotice( $args['showUnpublishedNotice'] );
 
 				$output .= $documentModel->prepare()->render();
@@ -160,7 +146,6 @@ class Render
 		return $output;
 	}
 
-
 	/**
 	 * Retrieves the cached markup and enqueues custom styles
 	 *
@@ -170,7 +155,7 @@ class Render
 	 * @return bool|mixed
 	 */
 	protected function getDocumentCache( $documentID, $args = [] ){
-		if( ( false !== $cacheOutput = $this->cache->get( $documentID ."_". $args['loadStyleMode'] ) ) && !empty( $cacheOutput ) ){
+		if( ( false !== $cacheOutput = $this->cache->get( $this->getDocumentCacheKey( $documentID, $args ) ) ) && !empty( $cacheOutput ) ){
 			return $cacheOutput;
 		}
 		return false;
@@ -185,8 +170,8 @@ class Render
 	 *
 	 * @return bool
 	 */
-	protected function setDocumentCache( $documentID, $content, $args = [] ){
-		return $this->cache->set( $documentID ."_". $args['loadStyleMode'], $content, WEEK_IN_SECONDS );
+	protected function setDocumentCache( $documentID, $content, $args = [] ): bool{
+		return $this->cache->set( $this->getDocumentCacheKey( $documentID, $args ), $content, 4 * DAY_IN_SECONDS );
 	}
 
 	/**
@@ -198,7 +183,7 @@ class Render
 	 * @return bool
 	 */
 	protected function deleteDocumentCache( $documentID, $args = [] ){
-		return $this->cache->delete( $documentID ."_". $args['loadStyleMode'] );
+		return $this->cache->delete( $this->getDocumentCacheKey( $documentID, $args ) );
 	}
 
 	/**
@@ -212,4 +197,18 @@ class Render
 		$this->cache->delete( $documentID ."_css_files" );
 	}
 
+	protected function getDocumentCacheKey( $documentID = '', $args = [] ){
+		// type of loading style
+		$loadStyleMode = $args['loadStyleMode'] ?? 'auto';
+		// whether addImportant option is enabled for styles or not
+		$addImportant  = !empty( $args['addImportant'] ) ? '1' : '0';
+		// If the cache is for logged-in users or not (visitors)
+		$cacheFor      = !empty( $args['isPrivilegedUser'] ) ? 'admin_' : '';
+		// Include admin notice in document markup or not
+		$isAdminNoticeEnabled = !empty( $args['showUnpublishedNotice'] ) ? 'notice_' : '';
+		// The last modified date of main document
+		$documentModifiedTime = strtotime( \Depicter::documentRepository()->getFieldValue( $documentID, 'modified_at') );
+
+		return "{$documentID}_{$loadStyleMode}_{$cacheFor}{$isAdminNoticeEnabled}{$addImportant}{$documentModifiedTime}";
+	}
 }

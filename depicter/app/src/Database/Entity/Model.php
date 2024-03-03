@@ -54,8 +54,12 @@ class Model extends BaseModel
     	$fields = Arr::merge( $fields, $this->autoFill );
 
         foreach( $fields as $name => $value ) {
-            if( ! empty( $this->format[ $name ] ) && is_callable( $this->format[ $name ] ) ){
-            	$fields[ $name ] = call_user_func( $this->format[ $name ], $value );
+            if( ! empty( $this->format[ $name ] ) ){
+				if( method_exists( $this, $this->format[ $name ] ) ){
+					$fields[ $name ] = call_user_func( [ $this, $this->format[ $name ] ], $value );
+				} elseif( is_callable( $this->format[ $name ] ) ) {
+            	    $fields[ $name ] = call_user_func( $this->format[ $name ], $value );
+				}
 			}
         }
 

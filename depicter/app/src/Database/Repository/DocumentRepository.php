@@ -704,7 +704,7 @@ class DocumentRepository
 	 * @return mixed
 	 * @throws DocumentNotFoundException
 	 */
-	public function geContent( int $documentId, array $where = [] ){
+	public function getContent( int $documentId, array $where = [] ){
 		if( ! $documentEntity = $this->findOne( $documentId, $where ) ){
 			if ( isset( $where['status'] ) && is_array( $where['status'] ) ) {
 				unset( $where['status'][0] );

@@ -90,7 +90,8 @@ class RemoteAPIService
 		}
 
 		$client = new Client([
-			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt'
+			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt',
+			'proxy' => $this->getProxy()
 		]);
 
 		$optionsWithAuth = Arr::merge( $options, $this->getDefaultOptions() );
@@ -124,7 +125,8 @@ class RemoteAPIService
 		}
 
 		$client = new Client([
-			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt'
+			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt',
+			'proxy' => $this->getProxy()
 		]);
 
 		$optionsWithAuth = Arr::merge( $options, $this->getDefaultOptions() );
@@ -138,6 +140,28 @@ class RemoteAPIService
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Get proxy config
+	 *
+	 * @return string|null
+	 */
+	public function getProxy() {
+
+		// Check if proxy constants are defined
+		$proxy = null;
+		if ( defined('WP_PROXY_HOST') && defined('WP_PROXY_PORT') ) {
+			$proxy = WP_PROXY_HOST . ':' . WP_PROXY_PORT;
+
+			// Add credentials if necessary
+			if ( defined('WP_PROXY_USERNAME') && defined('WP_PROXY_PASSWORD') ) {
+				$proxy = WP_PROXY_USERNAME . ':' . WP_PROXY_PASSWORD . '@' . $proxy;
+			}
+		}
+
+		return $proxy;
+
 	}
 
 	/**

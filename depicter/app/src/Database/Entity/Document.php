@@ -48,9 +48,9 @@ class Document extends Model
 	protected $cast = [];
 
 	protected $format = [
-        'name'         => 'static::sanitizeName',
-        'slug'         => 'static::sanitizeSlug',
-        'modified_at'  => 'static::currentDateTime'
+        'name'         => 'sanitizeName',
+        'slug'         => 'sanitizeSlug',
+        'modified_at'  => 'currentDateTime'
     ];
 
 	/**
@@ -63,12 +63,11 @@ class Document extends Model
     ];
 
 
-
-	public static function sanitizeName( $value ) {
+	public function sanitizeName( $value ) {
 		return Sanitize::plaintext( $value );
     }
 
-    public static function sanitizeSlug( $value ) {
+    public function sanitizeSlug( $value ) {
         $value = $value ?? 'document 1';
 		return Sanitize::slug( $value );
     }

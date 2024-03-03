@@ -166,7 +166,7 @@ class FileEdit extends File implements FileEditInterface
 		$this->crop_w = $width;
 		$this->crop_h = $height;
 
-		$cropped = $this->editor->crop( $x, $y, (int) $width, (int) $height );
+		$cropped = $this->editor->crop( (int) $x, (int) $y, (int) $width, (int) $height );
 		if ( is_wp_error( $cropped ) ) {
 			throw new ImageEditorException( $cropped->get_error_message() );
 		}

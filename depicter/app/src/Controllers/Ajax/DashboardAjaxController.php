@@ -89,6 +89,7 @@ class DashboardAjaxController {
 			$isDeleted = \Depicter::app()->documentRepository()->delete( $_id );
 
 			if ( $isDeleted ) {
+				\Depicter::metaRepository()->deleteAllMetaByDocumentID( $_id );
 				$result['hits'][] = $_id;
 				unlink( \Depicter::storage()->getPluginUploadsDirectory() . '/preview-images/' . $_id . '.png' );
 				// \Depicter::action()->do( 'depicter/dashboard/after/delete', $id, $properties, $result );

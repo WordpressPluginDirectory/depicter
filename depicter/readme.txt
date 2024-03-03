@@ -4,7 +4,7 @@ Tags: slider, image slider, wordpress slider, post slider, video slider, gallery
 Requires at least: 4.9.0
 Tested up to: WordPress 6.4.2
 Requires PHP: 7.2.5
-Stable tag: 2.1.3
+Stable tag: 2.1.5
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,15 @@ Bugs can be reported in our [support forums](https://wordpress.org/support/plugi
 == Changelog ==
 
 **Latest release notes:**
+
+###2.1.5
+- *Released: 2024-03-02*
+- **Added**
+- Added more blob style photo frames to the editor.
+- **Improved**
+- Improved activating slides when slideshow is enabled.
+- Private posts no longer appear in post sliders
+- Depicter now is fully compatible with PHP 8.2 and 8.3.
 
 ###2.1.3
 - *Released: 2024-02-13*

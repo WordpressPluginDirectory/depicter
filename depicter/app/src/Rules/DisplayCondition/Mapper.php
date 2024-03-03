@@ -95,7 +95,7 @@ class Mapper {
 	public function areMet( $value = null ){
 
 		$currentOperator = 'and';
-		$overAllCheck = false;
+		$overAllCheck = true;
 
 		if( ! empty( $this->displayConditionGroups ) ){
 

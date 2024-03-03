@@ -197,3 +197,11 @@ function depicter_disable_admin_bar() {
 }
 add_action( 'init', 'depicter_disable_admin_bar');
 
+add_action( 'admin_notices', 'depicter_upgrade_php_version_notice');
+function depicter_upgrade_php_version_notice() {
+	if ( version_compare( PHP_VERSION, '7.4', '>=' ) ) {
+		return;
+	}
+	echo Depicter::view('admin/notices/php-upgrade-notice')->toString();
+}
+

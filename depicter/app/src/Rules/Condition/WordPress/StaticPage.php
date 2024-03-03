@@ -79,7 +79,7 @@ class StaticPage extends ConditionBase
 				if( $page == 'all' ){
 					$isIncluded = is_home() || is_404() || is_search() || $this->is_blog() || is_privacy_policy();
 				} elseif( $page == 'is_home' ) {
-					$isIncluded = is_home();
+					$isIncluded = is_front_page();
 				} elseif( $page == 'is_404' ) {
 					$isIncluded = is_404();
 				} elseif( $page == 'is_search' ) {
@@ -106,6 +106,6 @@ class StaticPage extends ConditionBase
 	 * @return bool
 	 */
 	public function is_blog(): bool{
-		return ( is_archive() || is_author() || is_category() || is_tag()) && 'post' == get_post_type();
+		return ( is_archive() || is_author() || is_category() || is_tag() || is_home() ) && 'post' == get_post_type();
 	}
 }

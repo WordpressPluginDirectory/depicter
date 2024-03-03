@@ -54,7 +54,12 @@ if ( ! function_exists( 'depicter_requirements_satisfied' ) ) {
 	 * @return bool
 	 */
 	function depicter_check_opcache( $name ) {
-		if ( function_exists('opcache_get_status') && opcache_get_status() ) {
+
+		set_error_handler(function(){});
+		$has_opcache_status = function_exists('opcache_get_status') && opcache_get_status();
+		restore_error_handler();
+
+		if ( $has_opcache_status ) {
 			if ( ! function_exists('opcache_get_configuration') ){
 				return true;
 			}

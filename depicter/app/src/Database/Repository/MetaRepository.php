@@ -46,6 +46,33 @@ class MetaRepository
 
 	}
 
+	/**
+	 * Delete all meta fields by document ID and relation
+	 * @param $documentID
+	 * @param $relation
+	 *
+	 * @return array|false|int|object|null
+	 */
+	public function deleteAllMetaByDocumentID( $documentID, $relation = 'document' ) {
+		try {
+			return $this->meta()->where([
+	             [
+	                 'column'    => 'relation_id',
+	                 'operator'  => '=',
+	                 'value'     => $documentID
+	             ],
+	             'AND',
+	             [
+	                 'column'    => 'relation',
+	                 'operator'  => '=',
+	                 'value'     => $relation
+	             ]
+			 ])->delete();
+		} catch( Exception $e ){
+			return false;
+		}
+	}
+
     /**
 	 * Retrieves default fields
 	 *
