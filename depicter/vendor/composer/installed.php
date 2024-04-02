@@ -239,9 +239,9 @@
             'dev_requirement' => false,
         ),
         'symfony/string' => array(
-            'pretty_version' => 'v5.4.36',
-            'version' => '5.4.36.0',
-            'reference' => '4e232c83622bd8cd32b794216aa29d0d266d353b',
+            'pretty_version' => 'v5.4.35',
+            'version' => '5.4.35.0',
+            'reference' => 'c209c4d0559acce1c9a2067612cfb5d35756edc2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),

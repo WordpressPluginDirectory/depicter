@@ -1,6 +1,7 @@
 <?php
 namespace Depicter\Services;
 
+use Averta\WordPress\Utility\JSON;
 use Averta\WordPress\Utility\Sanitize;
 use GuzzleHttp\Psr7\UploadedFile;
 
@@ -125,7 +126,16 @@ class ImportService
 	 * @throws \Exception
 	 */
 	protected function importSlider( $importedIDs, $uploadPath ) {
-		$content = file_get_contents( $uploadPath . $this->importFolderName . '/data.json' );
+		$data = file_get_contents( $uploadPath . $this->importFolderName . '/data.json' );
+		$dataArray = JSON::decode( $data, true );
+		if ( ! isset( $dataArray['lastId'] ) ) {
+			$content = $dataArray['content'];
+			$type = $dataArray['type'] ?? 'custom';
+		} else {
+			$content = $data;
+			$type = 'custom';
+		}
+
 		$content = preg_replace( '/"activeBreakpoint":".+?"/', '"activeBreakpoint":"default"', $content );
 		preg_match_all( '/\"(source|src)\":\"(\d+)\"/', $content, $assets, PREG_SET_ORDER );
 		if ( !empty( $assets ) ) {
@@ -139,7 +149,8 @@ class ImportService
 		$document = \Depicter::documentRepository()->create();
 		$document->update([
 			'content' => $content,
-			'status' => 'publish'
+			'status' => 'publish',
+			'type' => $type
 		]);
 
 		return $document->id;

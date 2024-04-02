@@ -295,8 +295,8 @@ class Image extends Models\Element
 	protected function getImageEditOptions( $device = 'default' ){
 		$params = [];
 
-		$this->inheritedOptions['resizeW'] = $this->cropData->{$device}->mediaSize->width ?? null;
-		$this->inheritedOptions['resizeH'] = $this->cropData->{$device}->mediaSize->height ?? null;
+		$this->inheritedOptions['resizeW'] = ! empty( $this->cropData->{$device}->mediaSize->width ) ? round( $this->cropData->{$device}->mediaSize->width ) : null;
+		$this->inheritedOptions['resizeH'] = ! empty( $this->cropData->{$device}->mediaSize->height ) ? round( $this->cropData->{$device}->mediaSize->height ) : null;
 
 		if( $this->hasDataSheet() ){
 			$attachment = wp_get_attachment_image_src( $this->renderArgs['attachmentId'], 'full' );
@@ -315,11 +315,11 @@ class Image extends Models\Element
 		}
 
 		$params[] = $this->inheritedOptions['cropW'] = !empty( $this->size->{$device}->width->value  ) ?
-                                            $this->size->{$device}->width->value :
+                                            round( $this->size->{$device}->width->value ) :
                                             null;
 
 		$params[] = $this->inheritedOptions['cropH'] = !empty( $this->size->{$device}->height->value ) ?
-                                            $this->size->{$device}->height->value :
+                                            round( $this->size->{$device}->height->value ) :
                                             null;
 
 		$this->inheritedOptions['focalX'] = !empty( $this->cropData->{$device}->focalPoint->x ) ?
@@ -335,6 +335,20 @@ class Image extends Models\Element
 			'focalY' => $this->inheritedOptions['focalY']
 		];
 
+		/**
+		 * @example array [
+		 *		0 => resizeW
+		 *  	1 => resizeH
+		 *  	2 => cropW
+		 *  	3 => cropH
+		 * 		4 => [
+		 * 			0 => focalX
+		 * 			1 => focalY
+		 * 		]
+		 * ]
+		 */
+		$params[0] = $params[0] ?? $params[2];
+		$params[1] = $params[1] ?? $params[3]; 
 		return $params;
 	}
 

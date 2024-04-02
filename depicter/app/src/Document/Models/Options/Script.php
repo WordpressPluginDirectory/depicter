@@ -145,8 +145,8 @@ class Script
 			$attributes['navigator'] = $navigator;
 		}
 
-		$sliderName = 'dpPlayer';
-		$displayExtensionScript = $this->generateDisplayExtensionScript( $document, $sliderName );
+		$playerName = 'dpPlayer';
+		$displayExtensionScript = $this->generateDisplayExtensionScript( $document, $playerName );
 
 		if ( ! empty( $displayExtensionScript ) ) {
 			$attributes['detachBeforeInit'] = true;
@@ -156,14 +156,17 @@ class Script
 			$attributes['autoScroll'] = $document->options->navigation->autoScroll;
 		}
 
+		$basePath = \Depicter::core()->assets()->getUrl() . '/resources/scripts/player/';
+
 		$script  = "\n(window.depicterSetups = window.depicterSetups || []).push(function(){";
-		$script .= "\n\tconst $sliderName = Depicter.setup('.{$document->getSelector()}',\n\t\t";
+		$script .= "\n\tDepicter.basePath = '{$basePath}';";
+		$script .= "\n\tconst $playerName = Depicter.setup('.{$document->getSelector()}',\n\t\t";
 
 		$attributesString = JSON::encode( $attributes );
 
 		$script .= "{$attributesString}\n\t);\n";
 
-		$script .= $document->options->getCallbacks( $sliderName );
+		$script .= $document->options->getCallbacks( $playerName );
 
 		$script .= $displayExtensionScript;
 
@@ -174,13 +177,13 @@ class Script
 
 	/**
 	 * Generate display extension script
-	 * 
+	 *
 	 * @param Document $document
-	 * @param string   $sliderName
+	 * @param string   $playerName
 	 *
 	 * @return string
 	 */
-	public function generateDisplayExtensionScript( $document, $sliderName ) {
+	public function generateDisplayExtensionScript( $document, $playerName ) {
 
 		if ( ! $document->isDisplayExtension() ) {
 			return '';
@@ -212,6 +215,6 @@ class Script
 			}
 		}
 
-		return "\n\tDepicter.display( $sliderName, \n\t\t". JSON::encode( $extensionParams ). "{$triggerParams}\n\t);\n";
+		return "\n\tDepicter.display( $playerName, \n\t\t". JSON::encode( $extensionParams ). "{$triggerParams}\n\t);\n";
 	}
 }

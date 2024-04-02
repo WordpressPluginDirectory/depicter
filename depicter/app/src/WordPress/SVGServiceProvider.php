@@ -17,9 +17,9 @@ class SVGServiceProvider implements ServiceProviderInterface
 	 * {@inheritDoc}
 	 */
 	public function bootstrap( $container ) {
-		// Enable SVG support 
+		// Enable SVG support
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'checkFileType' ], 10, 4 );
-		add_filter( 'upload_mimes', [ $this, 'addSvgMimeType' ] );
+		add_filter( 'upload_mimes', [ $this, 'addExtraMimeType' ] );
 	}
 
 	/**
@@ -49,8 +49,10 @@ class SVGServiceProvider implements ServiceProviderInterface
 	 *
 	 * @return mixed
 	 */
-	public function addSvgMimeType( $mimes ){
-		$mimes['svg'] = 'image/svg+xml';
+	public function addExtraMimeType( $mimes ){
+		$mimes['svg']  = 'image/svg+xml';
+		$mimes['json'] = 'application/json';
+
 		return $mimes;
 	}
 

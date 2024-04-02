@@ -22,7 +22,7 @@ class ExportService
 		$zip = new \ZipArchive();
 		$tmp = tempnam('temp','zip');
 		$zip->open( $tmp, \ZipArchive::OVERWRITE );
-		$zip->addFromString( 'data.json', $sliderData['data'] );
+		$zip->addFromString( 'data.json', JSON::encode( $sliderData['data'] ) );
 		if ( !empty( $sliderData['assets'] ) ){
 			foreach( $sliderData['assets'] as $assetID ){
 				$attachmentUrl = wp_get_attachment_url( $assetID );
@@ -46,6 +46,7 @@ class ExportService
 	 * @throws EntityException
 	 */
 	protected function sliderData( $documentID ) {
+		$type = \Depicter::documentRepository()->getFieldValue( $documentID, 'type' );
 		$jsonContent = \Depicter::document()->getEditorData( $documentID );
 		$jsonContent = JSON::encode( $jsonContent );
 		$assetIDs = [];
@@ -58,7 +59,10 @@ class ExportService
 			}
 		}
 		return [
-			'data' => $jsonContent,
+			'data' => [
+				'content' => $jsonContent,
+				'type' => $type
+			],
 			'assets' => $assetIDs
 		];
 	}

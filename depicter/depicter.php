@@ -3,7 +3,7 @@
  * Plugin Name: Depicter
  * Plugin URI: https://depicter.com
  * Description: Make animated and interactive image slider, video slider, post slider and carousel which work smoothly across devices.
- * Version: 2.1.5
+ * Version: 2.1.6
  * Requires at least: 4.9
  * Requires PHP: 7.2.5
  * Author: Averta
@@ -17,7 +17,7 @@
  * @package Depicter
  */
 
-const DEPICTER_VERSION = '2.1.5';
+const DEPICTER_VERSION = '2.1.6';
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
