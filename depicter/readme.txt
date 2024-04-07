@@ -1,10 +1,10 @@
 === Slider and Carousel slider by Depicter ===
-Contributors: averta, averta_support, depicter1slidercarouselsupport
+Contributors: averta, averta_support
 Tags: slider, carousel slider, image slider, post slider, slideshow
 Requires at least: 4.9.0
-Tested up to: WordPress 6.4
+Tested up to: WordPress 6.3
 Requires PHP: 7.2.5
-Stable tag: 2.1.6
+Stable tag: 2.1.9
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
