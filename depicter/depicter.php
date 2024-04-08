@@ -3,11 +3,11 @@
  * Plugin Name: Depicter
  * Plugin URI: https://depicter.com
  * Description: Make animated and interactive image slider, video slider, post slider and carousel which work smoothly across devices.
- * Version: 2.1.9
+ * Version: 2.1.10
  * Requires at least: 4.9
  * Requires PHP: 7.2.5
  * Author: Averta
- * Author URI: http://averta.net
+ * Author URI: https://depicter.com
  * License: GPL-2.0-only
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: depicter
@@ -17,7 +17,7 @@
  * @package Depicter
  */
 
-const DEPICTER_VERSION = '2.1.9';
+const DEPICTER_VERSION = '2.1.10';
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
