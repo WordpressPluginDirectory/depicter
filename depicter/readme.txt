@@ -1,10 +1,10 @@
 === Slider and Carousel slider by Depicter ===
 Contributors: averta, averta_support
-Tags: slider, carousel slider, image slider, post slider, slideshow
+Tags: slider, carousel slider, woocommerce slider, post slider, popup builder
 Requires at least: 5.0.0
 Tested up to: WordPress 6.3.0
 Requires PHP: 7.2.5
-Stable tag: 2.1.10
+Stable tag: 2.1.11
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,8 +51,8 @@ Create a slider or slideshow in less than a minute!
 
 **Latest release notes:**
 
-###2.1.10
-- *Released: 2024-04-08*
+###2.1.11
+- *Released: 2024-04-13*
 - **Added**
 - Plugin preview and test drive on WordPress.org enabled.
 
