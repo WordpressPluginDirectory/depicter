@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'averta/core' => array(
-            'pretty_version' => '1.2.7',
-            'version' => '1.2.7.0',
-            'reference' => 'acb35601b38c054617d490c79674fb11b51d0e97',
+            'pretty_version' => '1.2.8',
+            'version' => '1.2.8.0',
+            'reference' => 'dce3e630d7f0b23e76cec2e057fcc5ec8b59be5a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../averta/core',
             'aliases' => array(),
@@ -101,9 +101,9 @@
             'dev_requirement' => false,
         ),
         'psr/http-factory' => array(
-            'pretty_version' => '1.0.2',
-            'version' => '1.0.2.0',
-            'reference' => 'e616d01114759c4c489f93b099585439f795fe35',
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '2b4765fddfe3b508ac62f829e852b1501d3f6e8a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/http-factory',
             'aliases' => array(),
@@ -239,9 +239,9 @@
             'dev_requirement' => false,
         ),
         'symfony/string' => array(
-            'pretty_version' => 'v5.4.35',
-            'version' => '5.4.35.0',
-            'reference' => 'c209c4d0559acce1c9a2067612cfb5d35756edc2',
+            'pretty_version' => 'v5.4.39',
+            'version' => '5.4.39.0',
+            'reference' => '495e71bae5862308051b9e63cc3e34078eed83ef',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),

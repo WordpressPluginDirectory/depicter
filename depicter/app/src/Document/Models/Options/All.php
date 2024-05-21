@@ -125,6 +125,18 @@ class All
 		return $this->stylesList;
 	}
 
+	public function getPrimaryContainerStyles() {
+		$this->stylesList = [];
+
+		// Collect styles for general options
+		if( $this->general ){
+			$this->general->setAllOptions( $this );
+			$this->stylesList = array_merge_recursive( $this->general->getPrimaryContainerStyles(), $this->stylesList );
+		}
+
+		return $this->stylesList;
+	}
+
 	/**
 	 * Get before init document styles
 	 *
@@ -160,7 +172,10 @@ class All
 		$this->general = $this->general ?? new General();
 		$this->general->setAllOptions( $this );
 
-		return $this->general->getMinHeightStyles();
+		$minHeightStyles = $this->general->getMinHeightStyles();
+		$carouselStyles = $this->general->getCarouselSectionStyles( $this->documentTypeOptions );
+		
+		return array_merge_recursive( $minHeightStyles, $carouselStyles );
 	}
 
 	/**

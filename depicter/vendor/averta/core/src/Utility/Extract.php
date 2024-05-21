@@ -57,4 +57,25 @@ class Extract
 		$host = implode( '.', $hostParts );
 		return trim( $host, '/' );
 	}
+
+    /**
+     * Extract payload of a JWT token
+     *
+     * @param string $jwt          JWT token
+     * @param bool   $associative  Convert the payload to associative array or object
+     *
+     * @return false|mixed         Returns the payload in array or object, False on failure
+     */
+    public static function JWTPayload( $jwt, $associative = true ) {
+        $tokenParts = explode('.', $jwt);
+        // make sure there are header, payload, and signature
+        if ( count( $tokenParts ) === 3 && !empty( $tokenParts[1] ) ) {
+            $base64UrlPayload = str_replace( ['-', '_'], ['+', '/'], $tokenParts[1] );
+            $jsonPayload = base64_decode( $base64UrlPayload );
+            return json_decode( $jsonPayload, $associative );
+        } else {
+            return false;
+        }
+    }
+
 }

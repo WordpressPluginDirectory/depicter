@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "averta/core",
-            "version": "1.2.7",
-            "version_normalized": "1.2.7.0",
+            "version": "1.2.8",
+            "version_normalized": "1.2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/averta-lab/php-core.git",
-                "reference": "acb35601b38c054617d490c79674fb11b51d0e97"
+                "reference": "dce3e630d7f0b23e76cec2e057fcc5ec8b59be5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/averta-lab/php-core/zipball/acb35601b38c054617d490c79674fb11b51d0e97",
-                "reference": "acb35601b38c054617d490c79674fb11b51d0e97",
+                "url": "https://api.github.com/repos/averta-lab/php-core/zipball/dce3e630d7f0b23e76cec2e057fcc5ec8b59be5a",
+                "reference": "dce3e630d7f0b23e76cec2e057fcc5ec8b59be5a",
                 "shasum": ""
             },
             "require": {
@@ -24,7 +24,7 @@
             "require-dev": {
                 "composer/installers": "^1"
             },
-            "time": "2024-01-31T09:45:29+00:00",
+            "time": "2024-04-29T13:10:00+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -53,7 +53,7 @@
             "support": {
                 "docs": "https://averta.net",
                 "issues": "https://github.com/averta-lab/php-core/issues",
-                "source": "https://github.com/averta-lab/php-core/tree/1.2.7"
+                "source": "https://github.com/averta-lab/php-core/tree/1.2.8"
             },
             "install-path": "../averta/core"
         },
@@ -700,31 +700,31 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2023-04-10T20:10:41+00:00",
+            "time": "2024-04-15T12:06:14+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Psr\\Http\\Message\\": "src/"
@@ -740,7 +740,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -752,7 +752,7 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
             "install-path": "../psr/http-factory"
         },
@@ -1565,17 +1565,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.35",
-            "version_normalized": "5.4.35.0",
+            "version": "v5.4.39",
+            "version_normalized": "5.4.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "c209c4d0559acce1c9a2067612cfb5d35756edc2"
+                "reference": "495e71bae5862308051b9e63cc3e34078eed83ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/c209c4d0559acce1c9a2067612cfb5d35756edc2",
-                "reference": "c209c4d0559acce1c9a2067612cfb5d35756edc2",
+                "url": "https://api.github.com/repos/symfony/string/zipball/495e71bae5862308051b9e63cc3e34078eed83ef",
+                "reference": "495e71bae5862308051b9e63cc3e34078eed83ef",
                 "shasum": ""
             },
             "require": {
@@ -1595,7 +1595,7 @@
                 "symfony/translation-contracts": "^1.1|^2",
                 "symfony/var-exporter": "^4.4|^5.0|^6.0"
             },
-            "time": "2024-01-23T13:51:25+00:00",
+            "time": "2024-04-18T08:26:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1634,7 +1634,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.4.35"
+                "source": "https://github.com/symfony/string/tree/v5.4.39"
             },
             "funding": [
                 {

@@ -1,44 +1,61 @@
-=== Slider and Carousel slider by Depicter ===
-Contributors: averta, averta_support
-Tags: slider, carousel slider, woocommerce slider, post slider, popup builder
-Requires at least: 5.0.0
-Tested up to: WordPress 6.3.0
-Requires PHP: 7.2.5
-Stable tag: 2.1.11
+=== Slider & Popup Builder by Depicter - Add Image Slider, Carousel Slider, Exit Intent Popup, Popup Modal, Coupon Popup, Post Slider Carousel ===
+Contributors: averta, averta_support, depicter1slider1support, depicter1carousel1popup1support
+Tags: slider, carousel slider, popup, post slider, slideshow
+Requires at least: 5.3.0
+Tested up to: WordPress 6.5.3
+Requires PHP: 7.4.0
+Stable tag: 3.0.0
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Slider plugin, make image slider, video slider, elementor slider carousel, post slider carousel, Divi slider carousel, product slider
+Build Stunning Slider and Popup. Exit intent Popup, Image slider carousel, video slider carousel, post slider carousel, product slider, promote popup
 
 == Description ==
-Create engaging WordPress sliders, carousels, and slideshows like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider, Elementor slider, Divi slider**, and more with Depicter Slider. Our slider plugin is easy to use, lightning-fast, and perfect for creating vibrant slideshows. See it in action and take your WordPress website to the next level!
+_Improve users engagement rate or sales by Depicter Slider and Popup builder._
+You can create engaging WordPress sliders, carousels, and slideshows like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider and Elementor slider**. And, converting **Popup and Notification Bar**, like **Exit intent popup, promotion popup, cart-abandonment popup, campaign promoting notification bar**
+[Depicter Website](https://depicter.com/) | [Templates](https://depicter.com/tempaltes) | [YouTube](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA) | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
+Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.com/popup) | [Carousel](https://depicter.com/carousel) | [Notification bar](https://depicter.com/notification-bar) | [Hero Section](https://depicter.com/hero-section)
+[youtube https://www.youtube.com/watch?v=P8Uzmed-jVc&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
 
-[youtube https://www.youtube.com/watch?v=yi_NjXKlvmg&keywords=slider,carousel]
-[Slider Templates 300+](https://depicter.com/templates "Live Templates WordPress Slider") | [Slider Features](https://depicter.com "Features of Depicter Slider") | [Videos](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA "Watch All Slider Videos") | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
-
-Depicter WordPress slider is the fastest growing slider and carousel WordPress plugin, enabling you to add **super lightweight**, **SEO friendly**, responsive WordPress video sliders and carousels that work on any device with super smooth transitions. This WordPress slider and carousel supports **touch navigation** with **swipe gesture** for an unparalleled experience.
-
-= Depicter Slider Features =
-- **Create WordPress Slider with AI**
-[youtube https://www.youtube.com/watch?v=kdR9Jw0yWjU&keywords=slider,carousel]
-Create a slider or slideshow in less than a minute!
-- **Lightweight & SEO-Friendly Slider** - Super lightweight and dependency-free slider and slideshow that delivers your content optimized for search engines.
-- **Visual Slider Builder** - Professional, yet simple and intuitive visual slider and slideshow builder.
-- **Comprehensive Slider Asset Library** - A huge and free library of 3.2M images, 30K videos, vectors, pre-built slider templates, and slider elements at your WordPress dashboard.
-- **Asset optimization** - Depicter slider utilizes WebP, Adaptive images, lazy loading, and parallel loading to ensure quick loading of your slider or carousel.
-[youtube https://www.youtube.com/watch?v=NNwtL_q-_hY&keywords=slider,carousel]
-- **Flexible Slider Layouts & Responsiveness** - Make a truly responsive and mobile-friendly slider or carousel that looks perfect across all devices.
-- **Animations & Interactivity** - Capture your users' attention by adding interaction with super smooth animations and interactive actions to your slider or slideshow.
-- **Versatile Video Player** - Add any type of video including self-hosted, YouTube, and Vimeo videos in your slider or carousel.
-- **Truly Customizable Slider** - Any part of your slider or carousel content, whether you want to create the slider from scratch or use a slider template, is fully customizable.
-- **Modern Image Editing Tools** - In Depicter slider builder you can crop images responsively and apply image filters within a few clicks!
-- **Comprehensive Navigation Slider Controls** - Add slider arrows, slider bullets, line timer, slider controls, and scroll indicators to your slider by drag and drop.
-- **Touch Swipe & Mouse Slider Navigation** - Depicter Slider supports mouse and keyboard navigation, super natural touch swipe and mouse swipe gestures.
-- **Fully Responsive Slider** - Adjust the slider content and layout of your slider to every device. You can deliver the most optimized experience for each visitor, no matter they see your slider on Desktop, Tablet, or Mobile.
-- **Create dynamic slider from data sources** - Depicter slider supports data sources to let you create, **post slider**, WooCommerce slider, product slider and carousel, page slider* and many more possibilities.
-- **Page builders compatibility** - Depicter slider, supports WordPress page builders so you can add a slider to the page with Elementor slider element, Divi Slider element, Beaver slider element, Oxygen slider element, and Depicter Slider Block.
-- **Embed video slider** - With Depicter Slider, you can create a slider that contains Vimeo or Youtube videos on each slide as a layer or slide background.
-- Help us translate Depicter Slider in [WordPress translation service](https://translate.wordpress.org/projects/wp-plugins/depicter/).
+### Explore Slider, Popup and more Templates
+- [Slider Templates](https://depicter.com/templates/#/sliders/all-sliders)
+- [Popup Templates](https://depicter.com/templates/#/sliders/all-sliders)
+- [Carousel Templates](https://depicter.com/templates/#/sliders/all-sliders)
+- [Notification bar Templates](https://depicter.com/templates/#/sliders/all-sliders)
+- [Hero Section Templates](https://depicter.com/templates/#/sliders/all-sliders)
+### Why Depicter?
+- **AI Powered** — It has AI, and it really works; you can create slider, popup _(soon)_, notification bar _(soon)_ with Depicter AI tool in seconds!
+  [youtube https://www.youtube.com/watch?v=kdR9Jw0yWjU&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
+- **Lightweight & SEO-Friendly** — It's super lightweight and dependency-free. Whether you create a slider, slideshow, popup, or notification bar, it delivers content optimized for search engines.
+- **One plugin with many possibilities** — Don't blow up your WordPress website with tons of plugins! This is a slider, popup builder, and notification bar builder plugin with countless possibilities to improve your WordPress website.
+- **Visual Builder** — Depicter comes with a professional, yet simple and intuitive visual builder that enables you to create sliders, popups, notification bars, carousels, hero section and slideshow.
+- **Asset optimization** - Depicter slider and Popup builder utilizes WebP, Adaptive images, lazy loading, and parallel loading to ensure quick loading of your slider, carousel or popup.
+- **Custom Fonts** - Using custom fonts on your website? Depicter editor takes care of them; you can access them with zero configurations to ensure your slider, popup, carousel content matches your site.
+### [Slider](https://depicter.com/slider) and [Carousel](https://depicter.net/carousel/) Features
+- **Responsive Slider and Carousel Layouts** - Ensure every slider and carousel is mobile-friendly and looks perfect on all devices.
+- **Slider and Carousel Animations** - Enhance sliders and carousels with engaging animations to capture user attention.
+- **Advanced Slider and Carousel Controls** - Equip sliders and carousels with comprehensive navigation options including arrows, bullets, and timers.
+- **Intuitive Slider and Carousel Navigation** - Depicter sliders and carousels support both touch swipe and mouse gestures for seamless interaction.
+- **Parallax Effects for Sliders and Carousels** - Apply scroll or 3D parallax effects to elements within sliders and carousels for dynamic visual impact.
+- **Fully Responsive Sliders and Carousels** - Optimize sliders and carousels for seamless display on desktops, tablets, or mobiles.
+- **Dynamic Slider and Carousel Content** - Create sliders and carousels with varied content, including post sliders, WooCommerce carousels, product sliders, and page carousels.
+- **WordPress Sliders and Carousels** - Build post sliders and carousels using WordPress posts or any custom post types for versatile content integration.
+- **Page builders compatibility** - Depicter slider, supports WordPress page builders so you can add a slider to the page with Elementor slider or carousel element, Divi Slider or carousel element, Beaver slider or carousel element, Oxygen slider or carousel element, and Depicter Slider or carousel Block.
+- **Video Backgrounds in Sliders and Carousels** - Incorporate Vimeo or YouTube videos as dynamic backgrounds in sliders and carousels.
+- **Slider and Carousel Scheduling** - Manage when sliders and carousels appear or are hidden on your site through precise scheduling.
+### [Popup](https://depicter.com/popup) and [Notification Bar](https://depicter.com/notification-bar) Features
+- **Variety of [popup templates](https://depicter.com/templates/#/sliders/all-sliders) and [notification bar templates](https://depicter.com/templates/#/sliders/all-sliders)** - You can kickstart building popup and notification bar by using Depicter popup and notification bar templates.
+- **Popup and notification bar display conditions** - With popup and notification bar display conditions, you can display targeted popups and notification bars to your audience based on their behavior and the pages they visit.
+- **Popup and notification bar audience targeting** - Target your popup and notification bar audience by device, browser, location, referral path, or custom cookie value.
+- **Popup and notification bar display scheduling** - Schedule the start and end time for your popup and notification bar display.
+- **Popup and notification bar triggers** - Depicter popup and notification bar builder gives you variety of different popup and notification bar triggers: **Exit intent popup and notification bar trigger**, **Scroll popup and notification bar trigger**, **Time on Page Popup and notification bar Trigger**, **Inactive Time Popup and notification bar Trigger**, **User Action Popup and notification bar Trigger**
+- **Control when popup and notification bar should reopen** - Supports:
+  - Open popup and notification bar on every visit
+  - Open popup and notification bar once
+  - Open popup and notification bar after a period
+- **Stepped Popup and notification bar** - Popup and notification bar builder enables creation of popups and notification bars with multiple steps to add interactions to your popup and notification bar content.
+- **Mobile friendly popups and notification bars** - You have full control over any pieces of your popup and notification bar content responsively.
+- **Popup and notification bar with Animations And Effects** - Depicter popup and notification bar builder gives your the possibility of adding animation or parallax effect to any popup and notification bar element besides option of defining different popup and notification bar opening and closing animations.
 
 
 == Screenshots ==
@@ -49,7 +66,25 @@ Create a slider or slideshow in less than a minute!
 
 == Changelog ==
 
-**Latest release notes:**
+###3.0.0
+- *Released: 2024-05-21*
+- **Added**
+- Create **Popups** and **Notification Bars**: Expand your content creation beyond sliders and carousels with new popup and notification bar features.
+- Improved **Carousels**: Enjoy smoother and more versatile carousel creation.
+- Custom JS Actions: Bind custom JavaScript actions to elements for enhanced interactivity.
+- Styling Options: Add box shadow and border radius to your sliders for a polished look.
+- Sticky Posts Filter: Use the sticky posts filter option for WordPress dynamic sources to highlight important posts.
+- **Lottie Animations**: Enhance your content with engaging Lottie animations.
+- iFrame Element: Embed third-party services seamlessly with the new iFrame element.
+- **Improved**
+- Visibility Options: Improved functionality for nearby visibility options, making it easier to manage element visibility.
+- Font Resizing: Enhanced resizing of font sizes using the transform tool in the editor for better control.
+- Element Selection: Improved element selection and deselection process in the editor for a smoother editing experience.
+- **Fixed**
+- Dropdown Controls: Fixed issues with opening dropdown controls in the editor UI.
+- Font Weight Changes: Resolved unwanted font weight changes when selecting multiple text elements.
+- Background Video: Fixed the issue with the section background video muted option.
+- Vimeo Player: Addressed autoplay and loop issues with the Vimeo video player.
 
 ###2.1.11
 - *Released: 2024-04-13*

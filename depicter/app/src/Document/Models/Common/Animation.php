@@ -47,7 +47,12 @@ class Animation
 		}
 
 		$params = $this->{$phase}->data->{$breakpoint}->params;
-		$params->type = $this->{$phase}->data->{$breakpoint}->type;
+
+		if ( \Depicter::auth()->isPaid() ) {
+			$params->type = $this->{$phase}->data->{$breakpoint}->type ?? 'move';
+		} else {
+			$params->type = 'move';
+		}
 
 		return JSON::encode( $params );
 	}

@@ -2,6 +2,7 @@
 namespace Depicter\Dashboard;
 
 use Averta\Core\Utility\Arr;
+use Averta\Core\Utility\Extract;
 use Averta\WordPress\Utility\Escape;
 use Averta\WordPress\Utility\JSON;
 use Averta\WordPress\Utility\Plugin;
@@ -86,7 +87,7 @@ class DashboardPage
 		}
 
 		if ( self::PAGE_ID . '-goto-support' === $_GET['page'] ) {
-			wp_redirect( 'https://depicter.com/?utm_source=wp-submenu#support' );
+			wp_redirect( 'https://wordpress.org/support/plugin/depicter/' );
 			die;
 		}
 
@@ -214,6 +215,11 @@ class DashboardPage
 			'_wpnonce' => wp_create_nonce( 'upgrade-plugin_depicter/depicter.php')
 		], self_admin_url('update.php') );
 
+		// retrieve refresh token
+		$refreshToken = \Depicter::cache('base')->get( 'refresh_token', null );
+		$refreshTokenPayload = Extract::JWTPayload( $refreshToken );
+		$displayReviewNotice = !empty( $refreshTokenPayload['ict'] ) && ( time() - date( $refreshTokenPayload['ict'] ) > 5 * DAY_IN_SECONDS );
+
 		wp_add_inline_script('depicter--dashboard', 'window.depicterEnv = '. JSON::encode(
 		    [
 				'wpVersion'   => $wp_version,
@@ -255,8 +261,11 @@ class DashboardPage
 				'tokens' => [
 					'idToken'      => \Depicter::cache('base')->get( 'id_token'     , null ),
 					'accessToken'  => \Depicter::cache('base')->get( 'access_token' , null ),
-					'refreshToken' => \Depicter::cache('base')->get( 'refresh_token', null )
+					'refreshToken' => $refreshToken
 				],
+				'display' => [
+                    'reviewNotice' => $displayReviewNotice
+                ]
 			]
 		), 'before' );
 

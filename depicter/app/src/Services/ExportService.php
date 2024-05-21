@@ -33,6 +33,12 @@ class ExportService
 				$zip->addFromString( 'assets/' . get_the_title( $assetID ) . '-' . $assetID . '.' . pathinfo( $attachmentUrl, PATHINFO_EXTENSION ), file_get_contents( $attachmentUrl ) );
 			}
 		}
+
+		if ( !empty( $sliderData['data']['jsonAssets'] ) ) {
+			foreach( $sliderData['data']['jsonAssets'] as $key => $jsonURL ) {
+				$zip->addFromString( 'assets/' . pathinfo( $jsonURL, PATHINFO_BASENAME ), file_get_contents( $jsonURL ) );
+			}
+		}
 		$zip->close();
 		return $tmp;
 	}
@@ -58,12 +64,25 @@ class ExportService
 				}
 			}
 		}
+
+		$jsonAssets = [];
+		if ( strpos( $jsonContent, 'dpcLottie') ) {
+			preg_match_all( '/"src":"(http[^"]+?.json)/', $jsonContent, $jsonFiles, PREG_SET_ORDER );
+			if ( !empty( $jsonFiles ) ) {
+				foreach( $jsonFiles as $jsonFile ) {
+					$jsonAssets[] = stripslashes( $jsonFile[1] );
+				}
+			}
+		}
+
 		return [
 			'data' => [
 				'content' => $jsonContent,
-				'type' => $type
+				'type' => $type,
+				'jsonAssets' => $jsonAssets,
+				"uploadURL" => \Depicter::storage()->uploads()->getBaseUrl()
 			],
-			'assets' => $assetIDs
+			'assets' => $assetIDs,
 		];
 	}
 }

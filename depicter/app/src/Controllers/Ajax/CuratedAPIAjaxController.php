@@ -80,7 +80,12 @@ class CuratedAPIAjaxController
 		];
 
 		try {
-			return \Depicter::json( AssetsAPIService::searchDocumentTemplates( $options ) );
+			$result = AssetsAPIService::searchDocumentTemplates( $options );
+			if ( $directory == 4 ) {
+				shuffle( $result['hits'] );
+			}
+			
+			return \Depicter::json( $result );
 
 		} catch ( \Exception  $exception ) {
 			$error = Http::getErrorExceptionResponse( $exception );

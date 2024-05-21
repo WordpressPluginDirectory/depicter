@@ -8,6 +8,7 @@ use Depicter\Document\Models\Document;
 
 class Script
 {
+
 	/**
 	 * @param Document $document
 	 *
@@ -21,6 +22,7 @@ class Script
 		$attributes = [
 			'width'             => $width,
 			'height'            => $height,
+			'view'              => 'basic',
 			'keepAspectRatio'   => $document->options->general->keepAspect ?? false,
 			'preload'           => isset( $document->options->loading ) ? $document->options->loading->getValue() : 0,
 			'layout'            => $document->options->getLayout(),
@@ -32,8 +34,10 @@ class Script
 			$attributes['disableAnimations'] = true;
 		}
 
-		if( isset( $document->options->sectionTransition->type ) ){
-			$attributes['view'] = !empty( $document->options->sectionTransition->type ) ? $document->options->sectionTransition->type : 'basic';
+		if ( ! empty( $document->options->sectionTransition->type ) ) {
+			if ( \Depicter::auth()->isPaid() ) {
+				$attributes['view'] = $document->options->sectionTransition->type;
+			}
 		}
 
 		// viewOptions property
@@ -77,6 +81,10 @@ class Script
 
 		if( $viewOptions ){
 			$attributes['viewOptions'] = $viewOptions;
+		}
+
+		if( isset( $document->options->stretch ) ){
+			$attributes['stretch'] = $document->options->stretch ?? true;
 		}
 
 		// slideShow property
@@ -156,6 +164,16 @@ class Script
 			$attributes['autoScroll'] = $document->options->navigation->autoScroll;
 		}
 
+		if ( isset( $document->options->documentTypeOptions->carousel ) ) {
+			foreach( $document->options->documentTypeOptions->carousel as $key => $value ) {
+				if ( $key == 'styles' ) {
+					continue;
+				}
+
+				$attributes['carouselOptions'][ $key ] = $value;
+			}
+		}
+
 		$basePath = \Depicter::core()->assets()->getUrl() . '/resources/scripts/player/';
 
 		$script  = "\n(window.depicterSetups = window.depicterSetups || []).push(function(){";
@@ -170,6 +188,8 @@ class Script
 
 		$script .= $displayExtensionScript;
 
+		$script .= $this->generateCustomJSActionsScript( $document );
+		
 		$script .= "});\n";
 
 		return $script;
@@ -216,5 +236,26 @@ class Script
 		}
 
 		return "\n\tDepicter.display( $playerName, \n\t\t". JSON::encode( $extensionParams ). "{$triggerParams}\n\t);\n";
+	}
+
+	/**
+	 * Generate custom JS Actions defined by user
+	 *
+	 * @param object $document
+	 * @return string $script
+	 */
+	public function generateCustomJSActionsScript( $document ) {
+		$script = '';
+		foreach ( $document->elements as $key => $element ) {
+			if ( ! empty( $element->actions ) ) {
+				foreach ( $element->actions as $actionKey => $action ) {
+					if ( $action->type == 'customJS' ) {
+						$script .= "\n\tDepicter.jsActions['" . $actionKey . "'] = function(){\n\t\t" . $action->options->value . "\n\t}\n";
+					}
+				}
+			}
+		}
+
+		return $script;
 	}
 }

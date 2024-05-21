@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Depicter
  * Plugin URI: https://depicter.com
- * Description: Make animated and interactive image slider, video slider, post slider and carousel which work smoothly across devices.
- * Version: 2.1.11
- * Requires at least: 5.0
- * Requires PHP: 7.2.5
- * Author: Averta
+ * Description: Build stunning sliders, popups, carousels, video sliders, post sliders, and WooCommerce sliders fast and easy.
+ * Version: 3.0.0
+ * Requires at least: 5.3
+ * Requires PHP: 7.4.0
+ * Author: Depicter Slider and Popup by Averta
  * Author URI: https://depicter.com
  * License: GPL-2.0-only
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@
  * @package Depicter
  */
 
-const DEPICTER_VERSION = '2.1.11';
+const DEPICTER_VERSION = '3.0.0';
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

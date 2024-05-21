@@ -128,9 +128,15 @@ class ImportService
 	protected function importSlider( $importedIDs, $uploadPath ) {
 		$data = file_get_contents( $uploadPath . $this->importFolderName . '/data.json' );
 		$dataArray = JSON::decode( $data, true );
+		$oldUploadURL = '';
+		$jsonAssets = "";
+
 		if ( ! isset( $dataArray['lastId'] ) ) {
 			$content = $dataArray['content'];
 			$type = $dataArray['type'] ?? 'custom';
+			$oldUploadURL = $dataArray['uploadURL'];
+			$jsonAssets = $dataArray['jsonAssets'];
+
 		} else {
 			$content = $data;
 			$type = 'custom';
@@ -144,6 +150,13 @@ class ImportService
 					$content = str_replace( $asset[0], '"' . $asset[1] . '":"'. $importedIDs[ $asset[2] ] .'"', $content );
 				}
 			}
+		}
+
+		if ( !empty( $oldUploadURL ) && ! empty( $jsonAssets ) ) {
+			$oldUploadURL = str_replace( "/", "\\\\\\/", $oldUploadURL );
+			$pattern = "/$oldUploadURL\\\\\\/\\d+\\\\\\/\\d+\d+/";
+			$newUploadURL = str_replace( "/", "\\\\\\/", \Depicter::storage()->uploads()->getUrl() );
+			$content = preg_replace( $pattern, $newUploadURL, $content );
 		}
 
 		$document = \Depicter::documentRepository()->create();

@@ -30,7 +30,17 @@ class Helper
 			$action_params[] = (int) ! empty( $action['delay'] ) ? $action['delay'] : 0;
 
 			if( !empty( $action['options'] ) ){
-				 $action_params[] = $action['options'];
+				if ( $action['type'] == 'customJS' ) {
+					$customJS = $action['options']->value;
+					$action['options']->value = $key;
+				}
+
+				$action_params[] = clone $action['options'];
+
+				if ( $action['type'] == 'customJS' ) {
+					$action['options']->value = $customJS;
+				}
+				 
 			}
 
 			$output[] = $action_params;

@@ -170,6 +170,10 @@ function depicter_check_activation() {
 			\Depicter::client()->getRefreshToken( true );
 		}
     }
+	if ( isset( $_GET['depicter_flush_tokens'] ) ) {
+		\Depicter::client()->getRefreshToken( true );
+		\Depicter::client()->getAccessToken( true );
+	}
 }
 add_action( 'admin_init', 'depicter_check_activation' );
 

@@ -22,12 +22,12 @@ class TagList extends Element {
 	 */
 	protected function getContent(){
 		$args = [
-			'limit' => !empty( $this->options->tagList->limit ) ? Sanitize::int( $this->options->tagList->limit ) : '',
-			'linkTags' => !! ( $this->options->tagList->linkTags ?? true )
+			'limit' => !empty( $this->options->limit ) ? Sanitize::int( $this->options->limit ) : '',
+			'linkTags' => !! ( $this->options->linkTags ?? true )
 		];
 
-		if ( $this->options->tagList->useSeparator ?? true ) {
-			$args['separator'] = $this->options->tagList->separator ?? ',';
+		if ( $this->options->useSeparator ?? true ) {
+			$args['separator'] = $this->options->separator ?? ',';
 		}
 
 		return $this->maybeReplaceDataSheetTags( $this->options->content, null, $args );

@@ -332,6 +332,7 @@ class Document implements HydratableInterface
 		$this->stylesList[ '.'. $this->getStyleSelector() ]['beforeInitStyle'] = [
 			'.'. $this->getStyleSelector() => $this->options->getStyles(),
 			'.'. $this->getStyleSelector( true ) . ':not(.depicter-ready)' => $this->options->getBeforeInitStyles(), // styles to prevent FOUC. It should not have depicter-revert class in selector
+			'.'. $this->getStyleSelector() . ' .depicter-primary-container' => $this->options->getPrimaryContainerStyles(),
 		];
 
 		return $this->stylesList;

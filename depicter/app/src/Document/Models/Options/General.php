@@ -36,6 +36,21 @@ class General
 	public $backgroundColor = '';
 
 	/**
+	 * @var object
+	 */
+	public $borderRadius;
+
+	/**
+	 * @var object
+	 */
+	public $boxShadow;
+
+	/**
+	 * @var object
+	 */
+	public $margin;
+
+	/**
 	 * @var All
 	 */
 	protected $allOptions;
@@ -68,7 +83,30 @@ class General
 			$styles['default']['background-color'] = $this->backgroundColor;
 		}
 
+		if ( ! empty( $this->borderRadius ) ) {
+			if ( isset( $this->borderRadius->link ) && $this->borderRadius->link ) {
+				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit;
+			} elseif( isset( $this->borderRadius->topLeft ) ) {
+				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topLeft->value . $this->borderRadius->topLeft->unit ." ". $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit ." " . $this->borderRadius->bottomRight->value . $this->borderRadius->bottomRight->unit ." " .$this->borderRadius->bottomLeft->value . $this->borderRadius->bottomLeft->unit;
+			}
+		}
+
+		if ( ! empty( $this->boxShadow ) && $this->boxShadow->enable ) {
+			$styles['default']['box-shadow'] = $this->getBoxShadowStyle( $this->boxShadow );
+		}
+
 		return $styles;
+	}
+
+	public function getBoxShadowStyle( $boxShadow ) {
+		$offsetX = $boxShadow->offsetX ?? 10;
+		$offsetY = $boxShadow->offsetY ?? 10;
+		$blur = $boxShadow->blur ?? 25;
+		$spread = $boxShadow->spread ?? 0;
+		$color = $boxShadow->color ?? '#000';
+		$inset = !empty($boxShadow->inset) ? 'inset ' : '';
+
+		return $inset . $offsetX . "px " . $offsetY . 'px ' . $blur . 'px ' . $spread . 'px ' . $color;
 	}
 
 	public function getMinHeightStyles( $styles = [], $keepAspect = null ){
@@ -86,6 +124,37 @@ class General
 				if( ! empty( $this->minHeight->value ) && ( $device === 'default' || $height > $this->minHeight->value ) ){
 					$styles[ $device ]['min-height'] = $this->minHeight;
 				}
+			}
+		}
+
+		return $styles;
+	}
+
+	/**
+	 * Get carousel styles
+	 *
+	 * @param object $documentTypeOptions
+	 * @return array $styles
+	 */
+	public function getCarouselSectionStyles( $documentTypeOptions ) {
+		$styles = [
+			'default' => []
+		];
+
+		if ( ! isset( $documentTypeOptions->carousel->styles ) ) {
+			return $styles;
+		}
+
+		$sectionStyles = $documentTypeOptions->carousel->styles->section;
+		if ( ! empty( $sectionStyles->boxShadow->enable ) ) {
+			$styles['default']['box-shadow'] = $this->getBoxShadowStyle( $sectionStyles->boxShadow );
+		}
+
+		if ( ! empty( $sectionStyles->borderRadius ) ) {
+			if ( isset( $sectionStyles->borderRadius->link ) && $sectionStyles->borderRadius->link ) {
+				$styles[ 'default' ][ 'border-radius' ] = $sectionStyles->borderRadius->topRight->value . $sectionStyles->borderRadius->topRight->unit;
+			} elseif( isset( $sectionStyles->borderRadius->topLeft ) ) {
+				$styles[ 'default' ][ 'border-radius' ] = $sectionStyles->borderRadius->topLeft->value . $sectionStyles->borderRadius->topLeft->unit ." ". $sectionStyles->borderRadius->topRight->value . $sectionStyles->borderRadius->topRight->unit ." " . $sectionStyles->borderRadius->bottomRight->value . $sectionStyles->borderRadius->bottomRight->unit ." " .$sectionStyles->borderRadius->bottomLeft->value . $sectionStyles->borderRadius->bottomLeft->unit;
 			}
 		}
 
@@ -127,6 +196,24 @@ class General
 			}
 		}
 
+		return $styles;
+	}
+
+
+	public function getPrimaryContainerStyles() {
+		$styles = [
+			'default' => []
+		];
+
+		if ( ! empty( $this->margin ) ) {
+			if ( $this->margin->link ) {
+				$styles['default']['margin-top'] = $this->margin->top->value . $this->margin->top->unit;
+				$styles['default']['margin-bottom'] = $this->margin->top->value . $this->margin->top->unit;
+			} else {
+				$styles['default']['margin-top'] = $this->margin->top->value . $this->margin->top->unit;
+				$styles['default']['margin-bottom'] = $this->margin->bottom->value . $this->margin->bottom->unit;
+			}
+		}
 		return $styles;
 	}
 
