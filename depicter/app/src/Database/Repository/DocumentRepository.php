@@ -19,7 +19,7 @@ class DocumentRepository
 
 
 	public function __construct(){
-		$this->document = New Document();
+		$this->document = Document::new();
 	}
 
 	/**
@@ -29,7 +29,7 @@ class DocumentRepository
 	 */
 	public function document()
 	{
-		return new Document();
+		return Document::new();
 	}
 
 

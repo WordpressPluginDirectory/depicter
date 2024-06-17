@@ -1,7 +1,7 @@
 <?php
 namespace Depicter\Database\Entity;
 
-use TypeRocket\Models\Model;
+use Averta\WordPress\Database\Entity\Model;
 
 class Option extends Model
 {

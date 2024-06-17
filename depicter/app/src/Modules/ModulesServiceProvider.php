@@ -43,6 +43,8 @@ class ModulesServiceProvider implements ServiceProviderInterface {
 		add_action( 'init', [ $this, 'initDiviModule' ], 99 );
 
 		add_action( 'init', [ $this, 'loadOxygenModule' ] );
+
+		add_action( 'init', [ $this, 'loadBricksElements'], 11 );
 	}
 
 	/**
@@ -185,5 +187,13 @@ class ModulesServiceProvider implements ServiceProviderInterface {
 		if ( isset( $_GET['ct_builder'] ) ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueueEditorScripts' ] );
 		}
+	}
+
+	public function loadBricksElements() {
+		if ( ! class_exists( '\Bricks\Elements' ) ) {
+			return;
+		}
+
+		\Bricks\Elements::register_element( __DIR__ . '/Bricks/widget.php', );
 	}
 }

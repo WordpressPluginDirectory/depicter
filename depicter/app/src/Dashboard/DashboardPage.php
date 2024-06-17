@@ -248,6 +248,11 @@ class DashboardPage
 					'expiresAt'    => \Depicter::options()->get('subscription_expires_at' , ''),
 					'isNew'        => isset( $_GET['depicter_upgraded'] )
 				],
+				'subscription' => [
+					'id'        => \Depicter::options()->get('subscription_id', null),
+					'status'    => \Depicter::auth()->getSubscriptionStatus(),
+					'overdue'   => \Depicter::auth()->isSubscriptionExpired()
+				],
 			    'integrations' => [
 					'woocommerce' => [
 						'label' => __( 'WooCommerce Plugin', 'depicter' ),

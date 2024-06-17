@@ -7,10 +7,12 @@ use Averta\WordPress\Event\Action;
 use Averta\WordPress\Event\Filter;
 use Averta\WordPress\Models\WPOptions;
 use Depicter;
+use Depicter\Database\DataMigration;
 use Depicter\Database\Repository\DocumentRepository;
 use Depicter\Database\Repository\MetaRepository;
 use Depicter\Document\Manager as DocumentManager;
 use Depicter\DataSources\Manager as DataSources;
+use Depicter\Document\Migrations\DocumentMigration;
 use Depicter\Rules\Conditions\Manager as ConditionsManager;
 use Depicter\Editor\Editor;
 use Depicter\Editor\EditorData;
@@ -206,4 +208,9 @@ final class AppMixin
 	 * @return GeoLocateService
 	 */
 	public static function geoLocate(): GeoLocateService {}
+
+	/**
+	 * @return DocumentMigration
+	 */
+	public static function documentMigration(): DocumentMigration {}
 }

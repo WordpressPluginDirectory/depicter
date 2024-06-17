@@ -140,7 +140,9 @@ class EditorAjaxController implements RestMethodsInterface
 			            ->withStatus( 404 );
 		}
 
-		return Depicter::json( [ 'hits' => Arr::camelizeKeys( $document->getApiProperties(), '_' ) ] )
+		$hits = Arr::camelizeKeys( $document->getApiProperties(), '_' );
+		// $hits['content'] = Depicter::document()->migrations()->apply( $hits['content'] );
+		return Depicter::json( [ 'hits' =>  $hits ] )
 		                ->withHeader( 'X-Document-ID', $documentId )
 		                ->withStatus( 200 );
 	}

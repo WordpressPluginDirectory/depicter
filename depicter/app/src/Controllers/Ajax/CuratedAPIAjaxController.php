@@ -214,6 +214,10 @@ class CuratedAPIAjaxController
 				if ( !empty( $result->title ) ) {
 					$updateData['name'] = $result->title . ' ' . $document->getID();
 				}
+
+				if ( !empty( $result->type ) ) {
+					$updateData['type'] = $result->type;
+				}
 				if ( !empty( $result->image ) ) {
 					$previewImage = file_get_contents( $result->image );
 					\Depicter::storage()->filesystem()->write( \Depicter::documentRepository()->getPreviewImagePath( $document->getID() ) , $previewImage );

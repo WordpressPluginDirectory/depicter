@@ -56,7 +56,7 @@ class ClientService
 	}
 
 	/**
-	 * Get refresh token 
+	 * Get refresh token
 	 *
 	 * @param bool $force_check
 	 * @return string|bool
@@ -131,7 +131,7 @@ class ClientService
 	}
 
 	/**
-	 * Get id token 
+	 * Get id token
 	 *
 	 * @return string|bool
 	 */
@@ -141,7 +141,7 @@ class ClientService
 		if ( !empty( $idToken ) ) {
 			return $idToken;
 		}
-		
+
 		try{
 
 			$response = \Depicter::remote()->post( 'v2/token/id' );
@@ -212,13 +212,26 @@ class ClientService
 			$response = \Depicter::remote()->post( 'v1/client/validate/activation' );
 			$info = JSON::decode( $response->getBody(), true);
 
+
 			if( is_null( $info['success'] ) ){
 				\Depicter::options()->set('activation_error_message', '' );
 
 			} elseif ( ! empty( $info['data'] ) ) {
 				\Depicter::options()->set('subscription_status', $info['data']['status'] );
-				\Depicter::options()->set('subscription_expires_at', $info['data']['expires_at'] );
-				\Depicter::options()->set('user_tier', $info['data']['user_tier'] );
+
+				if ( !empty( $info['data']['expires_at'] ) ) {
+					\Depicter::options()->set('subscription_expires_at', $info['data']['expires_at'] );
+				}
+
+				if ( !empty( $info['data']['subscription_id'] ) ) {
+					\Depicter::options()->set('subscription_id', $info['data']['subscription_id'] );
+				}
+
+				if ( !empty( $info['data']['manual_renew'] ) ) {
+					\Depicter::options()->set('manual_renew', $info['data']['manual_renew'] );
+				}
+
+				\Depicter::options()->set('user_tier', $info['data']['user_tier'] ?? '' );
 				\Depicter::options()->set('activation_error_message', '' );
 
 				if ( $info['data']['status'] == 'active' ) {

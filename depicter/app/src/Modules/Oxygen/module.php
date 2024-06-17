@@ -39,7 +39,9 @@ class Module extends \OxyEl
 
             echo "<style>.oxy-depicter{ width: 100%; }</style>";
             if ( isset( $_GET['action'] ) && $_GET['action'] == 'oxy_render_oxy-depicter' ) {
-                echo '<iframe id="sliderIframe-' . $sliderID . '" style="width: 1px;min-width: 100%;" src="' . admin_url('admin-ajax.php') . '?action=depicter-document-preview&depicter-csrf=' . \Depicter::csrf()->getToken( \Depicter\Security\CSRF::EDITOR_ACTION ) . '&ID=' . $sliderID . '&status=draft|publish&gutenberg=true"></iframe>';
+                $iframeID = 'sliderIframe-' . $sliderID;
+                $iframeURL = admin_url('admin-ajax.php') . '?action=depicter-document-preview&depicter-csrf=' . \Depicter::csrf()->getToken( \Depicter\Security\CSRF::EDITOR_ACTION ) . '&ID=' . $sliderID . '&status=draft|publish&gutenberg=true';
+                echo '<iframe id="' . esc_attr( $iframeID ) . '" style="width: 1px;min-width: 100%;" src="' . esc_url( $iframeURL ) . '"></iframe>';
                 echo "<script>iFrameResize({}, '#sliderIframe-" . $sliderID . "')</script>";
             } else {
                 echo \Depicter::front()->render()->document( $sliderID, [ 'echo' => false ] );

@@ -51,6 +51,11 @@ class General
 	public $margin;
 
 	/**
+	 * @var object
+	 */
+	public $border;
+
+	/**
 	 * @var All
 	 */
 	protected $allOptions;
@@ -81,18 +86,6 @@ class General
 
 		if( $this->backgroundColor ){
 			$styles['default']['background-color'] = $this->backgroundColor;
-		}
-
-		if ( ! empty( $this->borderRadius ) ) {
-			if ( isset( $this->borderRadius->link ) && $this->borderRadius->link ) {
-				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit;
-			} elseif( isset( $this->borderRadius->topLeft ) ) {
-				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topLeft->value . $this->borderRadius->topLeft->unit ." ". $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit ." " . $this->borderRadius->bottomRight->value . $this->borderRadius->bottomRight->unit ." " .$this->borderRadius->bottomLeft->value . $this->borderRadius->bottomLeft->unit;
-			}
-		}
-
-		if ( ! empty( $this->boxShadow ) && $this->boxShadow->enable ) {
-			$styles['default']['box-shadow'] = $this->getBoxShadowStyle( $this->boxShadow );
 		}
 
 		return $styles;
@@ -158,6 +151,19 @@ class General
 			}
 		}
 
+		if ( ! empty( $sectionStyles->border->enabled ) ) {
+			$styles[ 'default' ][ 'border-style' ] = $sectionStyles->border->style ?? 'solid';
+			if ( isset( $sectionStyles->border->link ) && $sectionStyles->border->link ) {
+				$styles[ 'default' ][ 'border-width' ] = $sectionStyles->border->top->value . $sectionStyles->border->top->unit;
+			} else {
+				$styles[ 'default' ][ 'border-width' ] = $sectionStyles->border->top->value . $sectionStyles->border->top->unit ." ". $sectionStyles->border->right->value . $sectionStyles->border->right->unit ." " . $sectionStyles->border->bottom->value . $sectionStyles->border->bottom->unit ." " .$sectionStyles->border->left->value . $sectionStyles->border->left->unit;
+			}
+
+			if ( isset( $sectionStyles->border->color ) ) {
+				$styles[ 'default' ][ 'border-color' ] = $sectionStyles->border->color;
+			}
+		}
+
 		return $styles;
 	}
 
@@ -214,6 +220,37 @@ class General
 				$styles['default']['margin-bottom'] = $this->margin->bottom->value . $this->margin->bottom->unit;
 			}
 		}
+
+		if ( ! empty( $this->borderRadius ) ) {
+			if ( isset( $this->borderRadius->link ) && $this->borderRadius->link ) {
+				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit;
+			} elseif( isset( $this->borderRadius->topLeft ) ) {
+				$styles[ 'default' ][ 'border-radius' ] = $this->borderRadius->topLeft->value . $this->borderRadius->topLeft->unit ." ". $this->borderRadius->topRight->value . $this->borderRadius->topRight->unit ." " . $this->borderRadius->bottomRight->value . $this->borderRadius->bottomRight->unit ." " .$this->borderRadius->bottomLeft->value . $this->borderRadius->bottomLeft->unit;
+			}
+		}
+
+		if ( ! empty( $this->boxShadow ) && $this->boxShadow->enable ) {
+			$styles['default']['box-shadow'] = $this->getBoxShadowStyle( $this->boxShadow );
+		}
+
+		if ( ! empty( $this->border->enable ) ) {
+			$styles[ 'default' ][ 'border-style' ] = $this->border->style ?? 'solid';
+			if ( isset( $this->border->link ) && ! $this->border->link ) {
+				$styles[ 'default' ][ 'border-width' ] = ($this->border->top->value    ?? 1) . ($this->border->top->unit    ?? "px") ." ".
+				                                         ($this->border->right->value  ?? 1) . ($this->border->right->unit  ?? "px") ." ".
+				                                         ($this->border->bottom->value ?? 1) . ($this->border->bottom->unit ?? "px") ." ".
+				                                         ($this->border->left->value   ?? 1) . ($this->border->left->unit   ?? "px");
+			} else {
+				$styles[ 'default' ][ 'border-width' ] = ($this->border->top->value ?? 1) . ($this->border->top->unit ?? "px");
+
+			}
+
+			if ( isset( $this->border->color ) ) {
+				$styles[ 'default' ][ 'border-color' ] = $this->border->color;
+			}
+
+		}
+
 		return $styles;
 	}
 

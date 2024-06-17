@@ -1,6 +1,7 @@
 <?php
 namespace Depicter\Document;
 
+use Depicter\Document\Migrations\DocumentMigration;
 use WPEmerge\ServiceProviders\ServiceProviderInterface;
 
 /**
@@ -21,7 +22,12 @@ class ServiceProvider implements ServiceProviderInterface {
 			return new Manager();
 		};
 
+		$container[ 'depicter.document.data.migration' ] = function () {
+			return new DocumentMigration();
+		};
+
 		$app->alias( 'document', 'depicter.document.manager' );
+		$app->alias( 'documentMigration', 'depicter.document.data.migration' );
 	}
 
 	/**

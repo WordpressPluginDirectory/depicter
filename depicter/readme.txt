@@ -2,9 +2,9 @@
 Contributors: averta, averta_support, depicter1slider1support, depicter1carousel1popup1support
 Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
-Tested up to: WordPress 6.5.3
+Tested up to: WordPress 6.5.4
 Requires PHP: 7.4.0
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,16 +13,17 @@ Build Stunning Slider and Popup. Exit intent Popup, Image slider carousel, video
 == Description ==
 _Improve users engagement rate or sales by Depicter Slider and Popup builder._
 You can create engaging WordPress sliders, carousels, and slideshows like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider and Elementor slider**. And, converting **Popup and Notification Bar**, like **Exit intent popup, promotion popup, cart-abandonment popup, campaign promoting notification bar**
-[Depicter Website](https://depicter.com/) | [Templates](https://depicter.com/tempaltes) | [YouTube](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA) | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
-Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.com/popup) | [Carousel](https://depicter.com/carousel) | [Notification bar](https://depicter.com/notification-bar) | [Hero Section](https://depicter.com/hero-section)
+[Depicter Website](https://depicter.com/) | [Templates](https://depicter.com/templates/) | [YouTube](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA) | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
+
 [youtube https://www.youtube.com/watch?v=P8Uzmed-jVc&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
+Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.com/popup) | [Carousel](https://depicter.com/carousel) | [Notification bar](https://depicter.com/notification-bar) | [Hero Section](https://depicter.com/hero-section)
 
 ### Explore Slider, Popup and more Templates
 - [Slider Templates](https://depicter.com/templates/#/sliders/all-sliders)
-- [Popup Templates](https://depicter.com/templates/#/sliders/all-sliders)
-- [Carousel Templates](https://depicter.com/templates/#/sliders/all-sliders)
-- [Notification bar Templates](https://depicter.com/templates/#/sliders/all-sliders)
-- [Hero Section Templates](https://depicter.com/templates/#/sliders/all-sliders)
+- [Popup Templates](https://depicter.com/templates/#/popups/all-popups)
+- [Carousel Templates](https://depicter.com/templates/#/carousels/all-carousels)
+- [Notification bar Templates](https://depicter.com/templates/#/notification-bars/all-notification-bars)
+- [Hero Section Templates](https://depicter.com/templates/#/hero-sections/all-hero-sections)
 ### Why Depicter?
 - **AI Powered** — It has AI, and it really works; you can create slider, popup _(soon)_, notification bar _(soon)_ with Depicter AI tool in seconds!
   [youtube https://www.youtube.com/watch?v=kdR9Jw0yWjU&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
@@ -31,6 +32,8 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 - **Visual Builder** — Depicter comes with a professional, yet simple and intuitive visual builder that enables you to create sliders, popups, notification bars, carousels, hero section and slideshow.
 - **Asset optimization** - Depicter slider and Popup builder utilizes WebP, Adaptive images, lazy loading, and parallel loading to ensure quick loading of your slider, carousel or popup.
 - **Custom Fonts** - Using custom fonts on your website? Depicter editor takes care of them; you can access them with zero configurations to ensure your slider, popup, carousel content matches your site.
+
+[youtube https://www.youtube.com/watch?v=yi_NjXKlvmg&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
 ### [Slider](https://depicter.com/slider) and [Carousel](https://depicter.net/carousel/) Features
 - **Responsive Slider and Carousel Layouts** - Ensure every slider and carousel is mobile-friendly and looks perfect on all devices.
 - **Slider and Carousel Animations** - Enhance sliders and carousels with engaging animations to capture user attention.
@@ -44,7 +47,7 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 - **Video Backgrounds in Sliders and Carousels** - Incorporate Vimeo or YouTube videos as dynamic backgrounds in sliders and carousels.
 - **Slider and Carousel Scheduling** - Manage when sliders and carousels appear or are hidden on your site through precise scheduling.
 ### [Popup](https://depicter.com/popup) and [Notification Bar](https://depicter.com/notification-bar) Features
-- **Variety of [popup templates](https://depicter.com/templates/#/sliders/all-sliders) and [notification bar templates](https://depicter.com/templates/#/sliders/all-sliders)** - You can kickstart building popup and notification bar by using Depicter popup and notification bar templates.
+- **Variety of [popup templates](https://depicter.com/templates/#/popups/all-popups) and [notification bar templates](https://depicter.com/templates/#/notification-bars/all-notification-bars)** - You can kickstart building popup and notification bar by using Depicter popup and notification bar templates.
 - **Popup and notification bar display conditions** - With popup and notification bar display conditions, you can display targeted popups and notification bars to your audience based on their behavior and the pages they visit.
 - **Popup and notification bar audience targeting** - Target your popup and notification bar audience by device, browser, location, referral path, or custom cookie value.
 - **Popup and notification bar display scheduling** - Schedule the start and end time for your popup and notification bar display.
@@ -65,6 +68,20 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 
 
 == Changelog ==
+
+###3.1.0
+- *Released: 2024-06-17*
+- **Added**
+- Before and After Element: Showcase before and after states of photos interactively.
+- Alignment Controls: Easily align selected elements in the editor with new alignment controls.
+- Border Style Options: Apply border styles to your sliders, popups, and notification banners.
+- **Fixed**
+- Resolved an issue where the wrong blank popup and notification bar were displayed on the dashboard.
+
+###3.0.2
+- *Released: 2024-05-22*
+- **Fixed**
+- Access to display conditions of imported popup templates fixed.
 
 ###3.0.0
 - *Released: 2024-05-21*

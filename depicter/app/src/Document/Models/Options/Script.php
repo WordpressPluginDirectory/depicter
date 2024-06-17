@@ -174,6 +174,8 @@ class Script
 			}
 		}
 
+		$attributes['useWatermark'] = \Depicter::auth()->isSubscriptionExpired();
+
 		$basePath = \Depicter::core()->assets()->getUrl() . '/resources/scripts/player/';
 
 		$script  = "\n(window.depicterSetups = window.depicterSetups || []).push(function(){";
@@ -189,7 +191,7 @@ class Script
 		$script .= $displayExtensionScript;
 
 		$script .= $this->generateCustomJSActionsScript( $document );
-		
+
 		$script .= "});\n";
 
 		return $script;

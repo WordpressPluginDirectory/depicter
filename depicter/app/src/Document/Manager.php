@@ -130,6 +130,8 @@ class Manager
 			return false;
 		}
 
+		// $editorDataArray = \Depicter::document()->migrations()->apply( $editorDataArray );
+
 		$editorDataArray->startSection = $startSection;
 
 		// make document model base on editor data
@@ -232,5 +234,14 @@ class Manager
 		\Depicter::cache('base')->set( '_conditional_document_ids', $conditionalDocumentIDs, HOUR_IN_SECONDS );
 
 		return $conditionalDocumentIDs;
+	}
+
+	/**
+	 * do migration related to document Data
+	 *
+	 * @return \Depicter\Document\Migrations\DocumentMigration
+	 */
+	public function migrations() {
+		return \Depicter::documentMigration();
 	}
 }

@@ -33,7 +33,8 @@ class ServiceProvider implements ServiceProviderInterface
 			foreach( $documentIDs as $documentID ) {
 				if ( !empty( $_GET['dp-disable-popups'] ) ) {
 					try{
-						if (\Depicter::documentRepository()->findOne( $documentID )->getProperty('type') == 'popup' ) {
+						$documentType = \Depicter::documentRepository()->findOne( $documentID )->getProperty('type');
+						if ( in_array( $documentType, ['popup', 'banner-bar'] ) ) {
 							continue;
 						}
 					}catch( \Exception $e ){

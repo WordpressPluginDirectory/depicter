@@ -54,6 +54,36 @@ class AuthenticationService {
 	}
 
 	/**
+	 * Retrieves subscription status
+	 *
+	 * @return string
+	 */
+	public function getSubscriptionStatus(){
+
+		if( $subExpiresAt = \Depicter::options()->get('subscription_expires_at' , '') ){
+			$subExpiresAtTimestamp = strtotime($subExpiresAt." UTC");
+			$afterExpirationInSeconds = time() - $subExpiresAtTimestamp;
+			
+			if( $afterExpirationInSeconds > 5 * DAY_IN_SECONDS ) {
+				return 'expired';
+			} elseif( $afterExpirationInSeconds > 0 ){
+				return 'expired-early';
+			}
+		}
+
+		return $subExpiresAt;
+	}
+
+	/**
+	 * If current subscription is expired
+	 *
+	 * @return bool
+	 */
+	public function isSubscriptionExpired(){
+		return $this->getSubscriptionStatus() === 'expired';
+	}
+
+	/**
 	 * Get client key
 	 *
 	 * @return string

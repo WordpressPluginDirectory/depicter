@@ -13,7 +13,7 @@ class MetaRepository
 
 
 	public function __construct(){
-		$this->meta = New Meta();
+		$this->meta = Meta::new();
 	}
 
 	/**

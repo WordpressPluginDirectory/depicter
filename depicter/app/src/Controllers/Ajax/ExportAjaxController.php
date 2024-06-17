@@ -15,6 +15,12 @@ class ExportAjaxController
 	 * @return \Psr\Http\Message\ResponseInterface|void
 	 */
 	public function pack( RequestInterface $request, $view ) {
+		if ( ! apply_filters( 'depicter/can/export', true ) ) {
+			return \Depicter::json([
+				'errors' => [ 'Export service is disabled.' ]
+			]);
+		}
+
 		$documentID = Sanitize::textfield( $request->query('id') );
 
 		try {

@@ -209,3 +209,16 @@ function depicter_upgrade_php_version_notice() {
 	echo Depicter::view('admin/notices/php-upgrade-notice')->toString();
 }
 
+
+add_action( 'admin_notices', 'depicter_renew_subscription_notice');
+function depicter_renew_subscription_notice() {
+	$expiresAt = \Depicter::options()->get('subscription_expires_at' , '');
+	if ( empty( $expiresAt ) || strtotime( $expiresAt ) > time() ) {
+		return;
+	}
+	
+	$subscription_id = \Depicter::options()->get('subscription_id' , '');
+	echo Depicter::view('admin/notices/renew-subscription-notice')->with( 'view_args', [
+		'subscription_id' => $subscription_id
+	])->toString();
+}

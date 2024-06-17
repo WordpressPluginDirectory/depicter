@@ -174,7 +174,7 @@ class All
 
 		$minHeightStyles = $this->general->getMinHeightStyles();
 		$carouselStyles = $this->general->getCarouselSectionStyles( $this->documentTypeOptions );
-		
+
 		return array_merge_recursive( $minHeightStyles, $carouselStyles );
 	}
 

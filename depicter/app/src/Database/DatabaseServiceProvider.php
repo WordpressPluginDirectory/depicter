@@ -2,6 +2,7 @@
 
 namespace Depicter\Database;
 
+use Averta\WordPress\Database\ORM\ORM;
 use Depicter\Database\Repository\DocumentRepository;
 use Depicter\Database\Repository\MetaRepository;
 use WPEmerge\ServiceProviders\ServiceProviderInterface;
@@ -42,6 +43,8 @@ class DatabaseServiceProvider implements ServiceProviderInterface {
 		register_activation_hook( DEPICTER_PLUGIN_FILE, [ $this, 'activate' ] );
 		add_action( 'wp_insert_site', [ $this, 'activateSingle' ] );
 		add_action( 'depicter/plugin/updated', [ $this, 'migrate' ] );
+
+		add_action( 'plugins_loaded', [ ORM::class, 'init'] );
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php
 namespace Depicter\Database\Entity;
 
+use Averta\WordPress\Database\Entity\Model;
 use Averta\WordPress\Utility\Sanitize;
 
 class Document extends Model

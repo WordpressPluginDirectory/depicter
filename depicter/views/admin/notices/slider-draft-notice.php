@@ -40,9 +40,6 @@ extract( $view_args );
 
 <style>
 .depicter-notice-wrapper{
-    position: absolute !important;
-    top: 20px !important;
-    left: 20px !important;
     display: flex !important;
     align-items: flex-start !important;
     background-color: #F7BA19 !important;
@@ -50,7 +47,6 @@ extract( $view_args );
     padding: 10px !important;
     box-shadow: 5px 10px 30px #00000026 !important;
     max-width: 600px !important;
-    z-index: 50 !important;
 }
 
 .depicter-notice-wrapper span {

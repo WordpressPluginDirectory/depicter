@@ -10,13 +10,13 @@ use Depicter\Document\CSS\Selector;
 use Depicter\Document\Models\Common\Animation;
 use Depicter\Document\Models\Options\Loading;
 use Depicter\Document\Models\Options\Script;
-use Depicter\Document\Models\Traits\UnPublishedNoticeTrait;
+use Depicter\Document\Models\Traits\DocumentAdminNoticeTrait;
 use Depicter\Html\Html;
 use Depicter\Services\StyleGeneratorService;
 
 class Document implements HydratableInterface
 {
-	use UnPublishedNoticeTrait;
+	use DocumentAdminNoticeTrait;
 
 
 	/**
@@ -213,7 +213,25 @@ class Document implements HydratableInterface
 	 */
 	protected function renderNotice(){
 		$notice = $this->getUnpublishedChangesNotice();
-		$this->html->nest( "\n" . $notice );
+		$notice .= $this->getExpiredSubscriptionNotice();
+		if ( !empty( $notice ) ) {
+			$style = Html::style([],'
+				.depicter-admin-notices {
+					position:absolute; 
+					left: 20px; 
+					top: 20px; 
+					display: flex; 
+					gap:8px; 
+					flex-direction: column;
+					z-index: 50;
+				}
+			');
+			$this->html->nest( "\n" . $style );
+			$markup = Html::div([
+				'class' => 'depicter-admin-notices'
+			], $notice);
+			$this->html->nest( "\n" . $markup );
+		}
 	}
 
 	/**

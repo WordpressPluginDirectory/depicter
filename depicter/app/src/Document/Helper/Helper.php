@@ -35,6 +35,10 @@ class Helper
 					$action['options']->value = $key;
 				}
 
+				if ( $action['type'] == 'openURL' ) {
+					$action['options']->path = esc_url( $action['options']->path );
+				}
+
 				$action_params[] = clone $action['options'];
 
 				if ( $action['type'] == 'customJS' ) {

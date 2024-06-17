@@ -391,11 +391,6 @@ Depicter::route()->methods(['POST'] )
 	->handle( 'ReportIssueAjaxController@sendError' );
 
 Depicter::route()->methods(['POST'] )
-	->where(  'ajax', 'depicter-security-csrf-generate', true, true )
-	->middleware('csrf-api:depicter-editor' )
-	->handle( 'SecurityAjaxController@generateCsrfToken' );
-
-Depicter::route()->methods(['POST'] )
 	->where(  'ajax', 'depicter-subscriber-store', true, true )
 	->middleware('csrf-api:depicter-editor|depicter-dashboard' )
 	->handle( 'SubscriberAjaxController@store' );
