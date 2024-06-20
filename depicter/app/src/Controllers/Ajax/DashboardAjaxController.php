@@ -265,4 +265,33 @@ class DashboardAjaxController {
 	}
 
 
+	/**
+	 * Flush all documents cache
+	 *
+	 * @param RequestInterface $request
+	 * @param string           $view
+	 *
+	 * @return ResponseInterface
+	 */
+	public function flushDocumentsCache( RequestInterface $request, $view )
+	{
+		try{
+			$documents = \Depicter::documentRepository()->select( [ 'id' ] )->findAll()->get();
+			if ( $documents )  {
+				$documents = $documents->toArray();
+				foreach( $documents as $document ) {
+					\Depicter::front()->render()->flushDocumentCache( $document['id'] );
+				}
+			}
+
+			return \Depicter::json([
+				'success' => __( 'Flushed Successfully', 'depicter' )
+			])->withStatus(200);
+		} catch( \Exception $e ){
+			return \Depicter::json([
+				'errors' => [ $e->getMessage() ]
+			])->withStatus(404);
+		}
+	}
+
 }

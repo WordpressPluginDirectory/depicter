@@ -4,7 +4,6 @@ namespace Depicter\Rules\Condition\Advanced;
 
 use Averta\Core\Utility\Arr;
 use Depicter\Rules\Condition\Base as ConditionBase;
-use foroco\BrowserDetection;
 
 class Referrer extends ConditionBase
 {
@@ -47,7 +46,7 @@ class Referrer extends ConditionBase
 		$isIncluded = empty( $value );
 		if ( ! $isIncluded ) {
 			$value = Arr::merge( $value, [
-				'targetParam' => $_SERVER['HTTP_REFERER'],
+				'targetParam' => $_SERVER['HTTP_REFERER'] ?? '',
 				'comparisonFunction' => 'equal',
 				'targetValue' => ''
 			]);

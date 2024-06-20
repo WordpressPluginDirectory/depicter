@@ -8,7 +8,7 @@
 
 // enable submit and deactivate button while clicking on survey list items
 (function ($) {
-  
+
   var publishSliderButtonFunc = function (view = false) {
     $('.depicter-publish-slider:not([disabled])').off('click');
     $('.depicter-publish-slider:not([disabled])').on('click', function () {
@@ -37,7 +37,7 @@
           $this.find('.btn-label').show();
           $this.find('.depicter-state-icon').hide();
           if (view) {
-            view.$el.find('.depicter-notice-wrapper').remove(); 
+            view.$el.find('.depicter-notice-wrapper').remove();
           } else {
             $('.fl-module-module').find('.depicter-notice-wrapper').remove();
           }
@@ -146,6 +146,37 @@
         }
       });
     }
+
+    // ─── Depicter Settings Page ───────────────────────────────────────────
+
+    $('.depicter-flush-cache').on('click', function (e) {
+      e.preventDefault();
+
+      var $button = $(this);
+      var $icon = $button.find('span.dashicons');
+      $button.removeClass('success');
+      $button.addClass('loading');
+
+      var data = {
+        action: 'depicter-document-flush-cache'
+      };
+
+      $.ajax({
+        url: depicterParams.ajaxUrl,
+        type: 'POST',
+        data: data,
+        headers: {
+          'X-DEPICTER-CSRF': depicterParams.token
+        }
+      }).done(function (response) {
+        $button.removeClass('loading');
+        if (response.success) {
+          $button.addClass('success');
+        } else {
+          console.log( response.errors[0] )
+        }
+      });
+    });
 
   });
 

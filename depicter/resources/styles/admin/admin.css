@@ -253,3 +253,21 @@ input[type="radio"]:checked + label + br + input[type="text"] {
 #adminmenu #toplevel_page_depicter-dashboard a[href="admin.php?page=depicter-dashboard-goto-pro"]:hover {
   background-color: #1b7843;
 }
+
+.depicter-flush-cache.loading .dashicons {
+  animation: spin infinite 1500ms linear;
+}
+
+.depicter-flush-cache.success .dashicons:before {
+  color: #219653;
+  content: "\f147";
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

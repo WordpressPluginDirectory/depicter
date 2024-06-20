@@ -12,6 +12,7 @@ use Depicter\WordPress\Settings\Options\Textarea;
 use Depicter\WordPress\Settings\Options\WPEditor;
 use Depicter\Jeffreyvr\WPSettings\WPSettings;
 use Depicter\WordPress\Settings\Options\Nonce;
+use Depicter\WordPress\Settings\Options\Button;
 
 class Settings extends WPSettings
 {
@@ -37,7 +38,8 @@ class Settings extends WPSettings
             'code-editor' => CodeEditor::class,
             'select' => Select::class,
             'select-multiple' => SelectMultiple::class,
-            'nonce' => Nonce::class
+            'nonce' => Nonce::class,
+            'button' => Button::class
         ];
     }
 

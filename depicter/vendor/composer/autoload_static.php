@@ -701,6 +701,7 @@ class ComposerStaticInit6c394b427f610b12d128da881cef2e5e
         'Depicter\\WordPress\\SVGServiceProvider' => __DIR__ . '/../..' . '/app/src/WordPress/SVGServiceProvider.php',
         'Depicter\\WordPress\\SchedulingService' => __DIR__ . '/../..' . '/app/src/WordPress/SchedulingService.php',
         'Depicter\\WordPress\\SessionServiceProvider' => __DIR__ . '/../..' . '/app/src/WordPress/SessionServiceProvider.php',
+        'Depicter\\WordPress\\Settings\\Options\\Button' => __DIR__ . '/../..' . '/app/src/WordPress/Settings/Options/Button.php',
         'Depicter\\WordPress\\Settings\\Options\\Checkbox' => __DIR__ . '/../..' . '/app/src/WordPress/Settings/Options/Checkbox.php',
         'Depicter\\WordPress\\Settings\\Options\\Choices' => __DIR__ . '/../..' . '/app/src/WordPress/Settings/Options/Choices.php',
         'Depicter\\WordPress\\Settings\\Options\\CodeEditor' => __DIR__ . '/../..' . '/app/src/WordPress/Settings/Options/CodeEditor.php',

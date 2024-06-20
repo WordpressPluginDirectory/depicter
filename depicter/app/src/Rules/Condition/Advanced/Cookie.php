@@ -4,7 +4,6 @@ namespace Depicter\Rules\Condition\Advanced;
 
 use Averta\Core\Utility\Arr;
 use Depicter\Rules\Condition\Base as ConditionBase;
-use foroco\BrowserDetection;
 
 class Cookie extends ConditionBase
 {

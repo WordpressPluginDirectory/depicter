@@ -138,6 +138,14 @@ class DashboardPage
 			'description' => __( 'Enable or disable preloading of website resources (images and CSS) for faster page load speed.', 'depicter' )
 		]);
 
+		$settings->add_option('button', [
+			'name' => 'regenerate_css_flush_cache',
+			'label' => __( 'Regenerate CSS & Flush Cache', 'depicter' ),
+			'button_text' => __( 'Regenerate CSS & Flush Cache', 'depicter' ),
+			'class' => 'button button-secondary depicter-flush-cache',
+			'icon' => '<span class="dashicons dashicons-update" style="line-height:28px; margin-right:8px; height:28px;"></span>'
+		]);
+
 		$settings->add_option('checkbox', [
 			'name' => 'always_load_assets',
 			'label' => __( 'Load assets on all pages?', 'depicter' ),
@@ -175,6 +183,21 @@ class DashboardPage
 	public function enqueueScripts( $hook_suffix = '' ){
 
 		if( $hook_suffix !== $this->hook_suffix ){
+
+			if ( !empty( $_GET['page'] ) && $_GET['page'] == 'depicter-settings' ) {
+				\Depicter::core()->assets()->enqueueScript(
+					'depicter-admin',
+					\Depicter::core()->assets()->getUrl() . '/resources/scripts/admin/index.js',
+					['jquery'],
+					true
+				);
+
+				wp_localize_script( 'depicter-admin', 'depicterParams', [
+					'ajaxUrl' => admin_url('admin-ajax.php'),
+					'token' => \Depicter::csrf()->getToken( \Depicter\Security\CSRF::DASHBOARD_ACTION ),
+				]);
+			}
+
 			return;
 		}
 

@@ -4,7 +4,7 @@ Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
 Tested up to: WordPress 6.5.4
 Requires PHP: 7.4.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,9 @@ Build Stunning Slider and Popup. Exit intent Popup, Image slider carousel, video
 == Description ==
 _Improve users engagement rate or sales by Depicter Slider and Popup builder._
 You can create engaging WordPress sliders, carousels, and slideshows like **layer slider, video slider, image slider, fullscreen slider, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider and Elementor slider**. And, converting **Popup and Notification Bar**, like **Exit intent popup, promotion popup, cart-abandonment popup, campaign promoting notification bar**
-[Depicter Website](https://depicter.com/) | [Templates](https://depicter.com/templates/) | [YouTube](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA) | [Support](http://wordpress.org/support/plugin/depicter "Depicter Slider Support")
+[Depicter Website](https://depicter.com/) | [Templates](https://depicter.com/templates/) | [YouTube](https://www.youtube.com/channel/UCUbrAq7xJAGqttWMC9SETkA) | [Support](https://wordpress.org/support/plugin/depicter "Depicter Slider Support") | [Test Drive](https://depicter.com/try "Depicter Slider Test Drive")
 
-[youtube https://www.youtube.com/watch?v=P8Uzmed-jVc&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
+[youtube https://www.youtube.com/watch?v=YTf6kFyn52A&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
 Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.com/popup) | [Carousel](https://depicter.com/carousel) | [Notification bar](https://depicter.com/notification-bar) | [Hero Section](https://depicter.com/hero-section)
 
 ### Explore Slider, Popup and more Templates
@@ -68,6 +68,13 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 
 
 == Changelog ==
+
+###3.1.1
+- *Released: 2024-06-20*
+- **Added**
+- Flush Cache Option: Regenerate CSS and flush cache of sliders manually by new option added in Depicter setting page. 
+- **Fixed**
+- Fixed an issue where an unwanted watermark was appearing in the preview.
 
 ###3.1.0
 - *Released: 2024-06-17*

@@ -452,3 +452,7 @@ Depicter::route()->methods(['GET'])
 		->where(  'ajax', 'depicter-document-condition-options', true, true )
 		->handle( 'RulesAjaxController@conditionValues' );
 
+Depicter::route()->methods(['POST'])
+		->where( 'ajax', 'depicter-document-flush-cache', true, true )
+		->middleware('csrf-api:depicter-dashboard' )
+		->handle( 'DashboardAjaxController@flushDocumentsCache' );

@@ -517,6 +517,7 @@ return array(
     'Depicter\\WordPress\\SVGServiceProvider' => $baseDir . '/app/src/WordPress/SVGServiceProvider.php',
     'Depicter\\WordPress\\SchedulingService' => $baseDir . '/app/src/WordPress/SchedulingService.php',
     'Depicter\\WordPress\\SessionServiceProvider' => $baseDir . '/app/src/WordPress/SessionServiceProvider.php',
+    'Depicter\\WordPress\\Settings\\Options\\Button' => $baseDir . '/app/src/WordPress/Settings/Options/Button.php',
     'Depicter\\WordPress\\Settings\\Options\\Checkbox' => $baseDir . '/app/src/WordPress/Settings/Options/Checkbox.php',
     'Depicter\\WordPress\\Settings\\Options\\Choices' => $baseDir . '/app/src/WordPress/Settings/Options/Choices.php',
     'Depicter\\WordPress\\Settings\\Options\\CodeEditor' => $baseDir . '/app/src/WordPress/Settings/Options/CodeEditor.php',
