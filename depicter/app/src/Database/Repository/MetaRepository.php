@@ -22,7 +22,7 @@ class MetaRepository
 	 * @throws Exception
 	 */
 	public function meta(): Meta{
-		return new Meta();
+		return Meta::new();
 	}
 
 	/**

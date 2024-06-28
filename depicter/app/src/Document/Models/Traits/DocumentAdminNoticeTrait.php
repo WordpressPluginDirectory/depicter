@@ -2,6 +2,7 @@
 namespace Depicter\Document\Models\Traits;
 
 use Averta\Core\Utility\JSON;
+use Exception;
 
 trait DocumentAdminNoticeTrait {
 	use HasDocumentIdTrait;
@@ -10,26 +11,26 @@ trait DocumentAdminNoticeTrait {
 	/**
 	 * @var int|null
 	 */
-	protected $showUnpublishedNotice = false;
+	protected $showAdminNotice = false;
 
 	/**
 	 * Gets document ID
 	 *
 	 * @return int|null
 	 */
-	public function showUnpublishedNotice() {
-		return $this->showUnpublishedNotice;
+	public function showAdminNotice() {
+		return $this->showAdminNotice;
 	}
 
 	/**
 	 * Enables or disables unpublished notice of document
 	 *
-	 * @param int $showUnpublishedNotice
+	 * @param int $showAdminNotice
 	 *
 	 * @return mixed
 	 */
-	public function setUnpublishedNotice( $showUnpublishedNotice = false ) {
-		$this->showUnpublishedNotice = $showUnpublishedNotice;
+	public function setShowAdminNotice( $showAdminNotice = false ) {
+		$this->showAdminNotice = $showAdminNotice;
 		return $this;
 	}
 
@@ -39,7 +40,7 @@ trait DocumentAdminNoticeTrait {
 	 * @return string
 	 */
 	public function getUnpublishedChangesNotice() {
-		if( ! $this->showUnpublishedNotice() || ! $this->getDocumentID() ) {
+		if( ! $this->showAdminNotice() || ! $this->getDocumentID() ) {
 			return '';
 		}
 		$markup = '';
@@ -77,7 +78,7 @@ trait DocumentAdminNoticeTrait {
 	 * @return string
 	 */
 	public function getExpiredSubscriptionNotice() {
-		if( ! $this->getDocumentID() ) {
+		if( ! $this->showAdminNotice() || ! $this->getDocumentID() ) {
 			return '';
 		}
 
@@ -85,8 +86,12 @@ trait DocumentAdminNoticeTrait {
 			return '';
 		}
 
-		$documentType = \Depicter::documentRepository()->findOne( $this->getDocumentID() )->getProperty('type');
-		if ( in_array( $documentType, ['popup', 'banner-bar'] ) ) {
+		try{
+			// skip admin notice display for popup and notification bars
+			if ( in_array( \Depicter::documentRepository()->findOne( $this->getDocumentID() )->getProperty('type'), ['popup', 'banner-bar', 'notification-bar'] ) ) {
+				return '';
+			}
+		}catch( \Exception $e ){
 			return '';
 		}
 

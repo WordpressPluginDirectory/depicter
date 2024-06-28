@@ -63,7 +63,7 @@ class AuthenticationService {
 		if( $subExpiresAt = \Depicter::options()->get('subscription_expires_at' , '') ){
 			$subExpiresAtTimestamp = strtotime($subExpiresAt." UTC");
 			$afterExpirationInSeconds = time() - $subExpiresAtTimestamp;
-			
+
 			if( $afterExpirationInSeconds > 5 * DAY_IN_SECONDS ) {
 				return 'expired';
 			} elseif( $afterExpirationInSeconds > 0 ){
@@ -71,7 +71,7 @@ class AuthenticationService {
 			}
 		}
 
-		return $subExpiresAt;
+		return \Depicter::options()->get('subscription_status', '');
 	}
 
 	/**

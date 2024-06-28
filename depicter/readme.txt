@@ -2,9 +2,9 @@
 Contributors: averta, averta_support, depicter1slider1support, depicter1carousel1popup1support
 Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
-Tested up to: WordPress 6.5.4
+Tested up to: WordPress 6.5.5
 Requires PHP: 7.4.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,11 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 
 
 == Changelog ==
+
+###3.1.2
+- *Released: 2024-06-27*
+- **Fixed** 
+- Fixed an issue where an unwanted notice appearing in WordPress admin.
 
 ###3.1.1
 - *Released: 2024-06-20*

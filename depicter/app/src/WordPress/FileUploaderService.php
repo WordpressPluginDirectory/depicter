@@ -2,6 +2,7 @@
 namespace Depicter\WordPress;
 
 use Averta\WordPress\File\UploadsDirectory;
+use Depicter\Utility\Sanitize;
 use GuzzleHttp\Psr7\UploadedFile;
 
 class FileUploaderService
@@ -25,7 +26,9 @@ class FileUploaderService
 				continue;
 			}
 
-			if ( !in_array( $file->getClientMediaType(), $allowedMimeTypes ) ) {
+			$clientFileName = Sanitize::fileName( $file->getClientFilename() );
+			// make sure that file mime type is allowed and the extension is not .php
+			if ( !in_array( $file->getClientMediaType(), $allowedMimeTypes ) || substr( $clientFileName, -4 ) === '.php' ) {
 				$results[ $file->getClientFilename() ] = [
 					'attachment'    => 0,
 					'errors'        => [
@@ -34,8 +37,8 @@ class FileUploaderService
 				];
 				continue;
 			}
-			
-			$filename = $wp_upload_dir->getPath() . "/" . $file->getClientFilename();
+
+			$filename = $wp_upload_dir->getPath() . "/" . $clientFileName;
 			$file->moveTo( $filename );
 			$attachment = array(
 				'guid'           => $wp_upload_dir->getUrl() . '/' . basename( $filename ),

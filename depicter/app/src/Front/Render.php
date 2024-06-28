@@ -35,7 +35,7 @@ class Render
 			'useCache'      => true,
 			'echo'          => true,
 			'status'        => 'publish',
-			'showUnpublishedNotice' => $isPrivilegedUser
+			'showAdminNotice' => $isPrivilegedUser
 		]);
 
 		if ( $args['isPrivilegedUser'] = $isPrivilegedUser ) {
@@ -90,13 +90,13 @@ class Render
 				return esc_html__( 'Slider alias not found.', 'depicter' );
 			}
 
-			if( ! $args['showUnpublishedNotice'] && ! \Depicter::document()->repository()->isPublishedBefore( $documentID ) ) {
+			if( ! $args['showAdminNotice'] && ! \Depicter::document()->repository()->isPublishedBefore( $documentID ) ) {
 				throw new DocumentNotPublished( __( 'Slider is not published yet and saved as "draft"', 'depicter' ), 0, $where );
 			}
 
 			if( $documentModel = \Depicter::document()->getModel( $documentID, $where ) ){
 
-				$documentModel->setUnpublishedNotice( $args['showUnpublishedNotice'] );
+				$documentModel->setShowAdminNotice( $args['showAdminNotice'] );
 
 				$output .= $documentModel->prepare()->render();
 
@@ -205,7 +205,7 @@ class Render
 		// If the cache is for logged-in users or not (visitors)
 		$cacheFor      = !empty( $args['isPrivilegedUser'] ) ? 'admin_' : '';
 		// Include admin notice in document markup or not
-		$isAdminNoticeEnabled = !empty( $args['showUnpublishedNotice'] ) ? 'notice_' : '';
+		$isAdminNoticeEnabled = !empty( $args['showAdminNotice'] ) ? 'notice_' : '';
 		// The last modified date of main document
 		$documentModifiedTime = strtotime( \Depicter::documentRepository()->getFieldValue( $documentID, 'modified_at') );
 

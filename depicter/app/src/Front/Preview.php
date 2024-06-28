@@ -103,7 +103,7 @@ class Preview
 
 		try{
 			$documentModel = \Depicter::document()->getModel( $documentId, $where );
-			$documentModel->setUnpublishedNotice( false );
+			$documentModel->setShowAdminNotice( false );
 			$viewArgs = $this->prepareToRender( $documentModel, $viewArgs );
 
 			if ( !empty( $documentArgs['viewParts'] ) ) {
@@ -183,14 +183,14 @@ class Preview
 	 * @return string
 	 */
 	protected function view( $args ){
-		// JetPack compatibility issue 
+		// JetPack compatibility issue
 		if ( class_exists( 'Filter_Embedded_HTML_Objects' ) ) {
 			remove_filter( 'pre_kses', array( 'Filter_Embedded_HTML_Objects', 'filter' ), 11 );
 		}
 
 		$view = \Depicter::view('canvas.php')->with( 'view_args', $args )->toString();
 
-		// JetPack compatibility issue 
+		// JetPack compatibility issue
 		if ( class_exists( 'Filter_Embedded_HTML_Objects' ) ) {
 			add_filter( 'pre_kses', array( 'Filter_Embedded_HTML_Objects', 'filter' ), 11 );
 		}

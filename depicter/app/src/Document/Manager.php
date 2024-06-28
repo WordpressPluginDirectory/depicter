@@ -140,7 +140,7 @@ class Manager
 
 		// set document entity properties
 		$documentModel->setDocumentId( $documentId );
-		$documentModel->setUnpublishedNotice( $documentId );
+		$documentModel->setShowAdminNotice( $documentId );
 		$documentModel->setEntityProperty( 'status', $this->getStatus( $documentId ) );
 
 		return $documentModel;

@@ -217,11 +217,11 @@ class Document implements HydratableInterface
 		if ( !empty( $notice ) ) {
 			$style = Html::style([],'
 				.depicter-admin-notices {
-					position:absolute; 
-					left: 20px; 
-					top: 20px; 
-					display: flex; 
-					gap:8px; 
+					position:absolute;
+					left: 20px;
+					top: 20px;
+					display: flex;
+					gap:8px;
 					flex-direction: column;
 					z-index: 50;
 				}

@@ -11,8 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// phpcs:ignore
-// add_action( 'some_action', 'some_function' );
 function depicter_add_thumbnail_size() {
 	add_image_size( 'depicter-thumbnail', 200, 9999, false );
 }
@@ -161,6 +159,7 @@ function depicter_check_deleted_imported_media( $attachment_id ) {
 add_action( 'delete_attachment', 'depicter_check_deleted_imported_media');
 
 function depicter_check_activation() {
+
 	if ( isset( $_GET['depicter_upgraded'] ) ) {
 		if ( \Depicter::client()->validateActivation() ) {
 			\Depicter::client()->getAccessToken( true );
@@ -170,7 +169,8 @@ function depicter_check_activation() {
 			\Depicter::client()->getRefreshToken( true );
 		}
     }
-	if ( isset( $_GET['depicter_flush_tokens'] ) ) {
+
+	if ( isset( $_GET['depicter_flush_tokens'] ) && user_can( wp_get_current_user(), 'manage_options') ) {
 		\Depicter::client()->getRefreshToken( true );
 		\Depicter::client()->getAccessToken( true );
 	}
@@ -204,8 +204,7 @@ add_action( 'init', 'depicter_disable_admin_bar');
 
 add_action( 'admin_notices', 'depicter_renew_subscription_notice');
 function depicter_renew_subscription_notice() {
-	$expiresAt = \Depicter::options()->get('subscription_expires_at' , '');
-	if ( empty( $expiresAt ) || strtotime( $expiresAt ) > time() ) {
+	if ( ! \Depicter::auth()->isSubscriptionExpired() ) {
 		return;
 	}
 
