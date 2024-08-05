@@ -263,7 +263,9 @@ class DashboardPage
 					'tier'  => \Depicter::auth()->getTier(),
 					'name'  => Escape::html( $currentUser->display_name ),
 					'email' => Escape::html( $currentUser->user_email   ),
-					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed')
+					'onboarding' => ! \Depicter::documentRepository()->all( [ 'id' ] ),
+					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed'),
+					'dataCollectionConsent' => \Depicter::options()->get('data_collect_consent', 'not-set')
 				],
 				'activation' => [
 					'status'       => \Depicter::auth()->getActivationStatus(),

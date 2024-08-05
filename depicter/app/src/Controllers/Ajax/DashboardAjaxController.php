@@ -57,8 +57,8 @@ class DashboardAjaxController {
 		return \Depicter::json([
 			'hits'    => $document
 		])->withHeader('X-Message', 'New document created successfully' )
-		  ->withHeader('X-Document-ID', $document->getID() )
-		  ->withStatus(200);
+			->withHeader('X-Document-ID', $document->getID() )
+			->withStatus(200);
 	}
 
 	/**

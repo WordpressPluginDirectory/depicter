@@ -37,6 +37,8 @@ class Script
 		if ( ! empty( $document->options->sectionTransition->type ) ) {
 			if ( \Depicter::auth()->isPaid() ) {
 				$attributes['view'] = $document->options->sectionTransition->type;
+			} else {
+				$attributes['view'] = $document->options->sectionTransition->type == 'fade' ? 'fade' : 'basic';
 			}
 		}
 
@@ -107,6 +109,10 @@ class Script
 			$slideShow['autostart'] = $document->options->navigation->slideshow->enable;
 
 			$attributes['slideshow'] = $slideShow;
+		}
+
+		if( ! empty ( $document->options->navigation->nativeScrollNavigation ) ){
+			$attributes['nativeScrollNavigation'] = $document->options->navigation->nativeScrollNavigation;
 		}
 
 		if( !empty( $document->options->navigation->swipe->enable ) ){

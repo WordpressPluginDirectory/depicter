@@ -147,7 +147,7 @@ class GoogleFontsService{
 
 				preg_match_all( "/font-weight:([^;]*);/", $fontFace[0], $fontWeight, PREG_SET_ORDER  );
 				if ( !empty( $fontWeight ) ) {
-					$variants[ $fontFaceKey ]['weight'] = $fontWeight[0][0];
+					$variants[ $fontFaceKey ]['weight'] = trim( $fontWeight[0][1] );
 				}
 
 			}

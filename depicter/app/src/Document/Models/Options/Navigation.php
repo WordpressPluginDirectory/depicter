@@ -67,4 +67,9 @@ class Navigation
 	 * @var object|null
 	 */
 	public $autoScroll;
+
+	/**
+	 * @var bool|null
+	 */
+	public $nativeScrollNavigation;
 }

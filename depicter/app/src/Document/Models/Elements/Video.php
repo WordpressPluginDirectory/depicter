@@ -31,34 +31,47 @@ class Video extends Models\Element
 		if( isset( $this->options->loop ) ){
 			$elementsAttrs['data-loop'] = $this->options->loop ? "true" : "false";
 		} else {
-			$elementsAttrs['data-loop'] = "true";
+			$elementsAttrs['data-loop'] = "false";
 		}
 
-		$videoAttrs = [
-			'src'     => Depicter::media()->getSourceUrl( $this->options->source ),
-			'preload' => 'metadata'
-		];
+		$playerType = [ 'native', 'youtube', 'vimeo' ];
+		$elementsAttrs['data-player-type'] = isset( $this->options->type ) && in_array( $this->options->type, $playerType ) ? $this->options->type : "native";
 
-		if( !empty( $this->options->controls ) ){
-			$videoAttrs['controls'] = "";
+		if( !empty( $this->options->muted ) ){
+			$elementsAttrs['data-muted'] = $this->options->muted ? "true" : "false";
+		} else if( !empty( $this->options->mute ) ){
+			$elementsAttrs['data-muted'] = $this->options->mute ? "true" : "false";
 		}
-		if( !empty( $this->options->mute ) ){
-			$videoAttrs['muted'] = "";
+
+		if( !empty( $this->options->related ) ){
+			$elementsAttrs['data-limit-related'] = $this->options->related ? "true" : "false";
 		}
+
+		if( !empty( $this->options->startingTime ) ){
+			$elementsAttrs['data-starting-time'] = $this->options->startingTime ?? "0";
+		}
+
+		if( !empty( $this->options->endingTime ) ){
+			$elementsAttrs['data-ending-time'] = $this->options->endingTime ?? "null";
+		}
+
+		$elementsAttrs['data-controls'] = esc_attr( $this->options->controls ) ?? "true";
+
+		$elementsAttrs['data-video-src'] = Depicter::media()->getSourceUrl( $this->options->source );
 
 		$elementsAttrs = Arr::merge( $this->getDefaultAttributes(), $elementsAttrs );
 		if ( isset( $elementsAttrs['data-height'] ) ) {
 			$elementsAttrs['data-height'] = 'auto,,';
 		}
 
+		error_log(print_r( $elementsAttrs, true ) , 0);
 		$div = Html::div( $elementsAttrs );
 
-		$video = "\n\t" . Html::video( $videoAttrs ) . "\n";
 
 		if ( false !== $a = $this->getLinkTag() ) {
-			return $a->nest( $div->nest( $video ) );
+			return $a->nest( $div );
 		}
 
-		return $div->nest( $video ) . "\n";
+		return $div . "\n";
 	}
 }

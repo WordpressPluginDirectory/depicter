@@ -45,6 +45,12 @@ class AIWizardService
 			}
 	    }
 
+		$last_element = array_key_last( $editorData['elements'] );
+		$last_section = array_key_last( $editorData['sections'] );
+		$last_element_id = explode( '-', $last_element )[1];
+		$last_section_id = explode( '-', $last_section )[1];
+		$editorData['lastId'] = max( $last_element_id, $last_section_id ) + 1;
+
 		// replace special colors with color palette colors
 		$editorDataInString = is_array( $editorData ) ? JSON::encode( $editorData ) : $editorData;
 	    $definedColors = ['#012d13', '#112d13', '#212d13', '#312d13', '#412d13'];

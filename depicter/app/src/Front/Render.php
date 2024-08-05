@@ -207,7 +207,8 @@ class Render
 		// Include admin notice in document markup or not
 		$isAdminNoticeEnabled = !empty( $args['showAdminNotice'] ) ? 'notice_' : '';
 		// The last modified date of main document
-		$documentModifiedTime = strtotime( \Depicter::documentRepository()->getFieldValue( $documentID, 'modified_at') );
+		$modifiedAt = \Depicter::documentRepository()->getFieldValue( $documentID, 'modified_at');
+		$documentModifiedTime = $modifiedAt ? strtotime( $modifiedAt ): '0';
 
 		return "{$documentID}_{$loadStyleMode}_{$cacheFor}{$isAdminNoticeEnabled}{$addImportant}{$documentModifiedTime}";
 	}

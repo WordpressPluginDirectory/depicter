@@ -60,6 +60,7 @@ class Parallax extends States{
 
 		$options['smooth'] = isset( $parallaxOptions->smooth ) ? Data::isTrue( $parallaxOptions->smooth ) : true;
 
+		$options['useEntirePage'] = $parallaxOptions->useEntirePage ?? false;
         return JSON::encode( $options );
     }
 }

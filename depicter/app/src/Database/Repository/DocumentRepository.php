@@ -550,8 +550,8 @@ class DocumentRepository
 	{
 		$document   = $this->document();
 		$foundCount = $document->where('slug', $slug )
-							   ->where('id', 'NOT LIKE', $ignoreID )
-							   ->findAll()->count();
+			->where('id', 'NOT LIKE', $ignoreID )
+			->findAll()->count();
 
 		if( $foundCount > 0 ){
 			unset( $document );
@@ -647,6 +647,19 @@ class DocumentRepository
 	public function getRecentRevision( int $id, int $offset = 0 ) {
 		$offset = max( $offset, 0 );
 		return $this->document()->orderBy('id', 'DESC')->where( 'parent', $id )->take( 1, $offset )->get();
+	}
+
+	/**
+	 * Get list of revisions ID
+	 *
+	 * @param int $id      Document ID
+	 *
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getRevisionsID( int $id ) {
+		$revisions = $this->document()->select( ['id'])->orderBy( 'id', 'DESC')->where( 'parent', $id )->get();
+		return $revisions ? wp_list_pluck( $revisions->toArray(), 'id' ) : [];
 	}
 
 	/**

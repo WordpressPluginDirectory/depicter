@@ -466,4 +466,42 @@ class Section
 
 		return $styleList;
 	}
+
+	/**
+	 * Check if this section has shortcode element or not
+	 *
+	 * @return boolean
+	 */
+	public function hasShortcode() {
+		if ( ! empty( $this->elementObjects ) ) {
+			foreach( $this->elementObjects as $elementObject ) {
+				if ( $elementObject->type == 'wpShortcode' ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if this section has shortcode element or not
+	 *
+	 * @return bool|array
+	 */
+	public function hasForm() {
+		$formIDs = [];
+		if ( ! empty( $this->elementObjects ) ) {
+			foreach( $this->elementObjects as $elementObject ) {
+				/**
+				 * @var Element $elementObject
+				 */
+				if ( $elementObject->type == 'form' ) {
+					$formIDs[] = $elementObject->getCssID();
+				}
+			}
+		}
+
+		return ! empty( $formIDs ) ? $formIDs :  false;
+	}
 }

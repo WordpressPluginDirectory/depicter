@@ -72,13 +72,6 @@ object-assign
  * Released under the MIT License.
  */
 
-/*!
- * weakmap-polyfill v2.0.4 - ECMAScript6 WeakMap polyfill
- * https://github.com/polygonplanet/weakmap-polyfill
- * Copyright (c) 2015-2021 polygonplanet <polygon.planet.aqua@gmail.com>
- * @license MIT
- */
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -307,13 +300,6 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 ==========================================================================
 @license */
-
-/*! @vimeo/player v2.20.1 | (c) 2023 Vimeo | MIT License | https://github.com/vimeo/player.js */
-
-/*! Native Promise Only
-    v0.8.1 (c) Kyle Simpson
-    MIT License: http://getify.mit-license.org
-*/
 
 /*! axios */
 
@@ -833,11 +819,6 @@ For more information about SproutCore, visit http://www.sproutcore.com
  * @license MIT
  */
 
-/**
-* @link https://github.com/gajus/sister for the canonical source repository
-* @license https://github.com/gajus/sister/blob/master/LICENSE BSD 3-Clause
-*/
-
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -867,6 +848,15 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 /** @license React v17.0.2
  * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-jsx-runtime.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

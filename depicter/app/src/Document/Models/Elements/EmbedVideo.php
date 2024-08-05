@@ -22,9 +22,14 @@ class EmbedVideo extends Models\Element{
 		if( isset( $this->options->autoPause ) ){
 			$elementsAttrs['data-auto-pause'] = $this->options->autoPause ? "true" : "false";
 		}
-		if( isset( $this->options->mute ) ){
+		if( !empty( $this->options->muted ) ){
+			$elementsAttrs['data-muted'] = $this->options->muted ? "true" : "false";
+		} else if( !empty( $this->options->mute ) ){
 			$elementsAttrs['data-muted'] = $this->options->mute ? "true" : "false";
 		}
+
+		$playerType = [ 'native', 'youtube', 'vimeo' ];
+		$elementsAttrs['data-player-type'] = isset( $this->options->type ) && in_array( $this->options->type, $playerType ) ? $this->options->type : "native";
 
 		if( isset( $this->options->goNextSection ) ){
 			$elementsAttrs['data-goto-next'] = $this->options->goNextSection ? "true" : "false";
@@ -32,101 +37,31 @@ class EmbedVideo extends Models\Element{
 		if( isset( $this->options->loop ) ){
 			$elementsAttrs['data-loop'] = $this->options->loop ? "true" : "false";
 		} else {
-			$elementsAttrs['data-loop'] = "true";
+			$elementsAttrs['data-loop'] = "false";
+		}
+
+		if( !empty( $this->options->related ) ){
+			$elementsAttrs['data-limit-related'] = $this->options->related ? "true" : "false";
+		}
+
+		if( !empty( $this->options->startingTime ) ){
+			$elementsAttrs['data-starting-time'] = $this->options->startingTime ?? "0";
+		}
+
+		if( !empty( $this->options->endingTime ) ){
+			$elementsAttrs['data-ending-time'] = $this->options->endingTime ?? "null";
+		}
+
+		$elementsAttrs['data-controls'] = esc_attr( $this->options->controls ) ?? "true";
+
+		$elementsAttrs['data-video-src'] = $this->options->source;
+		if ( $elementsAttrs['data-player-type'] == 'youtube' ) {
+			$elementsAttrs['data-video-poster'] = Embed::getYouTubePosterUrl( $this->options->source );
 		}
 
 		$args = Arr::merge( $this->getDefaultAttributes(), $elementsAttrs );
 
-		$div = Html::div( $args );
-
-		$video = "\n" . $this->getEmbedVideo( $videoUrl ) . "\n";
-
-		return $div->nest( $video ) . "\n";
-	}
-
-
-	protected function getEmbedVideo( $videoUrl ){
-
-		$videoType = !empty( $this->options->type ) ? $this->options->type : '';
-
-		if( $videoType == 'youtube' ){
-			return $this->getYouTubeEmbed( $videoUrl );
-		} elseif( $videoType == 'vimeo' ){
-			return $this->getVimeoEmbed( $videoUrl );
-		}
-
-		return '';
-	}
-
-	protected function getYouTubeEmbed( $videoUrl ){
-		$embed = '';
-
-		if( $embedUrl = Embed::getYouTubeVimeoEmbedUrl( $videoUrl ) ){
-			$queryParams = [];
-			if( isset( $this->options->autoPlay ) ){
-				$queryParams['autoplay'] = (int) $this->options->autoPlay;
-			}
-			if( isset( $this->options->autoPause ) ){
-				$queryParams['autopause'] = (int) $this->options->autoPause;
-			}
-			if( isset( $this->options->controls ) ){
-				$queryParams['controls'] = (int) $this->options->controls;
-			}
-			if( isset( $this->options->mute ) ){
-				$queryParams['mute'] = (int) $this->options->mute;
-			}
-			if( isset( $this->options->related ) ){
-				$queryParams['rel'] = $this->options->related;
-			}
-
-			$iframeAttrs = [
-				'src'             =>  add_query_arg( $queryParams, $embedUrl ),
-				'frameborder' 	  => '0',
-				'allow'           => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-				'allowfullscreen' => ''
-			];
-
-			$embed = Html::iframe( $iframeAttrs );
-		}
-
-		return $embed;
-	}
-
-	protected function getVimeoEmbed( $videoUrl ){
-		$embed = '';
-
-		if( $embedUrl = Embed::getYouTubeVimeoEmbedUrl( $videoUrl ) ){
-
-			$queryParams = [];
-
-			if( isset( $this->options->autoPlay ) ){
-				$queryParams['autoplay'] = (int) $this->options->autoPlay;
-			}
-			if( isset( $this->options->autoPause ) ){
-				$queryParams['autopause'] = (int) $this->options->autoPause;
-			}
-			if( isset( $this->options->controls ) ){
-				$queryParams['controls'] = (int) $this->options->controls;
-			}
-			if( isset( $this->options->mute ) ){
-				$queryParams['muted'] = (int) $this->options->mute;
-			}
-			if( isset( $this->options->related ) ){
-				$queryParams['byline'] = (int) $this->options->related;
-			}
-
-			$iframeAttrs = [
-				'src'             		=>  add_query_arg( $queryParams, $embedUrl ),
-				'frameborder' 	  		=> '0',
-				'allowfullscreen' 		=> '',
-				'webkitallowfullscreen' => '',
-				'mozallowfullscreen' 	=> ''
-			];
-
-			$embed = Html::iframe( $iframeAttrs );
-		}
-
-		return $embed;
+		return Html::div( $args );
 	}
 }
 

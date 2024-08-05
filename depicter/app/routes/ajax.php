@@ -64,6 +64,12 @@ Depicter::route()->methods(['POST'])
 	->middleware('userCan:edit_depicter' )
 	->handle( 'EditorAjaxController@uploadDocumentPosters' );
 
+// Retrieves list of document revisions
+Depicter::route()->methods(['GET'] )
+	->where( 'ajax', 'depicter-document-revisions', true, true )
+	->middleware('csrf-api:depicter-editor' )
+	->handle( 'EditorAjaxController@gerRevisions' );
+
 // Reverts a document to previous snapshots
 Depicter::route()->methods(['POST'])
 	->where( 'ajax', 'depicter-document-revert', true, true )
@@ -157,7 +163,6 @@ Depicter::route()->methods(['POST'])
 	->middleware('csrf-api:depicter-editor|depicter-dashboard' )
 	->middleware('userCan:edit_depicter' )
 	->handle( 'DashboardAjaxController@changeSlug' );
-
 
 // Exports a document
 Depicter::route()->methods(['POST'])
@@ -291,6 +296,13 @@ Depicter::route()->methods(['GET'] )
 	->middleware('cache:260000,browser')
 	->handle( 'MediaAssetsAPIAjaxController@searchVectors' );
 
+// Search SVG Icons
+Depicter::route()->methods(['GET'] )
+	->where(  'ajax', 'depicter-assets-search-icons', true, true )
+	->middleware('csrf-api:depicter-editor' )
+	->middleware('cache:260000,browser')
+	->handle( 'MediaAssetsAPIAjaxController@searchIcons' );
+
 // Retrieves
 Depicter::route()->methods(['GET'] )
 	->where(  'ajax', 'depicter-media-url', true, true )
@@ -305,6 +317,13 @@ Depicter::route()->methods(['GET'] )
 	->middleware('csrf-api:depicter-editor|depicter-dashboard' )
 	->middleware('cache:900,browser')
 	->handle( 'MediaAssetsAPIAjaxController@getMedia' );
+
+Depicter::route()->methods(['GET'] )
+	->where(  'ajax', 'depicter-media-content', true, true )
+	->name('getMediaContent')
+	->middleware('csrf-api:depicter-editor' )
+	->middleware('cache:900,browser')
+	->handle( 'MediaAssetsAPIAjaxController@getMediaContent' );
 
 // Upload media file
 Depicter::route()->methods(['POST'] )
@@ -456,3 +475,37 @@ Depicter::route()->methods(['POST'])
 		->where( 'ajax', 'depicter-document-flush-cache', true, true )
 		->middleware('csrf-api:depicter-dashboard' )
 		->handle( 'DashboardAjaxController@flushDocumentsCache' );
+
+// Depicter Elements
+// ========================================================
+Depicter::route()->methods(['GET'])
+        ->where( 'ajax', 'depicter-render-shortcode', true, true )
+		->middleware('csrf-api:depicter-editor' )
+        ->handle( 'EditorAjaxController@renderShortcode' );
+
+// Depicter Lead Directory
+// ========================================================
+Depicter::route()->methods(['GET'])
+	->where('ajax', 'depicter-lead-index', true, true)
+	->handle('LeadsAjaxController@index');
+
+Depicter::route()->methods(['POST'])
+    ->where(  'ajax', 'depicter-lead-submit', true, true )
+    ->handle( 'LeadsAjaxController@submit' );
+
+Depicter::route()->methods(['POST'])
+    ->where(  'ajax', 'depicter-lead-update', true, true )
+    ->middleware('csrf-api:depicter-dashboard' )
+    ->handle( 'LeadsAjaxController@update' );
+
+Depicter::route()->methods(['POST'])
+    ->where(  'ajax', 'depicter-lead-delete', true, true )
+    ->middleware('csrf-api:depicter-dashboard' )
+    ->handle( 'LeadsAjaxController@delete' );
+
+// Depicter Options
+// ========================================================
+Depicter::route()->methods(['POST'])
+        ->where( 'ajax', 'depicter-dataCollect-consent', true, true )
+		->middleware('csrf-api:depicter-dashboard' )
+        ->handle( 'DataCollectController@getPermission' );

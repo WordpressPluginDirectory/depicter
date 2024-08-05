@@ -13,17 +13,13 @@ $lightBackground: #fff;
    display: inline-flex;
    align-items: center;
    justify-content: center;
+   gap: $gap;
 
    span {
       display: inline-block;
       width: $size;
       height: $size;
-      margin-right: $gap;
       border-radius: $radius;
-
-      &:last-of-type {
-         margin-right: 0;
-      }
    }
 
    &.depicter-loading-dark {

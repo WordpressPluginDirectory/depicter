@@ -112,7 +112,8 @@ class Helper
 
 		$patterns = [
 			'"source":"([^"]*)"',
-			'"src":"([^"]*)"'
+			'"src":"([^"]*)"',
+			'"src":{([^}]+)}'
 		];
 
 		foreach ( $patterns as $pattern ) {
@@ -122,6 +123,18 @@ class Helper
 					// check if assetID if for third party libraries or not
 					if ( !empty( $source[1] ) && strpos( $source[1], '@') === 0 && false === strpos( $source[1], 'https' ) ) {
 						$assetIDs[] = $source[1];
+					}
+					
+					if ( !empty( $source[1] ) ) {
+						$backgroundPatterns = ':"([^"]*)"';
+						preg_match_all( '/' . $backgroundPatterns . '/', $source[1], $backgroundSources , PREG_SET_ORDER );
+						if ( !empty( $backgroundSources ) ) {
+							foreach ( $backgroundSources as $backgroundSource ) {
+								if ( !empty( $backgroundSource[1] ) && strpos( $backgroundSource[1], '@') === 0 && false === strpos( $backgroundSource[1], 'https' ) ) {
+									$assetIDs[] = $backgroundSource[1];
+								}
+							}
+						}
 					}
 				}
 			}

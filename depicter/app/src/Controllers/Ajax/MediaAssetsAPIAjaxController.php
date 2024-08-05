@@ -74,6 +74,48 @@ class MediaAssetsAPIAjaxController
 	}
 
 	/**
+	 * Retrieves content of a media (like svg)
+	 *
+	 * @param Request $request
+	 * @param string  $view
+	 *
+	 * @return ResponseInterface
+	 * @throws \Exception|GuzzleException
+	 */
+	public function getMediaContent( Request $request, $view ) {
+		$id   = ! empty( $request->query('id'  ) ) ? Sanitize::textfield( $request->query('id'  ) ) : '';
+		$size = ! empty( $request->query('size') ) ? Sanitize::textfield( $request->query('size') ) : 'medium';
+
+		$args = [ 'event' => 'download' ];
+
+		if( ! empty( $request->query('w8') ) ){
+			$args['w8']   = Sanitize::textfield( $request->query('w8') );
+		}
+
+		if( ! empty( $request->query('fill') ) ){
+			$args['fill'] = Sanitize::textfield( $request->query('fill') );
+		}
+
+		if( ! empty( $request->query('style') ) ){
+			$args['style'] = Sanitize::textfield( $request->query('style') );
+		}
+
+		$clientKey = \Depicter::auth()->getClientKey();
+
+		try {
+			$mediaContent = AssetsAPIService::getContent( $id, $size, $args );
+			return Depicter::output( $mediaContent )->withHeader( 'X-DEPICTER-CKEY', $clientKey )->withHeader('Content-Type', 'image/svg+xml');
+
+		} catch ( ConnectException $exception ) {
+			return Depicter::output( 'Connection error' )->withHeader( 'X-DEPICTER-CKEY', $clientKey )->withStatus(503);
+		} catch ( \Exception  $exception ) {
+			// set status code to 404 if 404 Not found was in response of unsplash API
+			$statusCode = false !== strpos( $exception->getMessage(), '404' ) ? 404 : 200;
+			return Depicter::output( $exception->getMessage() )->withHeader( 'X-DEPICTER-CKEY', $clientKey )->withStatus( $statusCode );
+		}
+	}
+
+	/**
 	 * Hotlinks to a media src
 	 *
 	 * @param Request $request
@@ -86,12 +128,25 @@ class MediaAssetsAPIAjaxController
 		$id   = ! empty( $request->query('id'  ) ) ? Sanitize::textfield( $request->query('id'  ) ) : '';
 		$size = ! empty( $request->query('size') ) ? Sanitize::textfield( $request->query('size') ) : '';
 
-		$mediaHotlinkUrl = \Depicter::media()->getSourceUrl( $id );
+		$args = [];
+		if ( ! empty( $request->query('style') ) ) {
+			$args['style'] = Sanitize::textfield( $request->query('style') );
+		}
+
+		if ( ! empty( $request->query('fill') ) ) {
+			$args['fill'] = Sanitize::textfield( $request->query('fill') );
+		}
+
+		if ( ! empty( $request->query('w8') ) ) {
+			$args['w8'] = Sanitize::textfield( $request->query('w8') );
+		}
+
+		$mediaHotlinkUrl = \Depicter::media()->getSourceUrl( $id, $size, false, $args );
 		$clientKey = \Depicter::auth()->getClientKey();
 
 		return Depicter::redirect()->to( $mediaHotlinkUrl )
-		                           ->withHeader( 'Access-Control-Allow-Origin', '*' )
-		                           ->withHeader( 'X-DEPICTER-CKEY', $clientKey );
+		               ->withHeader( 'Access-Control-Allow-Origin', '*' )
+		               ->withHeader( 'X-DEPICTER-CKEY', $clientKey );
 	}
 
 	/**
@@ -177,6 +232,34 @@ class MediaAssetsAPIAjaxController
 	}
 
 	/**
+	 * Query Pixabay vectors
+	 *
+	 * @param Request $request
+	 * @param string  $view
+	 *
+	 * @return ResponseInterface
+	 * @throws GuzzleException
+	 */
+	public function searchIcons( Request $request, $view ) {
+
+		$options = $this->getPixabayQueryParams( $request );
+		try {
+			$result = AssetsAPIService::searchAssets( 'icons', $options );
+			return \Depicter::json( $result );
+
+		} catch ( ConnectException $exception ) {
+			return \Depicter::json([
+				'errors' => [ 'Connection error ..', $exception->getMessage() ]
+			])->withStatus(503);
+		} catch ( \Exception  $exception ) {
+			return \Depicter::json([
+				'errors' => [ $exception->getMessage() ]
+			]);
+		}
+
+	}
+
+	/**
 	 * Get sanitized query params
 	 *
 	 * @param RequestInterface $request
@@ -194,6 +277,10 @@ class MediaAssetsAPIAjaxController
 			'editorsChoice' => ! empty( $request->query('editorsChoice') ) ? Sanitize::textfield( $request->query('editorsChoice') ) : 'false',
 			'safe' => ! empty( $request->query('safe') ) ? Sanitize::textfield( $request->query('safe') ) : 'false',
 			'order' => ! empty( $request->query('orderBy') ) ? Sanitize::textfield( $request->query('orderBy') ) : 'popular',
+			'size' => ! empty( $request->query('size') ) ? Sanitize::textfield( $request->query('size') ) : '',
+			'w8' => ! empty( $request->query('w8') ) ? Sanitize::textfield( $request->query('w8') ) : '',
+			'fill' => ! empty( $request->query('fill') ) ? Sanitize::textfield( $request->query('fill') ) : '',
+			'style' => ! empty( $request->query('style') ) ? Sanitize::textfield( $request->query('style') ) : '',
 		];
 
 		if( ! empty( $request->query('s') ) ){

@@ -8,17 +8,13 @@ use Averta\Core\Utility\Data;
 use Averta\WordPress\Utility\JSON;
 use Depicter;
 use Depicter\Editor\EditorLocalization;
-use Depicter\GuzzleHttp\Exception\ConnectException;
 use Depicter\GuzzleHttp\Exception\GuzzleException;
 use Depicter\Utility\Sanitize;
 use Depicter\Utility\Http;
 use Exception;
-use GuzzleHttp\Psr7\UploadedFile;
 use Psr\Http\Message\ResponseInterface;
 use WPEmerge\Requests\RequestInterface;
 use Psr\Http\Message\UploadedFileInterface;
-
-//use Depicter\Editor\EditorData;
 
 class EditorAjaxController implements RestMethodsInterface
 {
@@ -52,6 +48,13 @@ class EditorAjaxController implements RestMethodsInterface
 		// Get editor data
 		$editor = $request->body( 'editor' );
 		if( ! empty( $editor ) && JSON::isJson( $editor ) ){
+
+			if ( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ) {
+				$pattern = '/<script[^>]*?>.*?<\/script>/si';
+				// Replace script tags with an empty string
+				$editor = preg_replace($pattern, '', $editor);
+			}
+
 			$properties['editor'] = $editor;
 		}
 
@@ -108,9 +111,14 @@ class EditorAjaxController implements RestMethodsInterface
 
 			$this->setDocumentPoster( $request, $id );
 
-			return Depicter::json( [ 'hits' => [ 'status'      => $status,
-			                                      'modifiedAt'  => $result['modifiedAt'],
-			                                      'publishedAt' => $result['publishedAt'] ] ] )->withStatus( 200 );
+			return Depicter::json(
+			[ 'hits' =>
+				[
+					'status' => $status,
+					'modifiedAt'  => $result['modifiedAt'],
+			        'publishedAt' => $result['publishedAt']
+				]
+			])->withStatus( 200 );
 		} catch( Exception $exception ){
 			$error = Http::getErrorExceptionResponse( $exception );
 
@@ -128,6 +136,7 @@ class EditorAjaxController implements RestMethodsInterface
 	 * @param string           $view
 	 *
 	 * @return ResponseInterface
+	 * @throws Exception
 	 */
 	public function show( RequestInterface $request, $view ){
 		if( ! $documentId = Sanitize::int( $request->query( 'ID' ) ) ){
@@ -136,15 +145,14 @@ class EditorAjaxController implements RestMethodsInterface
 
 		if( ! $document = Depicter::documentRepository()->findById( $documentId ) ){
 			return Depicter::json( [ 'errors' => [ 'Document ID not found.', $documentId ] ] )
-			            ->withHeader( 'X-Document-ID', $documentId )
-			            ->withStatus( 404 );
+				->withHeader( 'X-Document-ID', $documentId )
+				->withStatus( 404 );
 		}
 
 		$hits = Arr::camelizeKeys( $document->getApiProperties(), '_' );
-		// $hits['content'] = Depicter::document()->migrations()->apply( $hits['content'] );
-		return Depicter::json( [ 'hits' =>  $hits ] )
-		                ->withHeader( 'X-Document-ID', $documentId )
-		                ->withStatus( 200 );
+		$hits['content'] = Depicter::document()->migrations()->apply( $hits['content'] );
+
+		return Depicter::json([ 'hits' =>  $hits ])->withHeader( 'X-Document-ID', $documentId )->withStatus( 200 );
 	}
 
 	/**
@@ -168,9 +176,9 @@ class EditorAjaxController implements RestMethodsInterface
 
 		if( $result ){
 			return Depicter::json( [ "errors" => [ "Taken!" ] ] )
-			                ->withHeader( 'X-Taken-Slug', $slug )
-			                ->withHeader( 'X-Available-Slug', Depicter::documentRepository()->makeSlug() )
-			                ->withStatus( 423 );
+				->withHeader( 'X-Taken-Slug', $slug )
+				->withHeader( 'X-Available-Slug', Depicter::documentRepository()->makeSlug() )
+				->withStatus( 423 );
 		}
 
 		return Depicter::json( [ 'hits' => $slug ] )->withStatus( 200 );
@@ -223,15 +231,18 @@ class EditorAjaxController implements RestMethodsInterface
 	public function preview( RequestInterface $request, $view ){
 		$gutenberg = $request->query( 'gutenberg', '' );
 		$documentId = Sanitize::int( $request->query( 'ID' ) );
+
 		if( ! $documentId && empty( $gutenberg ) ){
 			return Depicter::json( [ 'errors' => [ 'Document ID is required.' ], ] )->withStatus( 400 );
 		}
 
 		$status = Sanitize::textfield( $request->query( 'status' ) );
 
-		$previewArgs = [ 'status' => ! empty( $status ) ? $status : 'auto',
-		                 'start'  => Sanitize::int( $request->query( 'startSection' ) ),
-						 'gutenberg' => !empty( $gutenberg ) ];
+		$previewArgs = [
+			'status' => ! empty( $status ) ? $status : 'auto',
+			'start'  => Sanitize::int( $request->query( 'startSection' ) ),
+			'gutenberg' => !empty( $gutenberg )
+		];
 
 		return Depicter::output( Depicter::front()->preview()->document( $documentId, $previewArgs ) );
 	}
@@ -253,13 +264,33 @@ class EditorAjaxController implements RestMethodsInterface
 
 		try{
 			$output = Depicter::document()->getEditorData( $documentId );
+			$output = Depicter::document()->migrations()->apply( $output );
+
 		} catch( Exception $exception ){
-			return Depicter::json( [ 'errors' => [ $exception->getMessage() ] ] )
-			                ->withHeader( 'X-Document-ID', $documentId )
-			                ->withStatus( 404 );
+			return Depicter::json([
+				'errors' => [ $exception->getMessage() ]
+			])->withHeader( 'X-Document-ID', $documentId )->withStatus( 404 );
 		}
 
 		return Depicter::json( $output );
+	}
+
+	public function gerRevisions( RequestInterface $request, $view ) {
+
+		$id = Sanitize::int( $request->query('ID', '') );
+		if ( empty( $id ) ) {
+			return Depicter::json([
+				'errors' => [ __('ID required', 'depicter') ]
+			])->withStatus(400);
+		}
+
+		try{
+			$hits = Depicter::documentRepository()->getRevisionsID( $id );
+
+			return Depicter::json(['hits' => $hits])->withStatus(200);
+		} catch( \Exception $e ){
+			return Depicter::json([ 'errors' => [ $e->getMessage() ] ])->withStatus(400);
+		}
 	}
 
 
@@ -283,8 +314,8 @@ class EditorAjaxController implements RestMethodsInterface
 
 		} catch( Exception $exception ){
 			return Depicter::json( [ 'errors' => [ $exception->getMessage() ] ] )
-			                ->withHeader( 'X-Document-ID', $documentId )
-			                ->withStatus( 404 );
+				->withHeader( 'X-Document-ID', $documentId )
+			    ->withStatus( 404 );
 		}
 	}
 
@@ -413,10 +444,28 @@ class EditorAjaxController implements RestMethodsInterface
 			return Depicter::json([
 				'errors' => [ $exception->getMessage() ]
 			])->withStatus( 400 );
-		};
+		}
 	}
 
 	public function destroy( RequestInterface $request, $view ){
 		// TODO: Implement destroy() method.
+	}
+
+	/**
+	 * Render Just Shortcodes without any header or footer
+	 *
+	 * @param RequestInterface $request
+	 * @param string           $view
+	 *
+	 * @return ResponseInterface
+	 */
+	public function renderShortcode( RequestInterface $request, $view ): ResponseInterface{
+		$shortcode = Sanitize::textfield( $request->query( 'shortcode', '' ) );
+
+		$output = Depicter::view( 'render-shortcode.php' )->with( 'view_args', [
+			'shortcode' => $shortcode
+		])->toString();
+
+		return Depicter::output( $output );
 	}
 }

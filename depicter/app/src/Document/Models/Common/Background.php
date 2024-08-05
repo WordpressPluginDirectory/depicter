@@ -8,12 +8,15 @@ use Averta\WordPress\Utility\JSON;
 use Depicter\Document\CSS\Breakpoints;
 use Depicter\Document\CSS\Selector;
 use Depicter\Document\Models\Traits\HasDataSheetTrait;
+use Depicter\Document\Models\Traits\MediaSourceTrait;
 use Depicter\Html\Html;
 use Depicter\Services\MediaBridge;
 
 class Background
 {
 	use HasDataSheetTrait;
+
+	use MediaSourceTrait;
 
 	/**
 	 * @var Color
@@ -51,14 +54,78 @@ class Background
 	public $kenBurnsData = [];
 
 	/**
+	 * @var string
+	 */
+	protected $markup;
+
+	/**
+	 * Whether in preview mode or not
+	 *
+	 * @var bool
+	 */
+	protected $isPreviewMode;
+
+	/**
+	 * @var mixed|string[]
+	 */
+	private $breakpoints;
+
+	/**
+	 * @var mixed
+	 */
+	private $renderArgs;
+
+	/**
 	 * Check if section has background or not
 	 *
 	 * @return boolean
 	 */
 	public function hasBackground() {
-		return !empty( $this->image->src ) || !empty( $this->video->src );
+		return !empty( $this->image->src->default ) || !empty( $this->video->src );
 	}
 
+	/**
+	 * Check if section has background image or not
+	 *
+	 * @return boolean
+	 */
+	public function hasBackgroundImage() {
+		return !empty( $this->image->src->default ) || !empty( $this->image->src->tablet ) || !empty( $this->image->src->mobile );
+	}
+
+	/**
+	 * Calculates render options
+	 *
+	 * @return $this
+	 */
+	protected function setRenderOptions(){
+		$this->breakpoints = Breakpoints::all();
+		$this->breakpoints['default'] = 1025;
+
+		$defaultAssetID = $this->image->src->default;
+		$tabletAssetID = $this->image->src->tablet ?? $this->image->src->default;
+		$mobileAssetID = $this->image->src->mobile ?? ( $this->image->src->tablet ?? $this->image->src->default );
+
+		$this->renderArgs['default']['assetId'] = $this->hasDataSheet() ? $this->maybeReplaceDataSheetTags( $defaultAssetID ) : $defaultAssetID;
+		$this->renderArgs['tablet']['assetId'] = $this->hasDataSheet() ? $this->maybeReplaceDataSheetTags( $tabletAssetID ) : $tabletAssetID;
+		$this->renderArgs['mobile']['assetId'] = $this->hasDataSheet() ? $this->maybeReplaceDataSheetTags( $mobileAssetID ) : $mobileAssetID;
+
+		$this->renderArgs['tablet']['assetId'] = $this->renderArgs['tablet']['assetId'] ?? $this->renderArgs['default']['assetId'];
+		$this->renderArgs['mobile']['assetId'] = $this->renderArgs['mobile']['assetId'] ?? $this->renderArgs['tablet']['assetId'];
+
+
+		$this->renderArgs['isPreview'] = \Depicter::front()->preview()->isPreview();
+		$this->renderArgs['default']['attachmentId'] = \Depicter::media()->getAttachmentId( $this->renderArgs['default']['assetId'] );
+		$this->renderArgs['tablet']['attachmentId'] = !empty( $this->renderArgs['tablet']['assetId'] ) ? \Depicter::media()->getAttachmentId( $this->renderArgs['tablet']['assetId'] ) : $this->renderArgs['default']['attachmentId'];
+		$this->renderArgs['mobile']['attachmentId'] = !empty( $this->renderArgs['mobile']['assetId'] ) ? \Depicter::media()->getAttachmentId( $this->renderArgs['mobile']['assetId'] ) : $this->renderArgs['tablet']['attachmentId'];
+
+		$this->renderArgs['isAttachment'] = is_numeric( $this->renderArgs['default']['attachmentId'] );
+		$this->renderArgs['altText'] = \Depicter::media()->getAltText( $this->renderArgs['default']['attachmentId'] );
+
+		$this->isPreviewMode = $this->renderArgs['isPreview'] || ! $this->renderArgs['isAttachment'];
+
+		return $this;
+	}
 
 	/**
 	 * Render background markup
@@ -67,56 +134,47 @@ class Background
 	 * @throws \Exception
 	 */
 	public function render() {
-		$html = '';
+		$this->markup = '';
 
-		if ( !empty( $this->image->src ) ) {
-			$originalSrc = $this->image->src;
-			$this->image->src = $this->maybeReplaceDataSheetTags( $this->image->src );
-			$html .= $this->renderImage( \Depicter::media()->getSourceUrl( $this->image->src ) );
-			// restore original image src
-			$this->image->src = $originalSrc;
+		if ( $this->hasBackgroundImage() ) {
+
+			$this->setRenderOptions();
+
+			$this->renderPictureWrapper();
+
+			$this->renderSourceTags();
+			$this->renderImageTag();
+
+			return $this->markup;
 		}
 
 		if ( !empty( $this->video->src ) ) {
-			$videoType = $this->video->type ?? '';
-			if ( $videoType == 'embedVideo') {
-				$html .= $this->renderEmbedVideo();
-			} else {
-				$html .= $this->renderVideo( \Depicter::media()->getSourceUrl( $this->video->src ) );
-			}
+			$sourceID = \Depicter::media()->getAttachmentId( $this->video->src );
+			$url = $sourceID ? \Depicter::media()->getSourceUrl( $sourceID ) : $this->video->src;
+			$this->markup .= $this->renderVideo( $url );
 		}
 
-		return $html;
+		return $this->markup;
 	}
 
 	/**
 	 * Render images
 	 *
-	 * @param $imageUrl
 	 *
 	 * @return Html
 	 */
-	protected function renderImage( $imageUrl ) {
-		$imageID = \Depicter::media()->getAttachmentId( $this->image->src );
-		$imageSrcSet = is_numeric( $imageID ) ? \Depicter::media()->getSrcSet( $imageID, 'full' ) : '';
+	protected function renderImageTag() {
+		$imageID = \Depicter::media()->getAttachmentId( $this->renderArgs['default']['assetId'] );
 
+		$imageUrl = \Depicter::media()->getSourceUrl( $this->renderArgs['default']['assetId'] );
 		$args = [
-			'class'             => 'depicter-bg',
 			'src'			    =>  \Depicter::media()::IMAGE_PLACEHOLDER_SRC,
-			'data-depicter-src' => $imageUrl,
+			'data-depicter-src' => !empty( $this->renderArgs['default']['assetId'] ) ? $imageUrl : '',
 			'alt'               => is_numeric( $imageID ) ? \Depicter::media()->getAltText( $imageID ) : ''
 		];
 
 		if ( !empty( $this->image->alt ) ) {
 			$args['alt'] = $this->image->alt;
-		}
-
-		if ( !empty( $this->kenBurnsData ) ) {
-			$args = Arr::merge( $args, $this->kenBurnsData );
-		}
-
-		if ( $imageSrcSet ) {
-			$args['data-depicter-srcset'] = $imageSrcSet;
 		}
 
 		$available_args = [
@@ -130,7 +188,172 @@ class Background
 
 		$cropAttributes = $this->getCropAttributes( 'image' );
 
-		return Html::img( $imageUrl, Arr::merge( $cropAttributes, $args ) );
+		$img = Html::img( $imageUrl, Arr::merge( $cropAttributes, $args ) );
+
+		$this->markup->nest( $img . "\n" );
+
+		return $this->markup;
+	}
+
+	/**
+	 * Render the element wrapper tag
+	 *
+	 * @throws \JsonMapper_Exception
+	 */
+	protected function renderPictureWrapper(){
+
+		$defaultBackgroundImageID = $this->renderArgs['default']['assetId'] ?? ( $this->renderArgs['tablet']['assetId'] ?? $this->renderArgs['mobile']['assetId'] );
+		$imageID = \Depicter::media()->getAttachmentId( $defaultBackgroundImageID );
+
+		$args = [
+			'class'             => 'depicter-bg',
+			'src'			    =>  \Depicter::media()::IMAGE_PLACEHOLDER_SRC,
+			'alt'               => is_numeric( $imageID ) ? \Depicter::media()->getAltText( $imageID ) : ''
+		];
+
+		if ( !empty( $this->image->alt ) ) {
+			$args['alt'] = $this->image->alt;
+		}
+
+		if ( !empty( $this->kenBurnsData ) ) {
+			$args = Arr::merge( $args, $this->kenBurnsData );
+		}
+
+		$this->markup = Html::picture( $args );
+	}
+
+	/**
+	 * Renders and appends necessary source tags with media queries for breakpoints
+	 */
+	protected function renderSourceTags(){
+
+		$desktopSources = $this->getSourceUrls( 'default' );
+		$tabletSources  = $this->getSourceUrls( 'tablet' );
+		$mobileSources  = $this->getSourceUrls( 'mobile' );
+
+		if( ! $tabletSources && ! $mobileSources  ){
+			$this->appendSourceTag( $desktopSources );
+			return;
+		}
+
+		if( $desktopSources == $tabletSources ){
+			if( $tabletSources == $mobileSources ){
+				// if all breakpoints sources are the same
+				$this->appendSourceTag( $desktopSources );
+			} else {
+				// if desktop and tablet sources are the same
+				$this->appendSourceTag( $mobileSources, 'max-width', $this->breakpoints['mobile'] );
+				$this->appendSourceTag( $desktopSources, 'min-width', $mobileSources ? (int) $this->breakpoints['mobile'] + 1 : 0 );
+			}
+		} elseif( $tabletSources == $mobileSources ){
+			// if tablet and mobile sources are the same
+			$this->appendSourceTag( $tabletSources, 'max-width', $this->breakpoints['tablet'] );
+			$this->appendSourceTag( $desktopSources, 'min-width', ( $tabletSources ? (int) $this->breakpoints['tablet'] + 1 : 0 ) );
+		} else {
+			$this->appendSourceTag( $mobileSources, 'max-width', $this->breakpoints['mobile'] );
+			$this->appendSourceTag( $tabletSources, 'max-width', $this->breakpoints['tablet'] );
+
+			$mediaQuerySize = (int) $this->breakpoints['default'];
+			if( ! $tabletSources ){
+				$mediaQuerySize = $mobileSources ? (int) $this->breakpoints['mobile'] + 1 : 0;
+			}
+			$this->appendSourceTag( $desktopSources, 'min-width', $mediaQuerySize );
+		}
+
+	}
+
+	/**
+	 * Retrieves source urls (srcset) for a breakpoint in array
+	 *
+	 * @param string $device
+	 *
+	 * @return array
+	 */
+	protected function getSourceUrls( $device = 'default' ){
+
+		$imageSources = [];
+
+		try{
+			if ( $device == 'default' && ! empty( $this->renderArgs['default']['assetId'] ) ) {
+				$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['default']['assetId'] );
+				if ( !empty( $imageSources ) && null !== $defaultAssetID = \Depicter::media()->getAttachmentId( $this->renderArgs['default']['assetId'] ) ) {
+					[ $imageSource, $width, $height ] = wp_get_attachment_image_src( $defaultAssetID, 'full');
+					$retinaImageSource = \Depicter::media()->resizeSourceUrl(
+						$defaultAssetID,
+						$width  * 2,
+						$height * 2 );
+
+					if( $retinaImageSource ){
+						$imageSources[] = $retinaImageSource . ' 2x';
+					}
+				}
+			} else if ( $device == 'tablet' && !empty( $this->renderArgs['tablet']['assetId'] ) ) {
+				if ( $this->renderArgs['tablet']['assetId'] == $this->renderArgs['default']['assetId'] ) {
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['default']['assetId'], 'medium');
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['default']['assetId'], 'full') . ' 2x';
+				} else {
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['tablet']['assetId'] );
+					if ( !empty( $imageSources ) && null !== $tabletAssetID = \Depicter::media()->getAttachmentId( $this->renderArgs['tablet']['assetId'] ) ) {
+						[ $imageSource, $width, $height ] = wp_get_attachment_image_src( $tabletAssetID, 'full');
+						$retinaImageSource = \Depicter::media()->resizeSourceUrl(
+							$tabletAssetID,
+							$width  * 2,
+							$height * 2 );
+
+						if( $retinaImageSource ){
+							$imageSources[] = $retinaImageSource . ' 2x';
+						}
+					}
+				}
+			} else if ( $device == 'mobile' && !empty( $this->renderArgs['mobile']['assetId'] ) ) {
+				if ( $this->renderArgs['mobile']['assetId'] == $this->renderArgs['default']['assetId'] || $this->renderArgs['mobile']['assetId'] == $this->renderArgs['tablet']['assetId'] ) {
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['mobile']['assetId'], 'medium');
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['mobile']['assetId'], 'large') . ' 2x';
+				} else {
+					$imageSources[] = \Depicter::media()->getSourceUrl( $this->renderArgs['mobile']['assetId'] );
+					if ( !empty( $imageSources ) && null !== $mobileAssetID = \Depicter::media()->getAttachmentId( $this->renderArgs['mobile']['assetId'] ) ) {
+						[ $imageSource, $width, $height ] = wp_get_attachment_image_src( $mobileAssetID, 'full');
+						$retinaImageSource = \Depicter::media()->resizeSourceUrl(
+							$mobileAssetID,
+							$width  * 2,
+							$height * 2 );
+
+						if( $retinaImageSource ){
+							$imageSources[] = $retinaImageSource . ' 2x';
+						}
+					}
+				}
+			}
+		} catch( \Exception $e ){
+		}
+
+		return $imageSources;
+	}
+
+	/**
+	 * Generates and appends a source tag with media query to element markup
+	 *
+	 * @param array  $imageSources
+	 * @param string $mediaQueryCondition
+	 * @param int   $mediaQuerySize
+	 */
+	protected function appendSourceTag( $imageSources = [], $mediaQueryCondition = 'max-width', $mediaQuerySize = null ){
+		if( ! $imageSources ){
+			return;
+		}
+
+		$this->addMediaUlrToDictionary( $imageSources, $mediaQueryCondition, $mediaQuerySize );
+
+		$attributes = [
+			'data-depicter-srcset' => trim( implode( ', ', $imageSources ), ', ' ),
+			'srcset' => \Depicter::media()::IMAGE_PLACEHOLDER_SRC,
+		];
+		if( $mediaQueryCondition && $mediaQuerySize ){
+			$attributes['media'] = '(' . $mediaQueryCondition . ': ' . $mediaQuerySize . 'px)';
+		}
+		$sourceTag = Html::source( $attributes );
+
+		$this->markup->nest( "\n" . $sourceTag . "\n" );
 	}
 
 	/**
@@ -144,16 +367,16 @@ class Background
 
 		$args = [
 			'class' 		=> Selector::prefixify( 'bg-video' ),
-			'src'           => $videoUrl,
+			'data-video-src' => $videoUrl,
 			'preload'       => 'metadata',
 			'playsinline'   => "true"
 		];
 
 		$available_args = [
-			'muted' => 'muted',
-			'loop'  => 'loop',
+			'data-loop'  => 'loop',
 			'data-goto-next'  => 'goNextSlide',
 			'data-auto-pause' => 'pause',
+			'data-player-type' => 'type',
 			'responsiveArgs' => [
 				'data-object-fit'       => 'fitMode',
 				'data-object-position'  => 'position'
@@ -162,7 +385,7 @@ class Background
 
 		$args = $this->getElementAttributes( 'video', $args, $available_args );
 
-		return Html::video( $args );
+		return Html::div( $args );
 	}
 
 	/**
@@ -238,9 +461,18 @@ class Background
 
 			// In video background, if each of `muted` or `loop` are not set, consider it as `true` by default
 			if( $element_type === 'video' ){
-				if( in_array( $property, ['muted', 'loop'] ) ){
-					if( ! isset( $this->{$element_type}->{$property} ) ){
-						$args[ $attribute ] = 'true';
+				if( $property == 'loop' && ! isset( $this->{$element_type}->{$property} ) ) {
+					$args[ $attribute ] = 'true';
+				}
+
+				if ( $property == 'type' && ! empty( $this->{$element_type}->{$property} ) ) {
+					if ( $this->{$element_type}->{$property} == 'selfHostedVideo' ) {
+						$args[ $attribute ] = 'native';
+					} else if ( $this->{$element_type}->{$property} == 'embedVideo' ) {
+						$args[ $attribute ] = $this->{$element_type}->embedType;
+						if ( $this->{$element_type}->embedType == 'youtube' && ! empty( $args['data-video-src'] ) ) {
+							$args['data-video-poster'] = Embed::getYouTubePosterUrl( $args['data-video-src'] );
+						}
 					}
 				}
 			}
@@ -366,7 +598,7 @@ class Background
 		}
 
 		$iframe = Html::iframe([
-			'src' => $embedUrl,
+			'data-depicter-src' => $embedUrl,
 			"frameborder" => "0",
 			"allowfullscreen" => "",
 			'data-type' => $this->video->embedType,

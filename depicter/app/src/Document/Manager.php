@@ -130,7 +130,7 @@ class Manager
 			return false;
 		}
 
-		// $editorDataArray = \Depicter::document()->migrations()->apply( $editorDataArray );
+		$editorDataArray = \Depicter::document()->migrations()->apply( $editorDataArray );
 
 		$editorDataArray->startSection = $startSection;
 

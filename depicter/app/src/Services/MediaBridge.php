@@ -2,9 +2,12 @@
 namespace Depicter\Services;
 
 
+use Averta\Core\Utility\Arr;
 use Depicter\Document\Helper\Helper;
 use Depicter\GuzzleHttp\Exception\GuzzleException;
 use Depicter\Media\Image\ImageEditor;
+use Exception;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * A bridge for MediaLibrary Service and AssetsAPIService to retrieve medias from different services
@@ -29,7 +32,7 @@ class MediaBridge
 	 * @param bool       $forcePreview
 	 *
 	 * @return array|false|string
-	 * @throws \Exception
+	 * @throws Exception|GuzzleException
 	 */
 	public function getSourceUrl( $assetId, $size = 'large', $forcePreview = false, $args = [] )
 	{
@@ -37,7 +40,7 @@ class MediaBridge
 		if( $attachmentId = $this->getAttachmentId( $assetId ) ) {
 			try {
 				$mediaUrl = $this->library()->getSourceURL( $attachmentId, $size, $args );
-			} catch( \Exception $e ) {
+			} catch( Exception $e ) {
 				// if asset is imported but deleted manually after a while
 				if ( ! is_numeric( $assetId ) ) {
 					$this->library()->importAsset( $assetId, true );
@@ -49,7 +52,8 @@ class MediaBridge
 		// If asset is not imported yet
 		} else {
 			$size = is_array( $size ) ? 'large' : $size;
-			$mediaUrl = AssetsAPIService::getHotlink( $assetId, $size, ['forcePreview' => $forcePreview ] );
+
+			$mediaUrl = AssetsAPIService::getHotlink( $assetId, $size, Arr::merge( ['forcePreview' => $forcePreview ], $args ) );
 		}
 
 		return $mediaUrl;
@@ -66,6 +70,7 @@ class MediaBridge
 	 * @param array  $args     Resizing options
 	 *
 	 * @return mixed
+	 * @throws GuzzleException
 	 */
 	public function resizeSourceUrl( $assetId, $resizeW = null, $resizeH = null, $cropW = null, $cropH = null, $args = [] ){
 
@@ -73,7 +78,7 @@ class MediaBridge
 		if( $attachmentId = $this->getAttachmentId( $assetId ) ) {
 			try {
 				$mediaUrl = ImageEditor::process( $attachmentId, $resizeW, $resizeH, $cropW, $cropH, $args );
-			} catch( \Exception $e ) {
+			} catch( Exception $e ) {
 				// if asset is imported but deleted manually after a while
 				if ( ! is_numeric( $assetId ) ) {
 					$this->library()->importAsset( $assetId, true );
@@ -272,6 +277,6 @@ class MediaBridge
 		if ( false !== $array_key = array_search( $attachmentId, $imported_media_dictionary ) ) {
 			unset( $imported_media_dictionary[ $array_key ] );
 			\Depicter::options()->set( 'imported_assets', $imported_media_dictionary );
-		}		
+		}
 	}
 }

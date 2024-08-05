@@ -291,6 +291,13 @@ class Products extends Posts implements DataSourceInterface {
 						'width'  => $imageInfo[1] ?? '',
 						'height' => $imageInfo[2] ?? '',
 					];
+				} else {
+					$featuredImage = [
+						'id'     => null,
+						'src'    => '',
+						'width'  => '',
+						'height' => '',
+					];
 				}
 
 				$secondaryImage = [];

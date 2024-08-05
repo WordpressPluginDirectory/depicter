@@ -157,6 +157,8 @@ class Preview
 			$viewArgs['title'] = empty( $documentName ) ? $viewArgs['title'] : $documentName;
 		}
 
+		$viewArgs['hasShortcode'] = $documentModel->hasShortcode();
+		
 		return $viewArgs;
 	}
 
