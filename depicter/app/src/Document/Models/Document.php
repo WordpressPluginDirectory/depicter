@@ -115,21 +115,6 @@ class Document implements HydratableInterface
 	 */
 	public $isBuildWithAI = false;
 
-	/**
-	 * check if document has shortcode element or not
-	 *
-	 * @var boolean
-	 */
-	protected $hasShortcodeElement = false;
-
-
-	/**
-	 * list of IDs of Form elements in the slider
-	 *
-	 * @var array
-	 */
-	protected $formIDs = [];
-
 
 	/**
 	 * Extract values for this class
@@ -309,15 +294,6 @@ class Document implements HydratableInterface
 		foreach ( $this->sections as $section ) {
 			$this->html->nest( $section->render() . "\n" );
 			$this->stylesList = array_merge( $this->stylesList, $section->getCss() );
-
-			if ( $section->hasShortcode() ) {
-				$this->hasShortcodeElement = true;
-			}
-
-			$formIDs = $section->hasForm();
-			if ( $formIDs ) {
-				$this->formIDs = Arr::merge( $formIDs, $this->formIDs );
-			}
 		}
 	}
 
@@ -798,24 +774,6 @@ class Document implements HydratableInterface
 	 */
 	public function printInitScriptTag() {
 		echo Sanitize::html( $this->getInitScriptTag() );
-	}
-
-	/**
-	 * Check if document model has shortcode element or not
-	 *
-	 * @return boolean
-	 */
-	public function hasShortcode() {
-		return $this->hasShortcodeElement;
-	}
-
-	/**
-	 * Return form ids used in this documnet
-	 *
-	 * @return array
-	 */
-	public function getFormIDs(): array{
-		return $this->formIDs;
 	}
 
 }

@@ -9,8 +9,6 @@ use Averta\WordPress\Models\WPOptions;
 use Depicter;
 use Depicter\Database\DataMigration;
 use Depicter\Database\Repository\DocumentRepository;
-use Depicter\Database\Repository\LeadFieldRepository;
-use Depicter\Database\Repository\LeadRepository;
 use Depicter\Database\Repository\MetaRepository;
 use Depicter\Document\Manager as DocumentManager;
 use Depicter\DataSources\Manager as DataSources;
@@ -25,7 +23,6 @@ use Depicter\Services\ClientService;
 use Depicter\Services\ExportService;
 use Depicter\Services\GeoLocateService;
 use Depicter\Services\ImportService;
-use Depicter\Services\LeadService;
 use Depicter\Services\MediaBridge;
 use Depicter\Services\RemoteAPIService;
 use Depicter\Services\StorageService;
@@ -216,19 +213,4 @@ final class AppMixin
 	 * @return DocumentMigration
 	 */
 	public static function documentMigration(): DocumentMigration {}
-
-	/**
-	 * @return LeadRepository
-	 */
-	public static function leadRepository(): LeadRepository {}
-
-	/**
-	 * @return LeadFieldRepository
-	 */
-	public static function leadFieldRepository(): LeadFieldRepository {}
-
-	/**
-	 * @return LeadService
-	 */
-	public static function lead(): LeadService {}
 }

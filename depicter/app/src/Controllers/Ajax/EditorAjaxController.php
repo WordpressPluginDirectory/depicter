@@ -450,22 +450,4 @@ class EditorAjaxController implements RestMethodsInterface
 	public function destroy( RequestInterface $request, $view ){
 		// TODO: Implement destroy() method.
 	}
-
-	/**
-	 * Render Just Shortcodes without any header or footer
-	 *
-	 * @param RequestInterface $request
-	 * @param string           $view
-	 *
-	 * @return ResponseInterface
-	 */
-	public function renderShortcode( RequestInterface $request, $view ): ResponseInterface{
-		$shortcode = Sanitize::textfield( $request->query( 'shortcode', '' ) );
-
-		$output = Depicter::view( 'render-shortcode.php' )->with( 'view_args', [
-			'shortcode' => $shortcode
-		])->toString();
-
-		return Depicter::output( $output );
-	}
 }

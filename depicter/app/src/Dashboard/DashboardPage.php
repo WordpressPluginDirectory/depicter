@@ -264,8 +264,7 @@ class DashboardPage
 					'name'  => Escape::html( $currentUser->display_name ),
 					'email' => Escape::html( $currentUser->user_email   ),
 					'onboarding' => ! \Depicter::documentRepository()->all( [ 'id' ] ),
-					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed'),
-					'dataCollectionConsent' => \Depicter::options()->get('data_collect_consent', 'not-set')
+					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed')
 				],
 				'activation' => [
 					'status'       => \Depicter::auth()->getActivationStatus(),

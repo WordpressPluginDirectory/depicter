@@ -16,8 +16,7 @@ $view_defaults = [
 	'head'    => '',
 	'body_classes' => [],
 	'content' => '',
-	'footer'  => '',
-	'hasShortcode' => false
+	'footer'  => ''
 ];
 
 $view_args = array_merge( $view_defaults, $view_args );
@@ -41,9 +40,6 @@ if ( is_rtl() ) {
 	<title><?php echo esc_html( $title ); ?></title>
 	<?php 
 	echo \Depicter\Utility\Sanitize::html( $head ); 
-	if ( $hasShortcode ) {
-		wp_head();
-	}
 	?>
 	<script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>';</script>
 </head>
@@ -51,9 +47,6 @@ if ( is_rtl() ) {
 <?php echo \Depicter\Utility\Sanitize::html( $content, null, 'depicter/output' ); ?>
 <?php 
 echo \Depicter\Utility\Sanitize::html( $footer ); 
-if ( $hasShortcode ) {
-	wp_footer();
-}
 echo "<script>
 (function () {
 	window.addEventListener(\"message\", (event) => {

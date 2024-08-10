@@ -20,9 +20,6 @@ class States
 
 	public function getOffset( $device ) {
 		$x = $y = $origin = '';
-		if ( ! empty( $this->{$device}->positionType ) && $this->{$device}->positionType != 'absolute' ) {
-			return '';
-		}
 
 		if ( isset( $this->{$device}->x->value ) ) {
 			$x = "x:" . $this->{$device}->x->value . $this->{$device}->x->unit . ";";
@@ -36,9 +33,5 @@ class States
 		}
 
 		return $x . $y . $origin;
-	}
-
-	public function getPositionType( $device ) {
-		return $this->{$device}->positionType ?? '';
 	}
 }

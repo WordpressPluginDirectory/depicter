@@ -168,10 +168,13 @@ class Background
 
 		$imageUrl = \Depicter::media()->getSourceUrl( $this->renderArgs['default']['assetId'] );
 		$args = [
-			'src'			    =>  \Depicter::media()::IMAGE_PLACEHOLDER_SRC,
-			'data-depicter-src' => !empty( $this->renderArgs['default']['assetId'] ) ? $imageUrl : '',
-			'alt'               => is_numeric( $imageID ) ? \Depicter::media()->getAltText( $imageID ) : ''
+			'src' =>  \Depicter::media()::IMAGE_PLACEHOLDER_SRC,
+			'alt' => is_numeric( $imageID ) ? \Depicter::media()->getAltText( $imageID ) : ''
 		];
+
+		if( !empty( $this->renderArgs['default']['assetId'] ) ){
+			$args[ 'data-depicter-src' ] = $imageUrl;
+		}
 
 		if ( !empty( $this->image->alt ) ) {
 			$args['alt'] = $this->image->alt;
@@ -185,6 +188,10 @@ class Background
 		];
 
 		$args = $this->getElementAttributes( 'image', $args, $available_args );
+
+		if ( !empty( $this->kenBurnsData ) ) {
+			$args = Arr::merge( $args, $this->kenBurnsData );
+		}
 
 		$cropAttributes = $this->getCropAttributes( 'image' );
 
@@ -213,10 +220,6 @@ class Background
 
 		if ( !empty( $this->image->alt ) ) {
 			$args['alt'] = $this->image->alt;
-		}
-
-		if ( !empty( $this->kenBurnsData ) ) {
-			$args = Arr::merge( $args, $this->kenBurnsData );
 		}
 
 		$this->markup = Html::picture( $args );

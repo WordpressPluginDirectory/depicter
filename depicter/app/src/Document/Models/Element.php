@@ -5,7 +5,6 @@ use Averta\Core\Utility\Arr;
 use Depicter\Document\CSS\Breakpoints;
 use Depicter\Document\CSS\Selector;
 use Depicter\Document\Helper\Helper;
-use Depicter\Document\Models\Common\Layout\AutoLayout;
 use Depicter\Document\Models\Traits\HasDataSheetTrait;
 use Depicter\Document\Models\Traits\HasDocumentIdTrait;
 use Depicter\Editor\Models\Common\Size;
@@ -162,12 +161,6 @@ class Element
 	 */
 	protected $markup;
 
-	/**
-	 * @var \Depicter\Document\Models\Common\Layout\AutoLayout|null
-	 */
-	public $autoLayout;
-
-
 
 	/**
 	 * Element constructor.
@@ -254,9 +247,6 @@ class Element
 		if ( strpos( $this->type, 'dpc' ) !== false ) {
 			$this->componentType = $this->type;
 			$this->type = 'component';
-		} else if ( strpos( $this->type, 'form:' ) !== false ) {
-			$this->componentType = $this->type;
-			$this->type = 'form';
 		}
 
 		$className = '\\Depicter\\Document\\Models\\Elements\\' . ucfirst( $this->type );
@@ -334,24 +324,14 @@ class Element
 			'data-name'		 => $this->getName()
 		];
 
-		if( ! empty( $this->position->getOffset("default" ) ) && $this->position->getPositionType("default" ) != 'static' ){
+		if( ! empty( $this->position->getOffset("default" ) ) ){
 			$dataAttrs['data-offset'] = $this->position->getOffset("default" );
 		}
-		if( ! empty( $this->position->getOffset("tablet" ) ) && $this->position->getPositionType("tablet" ) != 'static' ){
+		if( ! empty( $this->position->getOffset("tablet" ) ) ){
 			$dataAttrs['data-tablet-offset'] = $this->position->getOffset("tablet" );
 		}
-		if( ! empty( $this->position->getOffset("mobile" ) ) && $this->position->getPositionType("mobile" ) != 'static' ){
+		if( ! empty( $this->position->getOffset("mobile" ) ) ){
 			$dataAttrs['data-mobile-offset'] = $this->position->getOffset("mobile" );
-		}
-
-		if( ! empty( $this->position->getPositionType("default" ) ) ){
-			$dataAttrs['data-position-type'] = $this->position->getPositionType("default" );
-		}
-		if( ! empty( $this->position->getPositionType("tablet" ) ) ){
-			$dataAttrs['data-tablet-position-type'] = $this->position->getPositionType("tablet" );
-		}
-		if( ! empty( $this->position->getPositionType("mobile" ) ) ){
-			$dataAttrs['data-mobile-position-type'] = $this->position->getPositionType("mobile" );
 		}
 
 		if( $this->hideOnSections && $hideOnSections = Helper::getInvisibleSectionsCssIdList( $this->hideOnSections, $this->getDocumentID() ) ){
@@ -522,13 +502,6 @@ class Element
 
 		if ( $this->getCustomStyles() ) {
 			$this->selectorCssList[ '.' . $this->getStyleSelector() ]['customStyle'] = $this->getCustomStyles();
-		}
-
-		// add AutoLayout styles
-		if ( $this->autoLayout && !empty( $this->autoLayout->enable ) ) {
-			if( $styles = $this->autoLayout->getStyles() ){
-				$this->selectorCssList[ '.' . $this->getStyleSelector() ] = array_merge_recursive( $this->selectorCssList[ '.' . $this->getStyleSelector() ], $styles );
-			}
 		}
 
 		return $this->selectorCssList;

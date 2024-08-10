@@ -156,8 +156,6 @@ class Preview
 			$documentName = $document->getFieldValue('name');
 			$viewArgs['title'] = empty( $documentName ) ? $viewArgs['title'] : $documentName;
 		}
-
-		$viewArgs['hasShortcode'] = $documentModel->hasShortcode();
 		
 		return $viewArgs;
 	}
