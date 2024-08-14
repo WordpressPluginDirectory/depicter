@@ -4,7 +4,7 @@ Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
 Tested up to: WordPress 6.6.1
 Requires PHP: 7.4.0
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,11 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 
 
 == Changelog ==
+
+###3.2.2
+- *Released: 2024-08-13*
+- **Added**
+- Added a new option for enabling upload of SVG and Json files.  
 
 ###3.2.1
 - *Released: 2024-08-10*

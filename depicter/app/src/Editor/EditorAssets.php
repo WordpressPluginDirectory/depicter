@@ -95,6 +95,7 @@ class EditorAssets
 				'overdue'   => \Depicter::auth()->isSubscriptionExpired()
 			],
 			'integrations' => [
+				'unfilteredUploadAllowed' => \Depicter::options()->get('allow_unfiltered_data_upload' ) === 'on',
 				'woocommerce' => [
 					'label' => __( 'WooCommerce Plugin', 'depicter' ),
 					'enabled' => Plugin::isActive( 'woocommerce/woocommerce.php' )

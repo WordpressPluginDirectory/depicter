@@ -73,4 +73,14 @@ class FileUploaderService
 
 		return $results;
 	}
+
+	/**
+	 * Check if user can upload unfiltered Data or not
+	 *
+	 * @return boolean
+	 */
+	public function canUploadUnfilteredData() {
+		$mimes = get_allowed_mime_types();  
+    	return array_key_exists('svg', $mimes) && array_key_exists('json', $mimes);  
+	}
 }

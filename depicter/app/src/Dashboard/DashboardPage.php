@@ -146,6 +146,16 @@ class DashboardPage
 			'icon' => '<span class="dashicons dashicons-update" style="line-height:28px; margin-right:8px; height:28px;"></span>'
 		]);
 
+		$settings->add_option('select', [
+			'name' => 'allow_unfiltered_data_upload',
+			'label' => __( 'Allow Unfiltered File Upload?', 'depicter' ),
+			'options' => [
+				'off' => __( 'Disable', 'depicter' ),
+				'on'  => __( 'Enable', 'depicter' )
+			],
+			'description' => __( 'Attention! Allowing uploads of SVG or JSON files is a potential security risk.<br/>Although Depicter sanitizes such files, we recommend that you only enable this feature if you understand the security risks involved.', 'depicter' ),
+		]);
+
 		$settings->add_option('checkbox', [
 			'name' => 'always_load_assets',
 			'label' => __( 'Load assets on all pages?', 'depicter' ),
@@ -278,6 +288,7 @@ class DashboardPage
 					'overdue'   => \Depicter::auth()->isSubscriptionExpired()
 				],
 			    'integrations' => [
+					'unfilteredUploadAllowed' => \Depicter::options()->get('allow_unfiltered_data_upload' ) === 'on',
 					'woocommerce' => [
 						'label' => __( 'WooCommerce Plugin', 'depicter' ),
 						'enabled' => Plugin::isActive( 'woocommerce/woocommerce.php' )

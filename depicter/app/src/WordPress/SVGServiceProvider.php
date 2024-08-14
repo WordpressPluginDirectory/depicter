@@ -50,8 +50,10 @@ class SVGServiceProvider implements ServiceProviderInterface
 	 * @return mixed
 	 */
 	public function addExtraMimeType( $mimes ){
-		$mimes['svg']  = 'image/svg+xml';
-		$mimes['json'] = 'application/json';
+		if ( \Depicter::options()->get('allow_unfiltered_data_upload' ) === 'on' ) {
+			$mimes['svg']  = 'image/svg+xml';
+			$mimes['json'] = 'application/json';
+		}
 
 		return $mimes;
 	}

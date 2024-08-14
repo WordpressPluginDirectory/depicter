@@ -37,7 +37,7 @@ class PluginServiceProvider implements ServiceProviderInterface
 
 		add_action( 'plugins_loaded', [$this, 'loadTextDomain'] );
 		add_action( 'admin_init', [ $this, 'check_plugin_upgrade_via_upload' ] );
-		add_filter( 'update_plugin_complete_actions', [ $this, 'add_depicter_link_after_upgrade'], 10, 1);
+		add_filter( 'update_plugin_complete_actions', [ $this, 'add_depicter_link_after_upgrade'], 10, 2);
 
 		if ( defined('WP_CLI') && WP_CLI ) {
 			\WP_CLI::add_command( 'depicter', \Depicter::app()->cli() );
@@ -87,15 +87,18 @@ class PluginServiceProvider implements ServiceProviderInterface
 	 * Add go to depicter dashboard link after upgrade at bottom of upgrade page
 	 *
 	 * @param array $install_actions
-	 * @return void
+	 *
+	 * @return array
 	 */
-	public function add_depicter_link_after_upgrade( $install_actions ){
-		$install_actions['depicter_dashboard'] = sprintf(
-			'<a href="%s" target="_parent">%s</a>',
-			admin_url( 'admin.php?page=depicter-dashboard' ),
-			__( 'Go to Depicter', 'depicter' )
-		);
-	
+	public function add_depicter_link_after_upgrade( $install_actions, $plugin ){
+		if ( false !== strpos( $plugin, 'depicter') ) {
+			$install_actions['depicter_dashboard'] = sprintf(
+				'<a href="%s" target="_parent">%s</a>',
+				self_admin_url( 'admin.php?page=depicter-dashboard' ),
+				__( 'Go to Depicter', 'depicter' )
+			);
+		}
+
 		return $install_actions;
 	}
 }
