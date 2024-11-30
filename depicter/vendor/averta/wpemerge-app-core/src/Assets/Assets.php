@@ -164,28 +164,27 @@ class Assets {
 	 * @return string
 	 */
 	public function getBundleUrl( $name, $extension ) {
-		$url_path = '.css' === $extension ? "styles/{$name}" : $name;
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$file_path = implode(
-			DIRECTORY_SEPARATOR,
-			array_filter(
-				[
-					$this->path,
-					'dist',
-					'.css' === $extension ? 'styles' : '',
-					$name . $suffix . $extension,
-				]
-			)
-		);
+		$development = implode( DIRECTORY_SEPARATOR, [ $this->path, 'dist', 'development.json' ] );
+		$is_development = $this->filesystem->exists( $development );
+		$is_hot = false;
+		$is_debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
 
-		if ( $this->filesystem->exists( $file_path ) ) {
-			return "{$this->getUrl()}/dist/{$url_path}{$suffix}{$extension}";
+		if ( $is_development ) {
+			$json = json_decode( $this->filesystem->get_contents( $development ) );
+			$is_hot = $json->hot;
 		}
 
-		$hot_url = wp_parse_url( $this->config->get( 'development.hotUrl', 'http://localhost/' ) );
-		$hot_port = $this->config->get( 'development.port', 3000 );
+		$url_path = '.css' === $extension ? "styles/{$name}" : $name;
+		$suffix = $is_development || $is_debug ? '' : '.min';
 
-		return "{$hot_url['scheme']}://{$hot_url['host']}:{$hot_port}/{$url_path}{$extension}";
+		if ( $is_hot ) {
+			$hot_url = wp_parse_url( $this->config->get( 'development.hotUrl', 'http://localhost/' ) );
+			$hot_port = $this->config->get( 'development.port', 3000 );
+
+			return "${hot_url['scheme']}://{$hot_url['host']}:{$hot_port}/{$url_path}{$suffix}{$extension}";
+		}
+
+		return "{$this->getUrl()}/dist/{$url_path}{$suffix}{$extension}";
 	}
 
 	/**
