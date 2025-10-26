@@ -285,7 +285,13 @@ class Document implements HydratableInterface
 		$foregroundAttributes = [ 'class' => Selector::prefixify('overlay-layers') ];
 		$elementsMarkup = "";
 
+		// use the first data sheet for the foreground elements which are dataSource elements
+		$dataSheet = $this->getTheDataSourceDataSheet();
 		foreach ( $this->foregroundElementObjects as $element ) {
+			if ( $dataSheet ) {
+				$element->prepare()->setDataSheet( $dataSheet );
+			}
+			
 			$this->stylesList = array_merge( $this->stylesList, $element->prepare()->getSelectorAndCssList() );
 			$elementsMarkup .= $element->prepare()->render() . "\n";
 		}
@@ -387,7 +393,7 @@ class Document implements HydratableInterface
 		$this->stylesList[ '.'. $this->getStyleSelector() ]['beforeInitStyle'] = [
 			'.'. $this->getStyleSelector() => $this->options->getStyles(),
 			'.'. $this->getStyleSelector( true ) . ':not(.depicter-ready)' => $this->options->getBeforeInitStyles(), // styles to prevent FOUC. It should not have depicter-revert class in selector
-			'.'. $this->getStyleSelector() . ' .depicter-primary-container' => $this->options->getPrimaryContainerStyles(),
+			'.'. $this->getStyleSelector() => $this->options->getPrimaryContainerStyles(),
 		];
 
 		return $this->stylesList;
@@ -626,9 +632,15 @@ class Document implements HydratableInterface
 	 * Here Objects can be element or section
 	 */
 	protected function setElementsForObjects(){
+        $index = 0;
 		foreach ( $this->sections as $section ){
 			// Assign document ID to all sections
 			$section->setDocumentID( $this->getDocumentID() );
+            $section->setDocumentType( $this->getType() );
+            // set index (order) for this section
+            $section->index = $index;
+            $index++;
+            // set elements for this section
 			$this->setElementsForOneObjects( $section );
 		}
 
@@ -836,6 +848,34 @@ class Document implements HydratableInterface
 	 */
 	public function isRecaptchaEnabled(): bool {
 		return $this->isRecaptchaEnabled;
+	}
+
+	/**
+	 * Get the first data sheet from a data source
+	 *
+	 * @return bool|null|array
+	 */
+	public function getTheDataSourceDataSheet() {
+		$dataSheet = false;
+		foreach( $this->sections as $section ) {
+			if ( $section->dataSource ) {
+				$dataSourceInstance = \Depicter::dataSource()->getByType( $section->dataSource->type );
+				if( $dataSourceInstance ){
+					$dataSheets = $dataSourceInstance->getDataSheetArgs( $section->dataSource->params );
+					foreach( $dataSheets as $dataSheet ){
+						$section->setDataSheet( $dataSheet );
+						break;
+					}
+					$dataSheet = $section->getDataSheet();
+				}
+			}
+
+			if ( $dataSheet ) {
+				break;
+			}
+		}
+
+		return $dataSheet;
 	}
 
 }

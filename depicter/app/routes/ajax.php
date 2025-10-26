@@ -471,18 +471,22 @@ Depicter::route()->methods(['POST'])
 // ========================================================
 Depicter::route()->methods(['POST'])
     ->where('ajax', 'depicter-document-rules-store', true, true)
+    ->middleware('csrf-api:depicter-editor')
     ->handle('RulesAjaxController@store');
 
 Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-document-rules-show', true, true)
+        ->middleware('csrf-api:depicter-editor')
         ->handle('RulesAjaxController@show');
 
 Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-condition-all', true, true)
+        ->middleware('csrf-api:depicter-editor')
         ->handle('RulesAjaxController@all');
 
 Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-document-condition-options', true, true)
+        ->middleware('csrf-api:depicter-editor')
         ->handle('RulesAjaxController@conditionValues');
 
 Depicter::route()->methods(['POST'])
@@ -539,10 +543,30 @@ Depicter::route()->methods(['POST'])
         ->middleware('csrf-api:depicter-dashboard')
         ->handle('DataCollectController@getPermission');
 
+Depicter::route()->methods(['GET'])
+        ->where('ajax', 'depicter-settings-index', true, true)
+        ->middleware('csrf-api:depicter-editor|depicter-dashboard')
+        ->handle('OptionsAjaxController@index');
+
 Depicter::route()->methods(['POST'])
-        ->where('ajax', 'depicter-setting-update', true, true)
+        ->where('ajax', 'depicter-settings-update', true, true)
         ->middleware('csrf-api:depicter-editor|depicter-dashboard')
         ->handle('OptionsAjaxController@update');
+
+Depicter::route()->methods(['GET'])
+        ->where('ajax', 'depicter-settings-get', true, true)
+        ->middleware('csrf-api:depicter-editor|depicter-dashboard')
+        ->handle('OptionsAjaxController@get');
+
+Depicter::route()->methods(['POST'])
+        ->where('ajax', 'depicter-settings-store', true, true)
+        ->middleware('csrf-api:depicter-editor|depicter-dashboard')
+        ->handle('OptionsAjaxController@store');
+
+Depicter::route()->methods(['POST'])
+        ->where('ajax', 'depicter-settings-flush-cache', true, true)
+        ->middleware('csrf-api:depicter-editor|depicter-dashboard')
+        ->handle('OptionsAjaxController@flushCache');
 
 // Depicter background removal
 // ========================================================
@@ -555,3 +579,9 @@ Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-background-removal-check', true, true)
         ->middleware('csrf-api:depicter-editor')
         ->handle('BackgroundRemovalAjaxController@getRemovedBackgroundImage');
+
+// Woocommerce ajax Add to cart
+// ========================================================
+Depicter::route()->methods(['POST'])
+        ->where('ajax', 'depicter-wc-add-to-cart', true, true)
+        ->handle('WooCommerceAjaxController@addToCart');

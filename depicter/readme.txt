@@ -3,9 +3,9 @@
 Contributors: averta, averta_support, depicter1slider1support, depicter1carousel1popup1support
 Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
-Tested up to: WordPress 6.8.1
+Tested up to: WordPress 6.8.2
 Requires PHP: 7.4.0
-Stable tag: 3.6.2
+Stable tag: 4.0.5
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Build Stunning Slider and Popup. Exit intent Popup, Image slider carousel, video slider carousel, post slider carousel, product slider, promote popup
@@ -66,37 +66,86 @@ You can create converting **Popup and Notification Bar**, like **Email subscript
 - **Video Backgrounds in Sliders and Carousels** - Incorporate Vimeo or YouTube videos as dynamic backgrounds in sliders and carousels.
 - **Slider and Carousel Scheduling** - Manage when sliders and carousels appear or are hidden on your site through precise scheduling.
 
-**How to create a wordpress slider with Depicter**
+**How to create a WordPress slider with Depicter**
 
 [youtube https://www.youtube.com/watch?v=yi_NjXKlvmg&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
 
-**Create a wordpress slider with AI in seconds**
+**Create a WordPress slider with AI in seconds**
 
 [youtube https://www.youtube.com/watch?v=kdR9Jw0yWjU&keywords=slider,popup,carousel,Exit-intent-popup,promotion-popup,cart-abandonment-popup,campaign-promoting-notification-bar,layer-slider,video-slider,image-slider,fullscreen-slider,post-slider,product-slider,WooCommerce-slider,testimonial-slider]
 
 == Screenshots ==
 
-1. Slider without thumbnail (light skin 1)
-2. Slider with thumbnail on bottom (light skin 1)
-
+1. Email subscription popup by Depicter – engage visitors and grow your list.
+2. Dynamic on-sale products popup by Depicter – target customers with custom display rules and boost e-commerce sales.
+3. WordPress hero section with lead capture form by Depicter – convert visitors into quality leads.
+4. Email capture popup with discount offer by Depicter – grow your list and boost conversions on WordPress.
+5. Sale notification popup with coupon code by Depicter – inform visitors and increase conversions on your WordPress site.
+6. Depicter dashboard – access all-in-one tools for popups, carousels, AI tools, and marketing content creation.
+7. Depicter visual no-code editor for WordPress – drag and drop animated elements to create stunning marketing content.
+8. Create animated marketing content with drag-and-drop and elements like coupons and more.
+9. Form builder for WordPress – design custom forms visually with the no-code editor for lead generation and engagement.
+10. Notification bar builder for WordPress – create announcement banners with the no-code visual editor.
+11. Multi-step content builder for WordPress – create interactive slides and sections to engage and convert visitors.
+12. Responsive carousel builder for WordPress – create dynamic, mobile-optimized carousels with modern layouts and no code.
+13. Customize navigation controls with an intuitive no-code UI.
+14. Depicter lead directory for WordPress – store, track, and sync captured leads with your favorite marketing tools.
+15. Popup display rules – set smart conditions to show popups or notification bars based on user behavior and targeting.
 
 == Changelog ==
 
-###3.6.2
-- *Released: 2025-05-05*
-- **Added**
+###4.0.5
+- *Released: 2025-10-26*
+- **Fixed**
 - Fixed a vulnerability issue.
+
+###4.0.4
+- *Released: 2025-06-16*
+- **Improved**
+- Now elements get highlighted when they are hovered in the layers panel.
+- Text animation combined with text shadow effect now works better.
+- Improved user experience with the before and after element, now it works better when it places beneath other elements.
+- Now you can see how many templates are available in each category in the templates list.
+- **Fixed**
+- Fixed an issue with displaying the forms message element after form submission.
+- Fixed an issue with editing button label text and other similar elements.
+- Fixed an issue with displaying the forms message element after form submission.
+
+###4.0.0
+- *Released: 2025-06-01*
+- **Added**
+- 📊 Introducing survey documents: Now you can create interactive surveys and collect valuable data from your visitors.
+- 🏞️ Introducing remove background feature: Easily remove the background of your photos with just one click.
+- 🎛️ Introducing layers panel: Now you can manage your elements layers easily.
+- Introducing hover switch element: Create image elements that change on hover (perfect for product images).
+- 🛒 Introducing add to cart element: Add an “Add to Cart” button on your WooCommerce sliders—supports both AJAX and non-AJAX.
+- Introducing hover slide action triggers: Trigger element actions simply by hovering over slide elements.
+- 🏷️ Sale badge element: Highlight discounts by adding sale badges to your WooCommerce sliders.
+- New display rules for popup & notification bar elements: Show or hide popups/notification bars based on user login status and language.
+- On form submit trigger to the submit element. Now you can bind any action to the form submit event through the submit button.
+- **Improved**
+- Improved player script performance: Enjoy faster loading and smoother functionality.
+- Improved rendering of carousels: Experience smoother transitions and better responsiveness.
+- Improved story progress indicator: Enhanced behavior for a more intuitive user experience.
+- Improved browser native scroll navigation behavior. Now it should work even the page body element has overflow hidden property.
+- Improved working with forms and group elements.
+- Improved editor auto document recovery. Now it considers auto patching on document to recover damaged documents.
+- **Fixed**
+- Fixed an issue with defining popup/notification bar click trigger on dynamically created elements like buttons in another slider.
+- Fixed an issue with using stock photos as ken-burns effect background.
+- Fixed an issue with "Best selling" filter for WooCommerce dataSource.
+- Fixed a security vulnerability.
 
 ###3.6.1
 - *Released: 2024-12-24*
-- **Added**
-- Fixed an issue with opening the editor in the Safari browser.
-- An issue with changing the background image parallax effect parameters fixed.
-- Fixed an issue with displaying dynamic tags in post slider when autoLayout is enabled.
 - **Improved**
 - Improved choosing the sliding transition experience in the editor.
 - Improved post slider functionality when "Include sticky posts" option is enabled.
 - Improved visibility schedule functionality for popup and notification bars.
+- **Fixed**
+- Fixed an issue with opening the editor in the Safari browser.
+- An issue with changing the background image parallax effect parameters fixed.
+- Fixed an issue with displaying dynamic tags in post slider when autoLayout is enabled.
 
 ###3.6.0
 - *Released: 2024-12-01*
