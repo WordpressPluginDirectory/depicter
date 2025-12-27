@@ -505,12 +505,12 @@ Depicter::route()->methods(['GET'])
 // ========================================================
 Depicter::route()->methods(['GET'])
     ->where('ajax', 'depicter-lead-index', true, true)
-    ->middleware('csrf-api:depicter-dashboard')
+    ->middleware('csrf-api:depicter-dashboard|depicter-editor')
     ->handle('LeadsAjaxController@index');
 
 Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-lead-list', true, true)
-        ->middleware('csrf-api:depicter-dashboard')
+        ->middleware('csrf-api:depicter-dashboard|depicter-editor')
         ->handle('LeadsAjaxController@list');
 
 Depicter::route()->methods(['POST'])
@@ -519,12 +519,12 @@ Depicter::route()->methods(['POST'])
 
 Depicter::route()->methods(['POST'])
     ->where('ajax', 'depicter-lead-update', true, true)
-    ->middleware('csrf-api:depicter-dashboard')
+    ->middleware('csrf-api:depicter-dashboard|depicter-editor')
     ->handle('LeadsAjaxController@update');
 
 Depicter::route()->methods(['POST'])
     ->where('ajax', 'depicter-lead-delete', true, true)
-    ->middleware('csrf-api:depicter-dashboard')
+    ->middleware('csrf-api:depicter-dashboard|depicter-editor')
     ->handle('LeadsAjaxController@delete');
 
 Depicter::route()->methods(['POST'])
@@ -533,7 +533,7 @@ Depicter::route()->methods(['POST'])
 
 Depicter::route()->methods(['GET'])
         ->where('ajax', 'depicter-lead-export', true, true)
-        ->middleware('csrf-api:depicter-dashboard')
+        ->middleware('csrf-api:depicter-dashboard|depicter-editor')
         ->handle('LeadsAjaxController@export');
 
 // Depicter Options
@@ -585,3 +585,30 @@ Depicter::route()->methods(['GET'])
 Depicter::route()->methods(['POST'])
         ->where('ajax', 'depicter-wc-add-to-cart', true, true)
         ->handle('WooCommerceAjaxController@addToCart');
+
+// Integrations
+// ===========================================================
+Depicter::route()->methods(['GET'])
+        ->where('ajax', 'depicter-integration-mailchimp-api-keys', true, true)
+        ->middleware(['csrf-api:depicter-editor', 'userCan:manage_depicter'])
+        ->handle('MailChimpIntegrationAjaxController@getApiKeys');
+
+Depicter::route()->methods(['POST'])
+        ->where('ajax', 'depicter-integration-mailchimp-api-keys', true, true)
+        ->middleware(['csrf-api:depicter-editor', 'userCan:edit_depicter'])
+        ->handle('MailChimpIntegrationAjaxController@saveApiKey');
+
+Depicter::route()->methods(['POST'])
+        ->where('ajax', 'depicter-integration-mailchimp-delete-api-key', true, true)
+        ->middleware(['csrf-api:depicter-editor', 'userCan:edit_depicter'])
+        ->handle('MailChimpIntegrationAjaxController@deleteApiKey');
+
+Depicter::route()->methods(['GET'])
+        ->where('ajax', 'depicter-integration-mailchimp-audience-list', true, true)
+        ->middleware('csrf-api:depicter-editor')
+        ->handle('MailChimpIntegrationAjaxController@audienceLists');
+
+Depicter::route()->methods(['GET'])
+        ->where('ajax', 'depicter-integration-mailchimp-audience-fields', true, true)
+        ->middleware('csrf-api:depicter-editor')
+        ->handle('MailChimpIntegrationAjaxController@audienceFields');

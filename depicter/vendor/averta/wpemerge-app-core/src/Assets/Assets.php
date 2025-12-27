@@ -214,6 +214,19 @@ class Assets {
 	}
 
 	/**
+	 * Enqueue a script as module.
+	 *
+	 * @param  string        $handle
+	 * @param  string        $src
+	 * @param  array<string> $dependencies
+	 * @param  boolean       $in_footer
+	 * @return void
+	 */
+	public function enqueueScriptModule( $handle, $src, $dependencies = [], $version = null ) {
+		wp_enqueue_script_module( $handle, $src, $dependencies, $version );
+	}
+
+	/**
 	 * Add favicon meta.
 	 *
 	 * @return void
